@@ -14,13 +14,72 @@ from urllib.parse import urljoin
 import hashlib
 
 # ==================== CONFIGURATION ====================
+# Liste multilingue de mots-clés étendue (FR, EN, ES, PT, AR)
 TARGET_KEYWORDS = [
+    # Français
+    'mobilisation des ressources',
+    'fiscalité',
+    'réforme fiscale',
+    'gestion des finances publiques',
+    'dette souveraine',
+    'restructuration de dette',
+    'marchés publics',
+    'finances publiques',
+    'budgétisation',
+    'mobilisation de ressources',
+    'impôts',
+    'collecte des impôts',
+    'ressources fiscales',
+
+    # Anglais
     'domestic resource mobilization',
     'drm',
-    'tax',
-    'fiscal reform',
+    'tax reform',
+    'fiscal policy',
+    'public financial management',
+    'pfm',
+    'sovereign debt',
+    'debt restructuring',
+    'public procurement',
+    'tax administration',
+    'revenue mobilization',
+    'tax expertise',
     'public resource management',
-    'beps'
+    'beps',
+    'customs modernization',
+    'revenue authority',
+
+    # Espagnol
+    'movilización de recursos internos',
+    'fiscalidad',
+    'reforma fiscal',
+    'gestión de finanzas públicas',
+    'deuda soberana',
+    'reestructuración de deuda',
+    'contratación pública',
+    'administración tributaria',
+    'movilización de recursos',
+
+    # Portugais
+    'mobilização de recursos internos',
+    'fiscalidade',
+    'reforma fiscal',
+    'gestão das finanças públicas',
+    'dívida soberana',
+    'reestruturação da dívida',
+    'contratação pública',
+    'administração tributária',
+    'mobilização de recursos',
+
+    # Arabe
+    'تعبئة الموارد',
+    'الضرائب',
+    'الإصلاح الضريبي',
+    'إدارة المالية العامة',
+    'الدين العام',
+    'التعاقدات العمومية',
+    'الموارد المحلية',
+    'الإيرادات الضريبية'
 ]
 
 # Configuration réseau
@@ -44,49 +103,77 @@ def load_data():
     return {'sources': [], 'tenders': [], 'last_updated': None, 'new_tenders_count': 0}
 
 def normalize_text(text):
-    """Normalise le texte pour la recherche"""
+    """Normalise le texte pour la recherche (case-insensitive)"""
     return text.lower().strip() if text else ''
 
 def contains_target_keywords(text):
-    """Vérifie si le texte contient les mots-clés cibles"""
+    """
+    Détecte les mots-clés cibles (multilingue, case-insensitive).
+    Retourne la liste des mots-clés matchés.
+    """
+    if not text or len(text) < 5:
+        return []
+
     text_normalized = normalize_text(text)
     matched = []
+
     for keyword in TARGET_KEYWORDS:
-        if keyword.lower() in text_normalized:
-            matched.append(keyword)
+        keyword_normalized = normalize_text(keyword)
+        # Vérifier si le mot-clé est présent dans le texte
+        if keyword_normalized in text_normalized:
+            # Éviter les doublons
+            if keyword not in matched:
+                matched.append(keyword)
+
     return matched
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
-    Extrait les informations de tender du HTML
-    Retourne une liste de tenders détectés
+    Extrait les informations de tender du HTML avec détection multilingue.
+    Recherche dans tous les éléments textuels pour détecter les mots-clés.
+    Retourne une liste de tenders détectés.
     """
     tenders = []
     soup = BeautifulSoup(html_content, 'html.parser')
 
     try:
+        # Enlever les scripts et styles pour ne pas les parser
+        for script in soup(['script', 'style']):
+            script.decompose()
+
         # Recherche des éléments contenant les mots-clés
         relevant_texts = []
 
-        # Parcourt le contenu du body
-        for tag in soup.find_all(['p', 'td', 'li', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'a']):
+        # Parcourt le contenu du body - chercher dans tous les tags textuels
+        for tag in soup.find_all(['p', 'td', 'li', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'button', 'strong', 'em']):
             text = tag.get_text(strip=True)
-            if text and len(text) > 10:
+            if text and len(text) > 5:
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
                     relevant_texts.append((text, matched_kw))
 
-        # Crée un tender pour chaque contenu pertinent trouvé (limite à 1 par page)
+        # Également chercher dans le titre de la page
+        title_tag = soup.find('title')
+        if title_tag:
+            title_text = title_tag.get_text(strip=True)
+            if title_text:
+                matched_kw = contains_target_keywords(title_text)
+                if matched_kw:
+                    relevant_texts.append((title_text, matched_kw))
+
+        # Créer un tender si au moins UN mot-clé est détecté sur la page
         if relevant_texts:
-            text, matched_kw = relevant_texts[0]
-            tender_hash = hashlib.md5(f"{url}{text}".encode()).hexdigest()
+            # Prendre le résultat avec le plus de mots-clés
+            text, matched_kw = max(relevant_texts, key=lambda x: len(x[1]))
+
+            tender_hash = hashlib.md5(f"{url}{datetime.now().isoformat()}".encode()).hexdigest()
             tenders.append({
                 'id': tender_hash,
                 'country': country,
-                'title': text[:120],
+                'title': text[:150] if text else 'Opportunité détectée',
                 'url': url,
                 'detected_at': datetime.now().isoformat(),
-                'matched_keywords': matched_kw[:3]
+                'matched_keywords': list(set(matched_kw[:5]))  # Dédupliquer et limiter à 5
             })
 
     except Exception as e:
@@ -96,8 +183,8 @@ def extract_tender_info(url, html_content, country, source_keywords):
 
 def scrape_portal(country, url):
     """
-    Scrape un portail individuel
-    Retourne une liste de tenders trouvés
+    Scrape un portail individuel avec détection multilingue.
+    Retourne une liste de tenders trouvés (une ligne = une détection).
     """
     tenders = []
     try:
@@ -115,16 +202,17 @@ def scrape_portal(country, url):
             tenders.extend(extracted)
 
             if extracted:
-                print(f"✅ {country}: {len(extracted)} opportunité(s) détectée(s)")
+                keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
+                print(f"   {country}: {len(extracted)} détection(s) - Mots-clés: {keywords_found}")
             else:
-                print(f"⏳ {country}: Aucune détection DRM")
+                print(f"   {country}: Aucune détection")
 
     except requests.exceptions.Timeout:
-        print(f"⏱️  {country}: Timeout (URL inatteignable)")
+        print(f"   {country}: Timeout")
     except requests.exceptions.ConnectionError:
-        print(f"❌ {country}: Erreur de connexion")
+        print(f"   {country}: Erreur de connexion")
     except Exception as e:
-        print(f"⚠️  {country}: {type(e).__name__}")
+        print(f"   {country}: Erreur - {type(e).__name__}")
 
     time.sleep(RATE_LIMIT_DELAY)
     return tenders
@@ -187,24 +275,26 @@ def save_data(data):
 # ==================== MAIN ====================
 
 def main():
-    print("=" * 60)
-    print("Tender-Tracker SAGA - Scraper Automatisé")
-    print("=" * 60)
+    print("=" * 70)
+    print("TENDER-TRACKER SAGA - Scraper Multilingue Automatisé")
+    print("=" * 70)
 
     # Charger les données existantes
     data = load_data()
     sources = data.get('sources', [])
     previous_tenders = data.get('tenders', [])
 
-    print(f"\n Sources configurées: {len(sources)}")
-    print(f"Tenders précédents: {len(previous_tenders)}")
+    print(f"\nConfiguration:")
+    print(f"  Sources: {len(sources)}")
+    print(f"  Tenders antérieurs: {len(previous_tenders)}")
+    print(f"  Mots-clés détection: {len(TARGET_KEYWORDS)} (FR, EN, ES, PT, AR)")
 
     # Scraper tous les portails
     all_tenders = []
-    print(f"\nScraping en cours...")
-    print("-" * 60)
+    print(f"\nScraping des portails (détection case-insensitive):")
+    print("-" * 70)
 
-    for source in sources:
+    for i, source in enumerate(sources, 1):
         country = source.get('country')
         url = source.get('url')
         tenders = scrape_portal(country, url)
@@ -212,13 +302,16 @@ def main():
 
     # Identifier les nouvelles opportunités
     new_tenders = identify_new_tenders(all_tenders, previous_tenders)
-    print(f"\n\nRÉSUMÉ:")
-    print(f"  Détections cette session: {len(all_tenders)}")
-    print(f"  Nouvelles: {len(new_tenders)}")
+
+    print("-" * 70)
+    print(f"\nRÉSULTATS:")
+    print(f"  Total détections: {len(all_tenders)}")
+    print(f"  Nouvelles opportunités: {len(new_tenders)}")
+    print(f"  Portails avec détections: {len(set(t['country'] for t in all_tenders))}")
 
     # Envoyer notifications
     if new_tenders:
-        print(f"\nNotifications...")
+        print(f"\nEnvoi des notifications...")
         send_webhook_notification(new_tenders)
 
     # Sauvegarder les données (conserver sources + ajouter tenders)
@@ -230,9 +323,9 @@ def main():
     }
 
     save_data(updated_data)
-    print("\n" + "=" * 60)
-    print("Scraping terminé")
-    print("=" * 60)
+    print("\n" + "=" * 70)
+    print("Scraping terminé avec succès")
+    print("=" * 70)
 
 if __name__ == '__main__':
     main()
