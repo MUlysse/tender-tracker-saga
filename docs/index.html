@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
             background-color: #ffffff;
             color: #1a1a1a;
             font-size: 16px;
@@ -41,25 +41,17 @@
         }
 
         .login-title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .login-subtitle {
-            font-size: 13px;
-            color: #666666;
             margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.5px;
         }
 
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .input-group {
@@ -68,22 +60,23 @@
 
         .input-group label {
             display: block;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
             color: #1a1a1a;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 14px 16px;
-            font-size: 16px;
+            padding: 16px 18px;
+            font-size: 18px;
             border: 1px solid #d0d0d0;
             background-color: #ffffff;
             color: #1a1a1a;
             transition: border-color 0.2s ease;
+            font-family: inherit;
         }
 
         .input-group input:focus {
@@ -93,8 +86,8 @@
         }
 
         .login-button {
-            padding: 14px 16px;
-            font-size: 14px;
+            padding: 16px 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #ffffff;
             background-color: #1a1a1a;
@@ -103,6 +96,7 @@
             transition: background-color 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-family: inherit;
         }
 
         .login-button:hover {
@@ -110,11 +104,11 @@
         }
 
         .error-message {
-            font-size: 12px;
+            font-size: 14px;
             color: #8b0000;
             text-align: center;
             display: none;
-            margin-top: 12px;
+            margin-top: 16px;
         }
 
         /* ===== MAIN DASHBOARD ===== */
@@ -129,37 +123,29 @@
         }
 
         .main-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 60px 40px;
+            padding: 80px 60px;
         }
 
         .header {
-            margin-bottom: 50px;
+            margin-bottom: 80px;
             border-bottom: 1px solid #d0d0d0;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 42px;
             font-weight: 700;
             color: #1a1a1a;
-            letter-spacing: -0.5px;
-            margin-bottom: 12px;
-        }
-
-        .header-info {
-            font-size: 13px;
-            color: #999999;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: -1px;
         }
 
         /* ===== TABLE ===== */
         .regions-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 50px;
+            gap: 70px;
         }
 
         .region-section {
@@ -169,14 +155,14 @@
         }
 
         .region-title {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             color: #1a1a1a;
-            background-color: #f0f0f0;
-            padding: 14px 20px;
-            border-left: 3px solid #1a1a1a;
+            background-color: #f5f5f5;
+            padding: 16px 24px;
+            border-left: 4px solid #1a1a1a;
             margin-bottom: 0;
         }
 
@@ -191,12 +177,12 @@
         }
 
         thead th {
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.7px;
             color: #666666;
-            padding: 18px 20px;
+            padding: 22px 24px;
             text-align: left;
             border-bottom: 2px solid #d0d0d0;
         }
@@ -210,22 +196,26 @@
             background-color: #f9f9f9;
         }
 
+        tbody tr.unavailable {
+            background-color: #fafafa;
+        }
+
         tbody td {
-            padding: 18px 20px;
-            font-size: 15px;
-            line-height: 1.6;
+            padding: 26px 24px;
+            font-size: 18px;
+            line-height: 1.7;
         }
 
         .country-cell {
             font-weight: 500;
             color: #1a1a1a;
-            width: 180px;
+            min-width: 200px;
         }
 
         .url-cell {
             color: #555555;
-            font-size: 13px;
-            max-width: 500px;
+            font-size: 17px;
+            max-width: 550px;
             word-break: break-word;
         }
 
@@ -240,73 +230,81 @@
             border-bottom-color: #1a1a1a;
         }
 
+        .url-unavailable {
+            color: #aaaaaa;
+            font-style: italic;
+            font-size: 16px;
+        }
+
         .status-cell {
             text-align: center;
-            width: 150px;
+            min-width: 160px;
             font-weight: 600;
             color: #1a1a1a;
+            font-size: 18px;
         }
 
         .status-empty {
             color: #d0d0d0;
             font-weight: 400;
-            font-size: 14px;
+            font-size: 17px;
         }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .main-container {
-                padding: 40px 30px;
+                padding: 60px 40px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            tbody td {
+                padding: 22px 20px;
+                font-size: 17px;
+            }
+
+            thead th {
+                padding: 20px 20px;
+            }
+
+            .url-cell {
+                max-width: 400px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 40px 24px;
             }
 
             h1 {
                 font-size: 28px;
             }
 
-            tbody td {
-                padding: 16px 18px;
-                font-size: 14px;
+            tbody td, thead th {
+                padding: 18px 16px;
+                font-size: 16px;
             }
 
             thead th {
-                padding: 16px 18px;
-            }
-
-            .url-cell {
-                max-width: 350px;
                 font-size: 12px;
             }
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 30px 20px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            tbody td, thead th {
-                padding: 14px 16px;
-                font-size: 13px;
-            }
-
-            thead th {
-                font-size: 10px;
-            }
 
             .url-cell {
-                max-width: 200px;
-                font-size: 11px;
+                max-width: 250px;
+                font-size: 15px;
             }
 
             .country-cell {
-                width: 140px;
+                min-width: 160px;
             }
 
             .status-cell {
-                width: 120px;
+                min-width: 140px;
+                font-size: 16px;
             }
 
             .login-box {
@@ -314,7 +312,16 @@
             }
 
             .login-title {
-                font-size: 24px;
+                font-size: 28px;
+            }
+
+            .header {
+                margin-bottom: 50px;
+                padding-bottom: 30px;
+            }
+
+            .regions-wrapper {
+                gap: 50px;
             }
         }
     </style>
@@ -323,8 +330,7 @@
     <!-- ===== LOGIN SCREEN ===== -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h2 class="login-title">TENDER TRACKER</h2>
-            <p class="login-subtitle">Authentification Requise</p>
+            <h2 class="login-title">TENDER-TRACKER SAGA</h2>
 
             <form class="login-form" onsubmit="handleLogin(event)">
                 <div class="input-group">
@@ -348,12 +354,11 @@
     <div class="dashboard" id="dashboard">
         <div class="main-container">
             <div class="header">
-                <h1>TENDER TRACKER SAGA</h1>
-                <p class="header-info">Veille Automatisée des Appels d'Offres - Ressources Domestiques et Fiscalité</p>
+                <h1>TENDER-TRACKER SAGA</h1>
             </div>
 
             <div class="regions-wrapper" id="regionsContainer">
-                <p style="text-align: center; color: #999999; padding: 40px 0;">Chargement en cours...</p>
+                <p style="text-align: center; color: #999999; padding: 80px 0; font-size: 18px;">Chargement des données...</p>
             </div>
         </div>
     </div>
@@ -422,7 +427,7 @@
             } catch (error) {
                 console.error('Erreur:', error);
                 document.getElementById('regionsContainer').innerHTML =
-                    '<p style="text-align: center; color: #8b0000; padding: 40px;">Erreur lors du chargement des données</p>';
+                    '<p style="text-align: center; color: #8b0000; padding: 80px 0; font-size: 18px;">Erreur lors du chargement des données</p>';
             }
         }
 
@@ -465,10 +470,17 @@
                         ? '<strong>NOUVELLE OFFRE</strong>'
                         : '<span class="status-empty">-</span>';
 
+                    const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
+                    const urlHtml = isUnavailable
+                        ? '<span class="url-unavailable">URL indisponible</span>'
+                        : `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.url}</a>`;
+
+                    const rowClass = isUnavailable ? ' class="unavailable"' : '';
+
                     html += `
-                        <tr>
+                        <tr${rowClass}>
                             <td class="country-cell">${source.country}</td>
-                            <td class="url-cell"><a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.url}</a></td>
+                            <td class="url-cell">${urlHtml}</td>
                             <td class="status-cell">${statusHtml}</td>
                         </tr>
                     `;
@@ -489,12 +501,18 @@
             document.getElementById('passwordInput').focus();
         });
 
-        // Auto-refresh toutes les 5 minutes
+        // Auto-refresh toutes les 5 minutes (si authentifié)
         setInterval(() => {
             if (document.getElementById('dashboard').classList.contains('active')) {
                 loadData();
             }
         }, 5 * 60 * 1000);
+
+        // SÉCURITÉ : Aucune mémorisation
+        // - Pas de localStorage
+        // - Pas de sessionStorage
+        // - Mot de passe demandé à chaque F5 / rechargement
+        // - Les données sont chargées en mémoire RAM uniquement
     </script>
 </body>
 </html>
