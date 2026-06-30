@@ -1,0 +1,52 @@
+name: Tender-Tracker SAGA - Scraper
+
+on:
+  schedule:
+    # Exécution toutes les 12 heures (0h et 12h UTC)
+    - cron: '0 0,12 * * *'
+  workflow_dispatch: # Permet un lancement manuel depuis GitHub UI
+
+jobs:
+  scrape-tenders:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/requirements.txt
+
+      - name: Run Scraper
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          NOTIFICATION_ENABLED: ${{ secrets.NOTIFICATION_ENABLED }}
+        run: |
+          python scripts/scraper.py
+
+      - name: Commit & Push Changes
+        if: success()
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: '✅ Automated Tender Update - ${{ github.run_number }}'
+          commit_options: '--no-verify'
+          file_pattern: 'docs/data.json'
+          skip_fetch: false
+          skip_checkout: false
+
+      - name: Notify Failure
+        if: failure()
+        run: |
+          echo "❌ Scraper failed - Check logs at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

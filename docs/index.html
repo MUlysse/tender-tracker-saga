@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tender-Tracker SAGA - Veille Appels d'Offres</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-success { background: #d1fae5; color: #065f46; }
+        .status-warning { background: #fef3c7; color: #92400e; }
+        .status-danger { background: #fee2e2; color: #991b1b; }
+        .status-neutral { background: #f3f4f6; color: #374151; }
+
+        .tender-card {
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .tender-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .keyword-tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            margin: 2px;
+            font-weight: 500;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .auth-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-box h1 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .login-box .subtitle {
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #374151;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .footer {
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .region-section {
+            margin-bottom: 30px;
+        }
+
+        .region-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #9ca3af;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .dashboard {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== AUTHENTIFICATION ===== -->
+    <div class="auth-container" id="authContainer">
+        <div class="login-box">
+            <h1><i class="fas fa-lock"></i> Tender-Tracker</h1>
+            <p class="subtitle">Veille Automatisée des Appels d'Offres</p>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label for="password">Code d'Accès</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Entrez votre code"
+                        required
+                        autocomplete="off"
+                    >
+                    <div class="error-message" id="errorMessage">
+                        ❌ Code incorrect
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Accéder au Tableau de Bord
+                </button>
+            </form>
+
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                <p style="color: #6b7280; font-size: 12px; margin-bottom: 10px;">
+                    <i class="fas fa-info-circle"></i> Première visite ?
+                </p>
+                <p style="color: #6b7280; font-size: 12px;">
+                    Contactez l'administrateur pour obtenir votre code d'accès.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="dashboard" id="dashboard">
+        <div class="container mx-auto px-4 py-8">
+            <!-- HEADER -->
+            <div class="glass-effect rounded-lg p-6 mb-8">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                            <i class="fas fa-binoculars"></i> Tender-Tracker SAGA
+                        </h1>
+                        <p class="text-gray-600">Veille Automatisée des Appels d'Offres - DRM & Fiscalité</p>
+                    </div>
+                    <div>
+                        <button class="btn-primary" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATISTIQUES -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="glass-effect rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Opportunités</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-2" id="totalCount">0</p>
+                        </div>
+                        <i class="fas fa-briefcase text-4xl text-blue-400 opacity-20"></i>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Nouvelles (Session)</p>
+                            <p class="text-3xl font-bold text-green-600 mt-2" id="newCount">0</p>
+                        </div>
+                        <i class="fas fa-star text-4xl text-yellow-400 opacity-20"></i>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Sources Scannées</p>
+                            <p class="text-3xl font-bold text-gray-800 mt-2" id="sourceCount">0</p>
+                        </div>
+                        <i class="fas fa-globe text-4xl text-purple-400 opacity-20"></i>
+                    </div>
+                </div>
+
+                <div class="glass-effect rounded-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Dernière MàJ</p>
+                            <p class="text-lg font-bold text-gray-800 mt-2" id="lastUpdate">--:--</p>
+                        </div>
+                        <i class="fas fa-clock text-4xl text-red-400 opacity-20"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILTRES -->
+            <div class="glass-effect rounded-lg p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Région</label>
+                        <select id="regionFilter" onchange="filterTenders()" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <option value="">Toutes les régions</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pays</label>
+                        <select id="countryFilter" onchange="filterTenders()" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            <option value="">Tous les pays</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Recherche</label>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Mots-clés..."
+                            onkeyup="filterTenders()"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLEAU DES OPPORTUNITÉS -->
+            <div id="tendersContainer"></div>
+
+            <!-- PIED DE PAGE -->
+            <div class="glass-effect rounded-lg p-6 mt-12">
+                <div class="text-center">
+                    <p class="text-gray-600 text-sm">
+                        <i class="fas fa-info-circle"></i>
+                        Tender-Tracker SAGA © 2026 | Veille Automatisée 24/7 | Mise à jour toutes les 12 heures
+                    </p>
+                    <p class="text-gray-500 text-xs mt-2">
+                        Propulsé par GitHub Actions • Données issues de <span id="sourceList"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== CONFIGURATION =====
+        // ⚠️ À REMPLACER PAR VOTRE HASH SHA-256 ⚠️
+        const PASSWORD_HASH = 'd398b29d3dbbb9bf201d4c7e1c19ff9d43c15fd45a0cec46fbe9885ec3f6e97f';
+
+        let allTenders = [];
+        let currentUser = null;
+
+        // ===== AUTHENTIFICATION =====
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('errorMessage');
+            const password = passwordInput.value;
+
+            if (!password) return;
+
+            errorMessage.style.display = 'none';
+            const inputHash = await hashPassword(password);
+
+            if (inputHash === PASSWORD_HASH) {
+                currentUser = {
+                    loggedInAt: new Date(),
+                    sessionId: Math.random().toString(36).substr(2, 9)
+                };
+                showDashboard();
+            } else {
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                setTimeout(() => {
+                    passwordInput.focus();
+                }, 100);
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadData();
+        }
+
+        function logout() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                currentUser = null;
+                document.getElementById('authContainer').style.display = 'flex';
+                document.getElementById('dashboard').style.display = 'none';
+                document.getElementById('password').value = '';
+                allTenders = [];
+            }
+        }
+
+        // ===== CHARGEMENT DES DONNÉES =====
+        async function loadData() {
+            try {
+                const response = await fetch('data.json?t=' + new Date().getTime());
+                const data = await response.json();
+
+                allTenders = data.tenders || [];
+
+                // Mise à jour des statistiques
+                document.getElementById('totalCount').textContent = allTenders.length;
+                document.getElementById('newCount').textContent = data.new_tenders_count || 0;
+                document.getElementById('sourceCount').textContent = data.total_sources_scanned || 0;
+
+                if (data.last_updated) {
+                    const updateDate = new Date(data.last_updated);
+                    document.getElementById('lastUpdate').textContent = updateDate.toLocaleTimeString('fr-FR');
+                }
+
+                populateFilters();
+                displayTenders(allTenders);
+
+            } catch (error) {
+                console.error('Erreur lors du chargement:', error);
+                document.getElementById('tendersContainer').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⚠️</div>
+                        <p>Erreur lors du chargement des données</p>
+                        <p style="font-size: 12px; margin-top: 10px;">Vérifiez que le fichier data.json existe</p>
+                    </div>
+                `;
+            }
+        }
+
+        // ===== FILTRAGE =====
+        function populateFilters() {
+            const regions = new Set();
+            const countries = new Set();
+
+            allTenders.forEach(tender => {
+                countries.add(tender.country);
+            });
+
+            const countryFilter = document.getElementById('countryFilter');
+            countryFilter.innerHTML = '<option value="">Tous les pays</option>';
+
+            Array.from(countries).sort().forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countryFilter.appendChild(option);
+            });
+        }
+
+        function filterTenders() {
+            const regionFilter = document.getElementById('regionFilter').value;
+            const countryFilter = document.getElementById('countryFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = allTenders.filter(tender => {
+                const matchCountry = !countryFilter || tender.country === countryFilter;
+                const matchSearch = !searchInput ||
+                    tender.title.toLowerCase().includes(searchInput) ||
+                    (tender.matched_keywords && tender.matched_keywords.some(kw => kw.includes(searchInput)));
+
+                return matchCountry && matchSearch;
+            });
+
+            displayTenders(filtered);
+        }
+
+        // ===== AFFICHAGE =====
+        function displayTenders(tenders) {
+            const container = document.getElementById('tendersContainer');
+
+            if (tenders.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-effect rounded-lg">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">🔍</div>
+                            <p>Aucune opportunité trouvée</p>
+                            <p style="font-size: 12px; margin-top: 10px;">Essayez d'ajuster vos filtres</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Grouper par région/pays
+            const grouped = {};
+            tenders.forEach(tender => {
+                const country = tender.country;
+                if (!grouped[country]) {
+                    grouped[country] = [];
+                }
+                grouped[country].push(tender);
+            });
+
+            let html = '';
+            Object.keys(grouped).sort().forEach(country => {
+                html += `
+                    <div class="region-section">
+                        <div class="region-header">
+                            <i class="fas fa-map-marker-alt"></i> ${country}
+                            <span style="float: right; font-size: 12px; opacity: 0.9;">${grouped[country].length} opportunité(s)</span>
+                        </div>
+                        <div class="space-y-4">
+                            ${grouped[country].map(tender => createTenderCard(tender)).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function createTenderCard(tender) {
+            const date = new Date(tender.detected_at);
+            const isNew = (new Date() - date) < (24 * 60 * 60 * 1000);
+            const keywords = (tender.matched_keywords || []).slice(0, 3);
+
+            return `
+                <div class="tender-card glass-effect rounded-lg p-6">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">${tender.title}</h3>
+                            <p class="text-sm text-gray-600 mb-3">
+                                <i class="fas fa-globe"></i> ${tender.country}
+                            </p>
+                        </div>
+                        ${isNew ? '<span class="status-badge status-success"><i class="fas fa-star"></i> Nouveau</span>' : ''}
+                    </div>
+
+                    <div class="mb-4">
+                        ${keywords.map(kw => `<span class="keyword-tag">#${kw}</span>`).join('')}
+                    </div>
+
+                    <div class="flex justify-between items-center pt-3 border-t border-gray-200">
+                        <p class="text-xs text-gray-500">
+                            <i class="fas fa-calendar-alt"></i> ${date.toLocaleDateString('fr-FR')} ${date.toLocaleTimeString('fr-FR')}
+                        </p>
+                        <a href="${tender.url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                            <i class="fas fa-external-link-alt"></i> Détails
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== INITIALISATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUser = sessionStorage.getItem('tendertrackerUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showDashboard();
+            } else {
+                document.getElementById('password').focus();
+            }
+        });
+
+        // Sauvegarde la session
+        if (currentUser) {
+            sessionStorage.setItem('tendertrackerUser', JSON.stringify(currentUser));
+        }
+
+        // Actualisation auto toutes les 5 minutes
+        setInterval(() => {
+            if (currentUser && document.getElementById('dashboard').style.display !== 'none') {
+                loadData();
+            }
+        }, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

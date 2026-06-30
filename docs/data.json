@@ -1,0 +1,41 @@
+{
+  "last_updated": "2026-06-30T00:00:00.000000",
+  "run_number": "1",
+  "total_sources_scanned": 74,
+  "new_tenders_count": 0,
+  "tenders": [
+    {
+      "id": "demo-001",
+      "country": "World Bank",
+      "title": "[DÉMO] Support for Domestic Resource Mobilization Modernization - Laos",
+      "url": "https://www.worldbank.org/en/projects-operations/products-and-services/brief/world-bank-procurement-notices",
+      "detected_at": "2026-06-30T00:00:00.000000",
+      "matched_keywords": [
+        "domestic resource mobilization",
+        "drm"
+      ]
+    },
+    {
+      "id": "demo-002",
+      "country": "Ethiopia",
+      "title": "[DÉMO] GIZ Tax Expertise RFP - Fiscal Reform Initiative",
+      "url": "https://www.giz.de/en/",
+      "detected_at": "2026-06-30T00:00:00.000000",
+      "matched_keywords": [
+        "tax expertise",
+        "fiscal reform"
+      ]
+    },
+    {
+      "id": "demo-003",
+      "country": "Mongolia",
+      "title": "[DÉMO] Asian Development Bank - DRM Modernization Project",
+      "url": "https://www.adb.org/",
+      "detected_at": "2026-06-30T00:00:00.000000",
+      "matched_keywords": [
+        "domestic resource mobilization",
+        "revenue mobilization"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Secrets (ne jamais commit)
+secrets.json
+credentials.json
+tokens.txt
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+*.cache
+
+# Sensitive data
+private/
+internal/
+
+# Generated files (à ignorer)
+# Gardez data.json pour GitHub Pages
+!/docs/data.json
