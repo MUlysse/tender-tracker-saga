@@ -125,13 +125,13 @@
         .main-container {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 80px 60px;
+            padding: 50px 60px;
         }
 
         .header {
-            margin-bottom: 80px;
+            margin-bottom: 35px;
             border-bottom: 1px solid #d0d0d0;
-            padding-bottom: 40px;
+            padding-bottom: 30px;
         }
 
         h1 {
@@ -139,13 +139,74 @@
             font-weight: 700;
             color: #1a1a1a;
             letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        /* ===== ALERTES SECTION ===== */
+        .alerts-section {
+            background-color: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #1a1a1a;
+            padding: 22px 24px;
+            margin-bottom: 45px;
+            border-radius: 0;
+        }
+
+        .alerts-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .alert-item {
+            padding: 12px 16px;
+            background-color: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-left: 3px solid #1a1a1a;
+            font-size: 16px;
+        }
+
+        .alert-country {
+            font-weight: 600;
+            color: #1a1a1a;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .alert-title {
+            font-size: 15px;
+            color: #555555;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .alert-keywords {
+            font-size: 13px;
+            color: #999999;
+            display: block;
+        }
+
+        .alerts-empty {
+            font-size: 16px;
+            color: #aaaaaa;
+            font-style: italic;
+            padding: 12px 0;
         }
 
         /* ===== TABLE ===== */
         .regions-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 70px;
+            gap: 50px;
         }
 
         .region-section {
@@ -155,13 +216,13 @@
         }
 
         .region-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.2px;
             color: #1a1a1a;
             background-color: #f5f5f5;
-            padding: 16px 24px;
+            padding: 14px 20px;
             border-left: 4px solid #1a1a1a;
             margin-bottom: 0;
         }
@@ -177,12 +238,12 @@
         }
 
         thead th {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.7px;
             color: #666666;
-            padding: 22px 24px;
+            padding: 16px 20px;
             text-align: left;
             border-bottom: 2px solid #d0d0d0;
         }
@@ -201,9 +262,9 @@
         }
 
         tbody td {
-            padding: 26px 24px;
-            font-size: 18px;
-            line-height: 1.7;
+            padding: 18px 20px;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         .country-cell {
@@ -253,7 +314,7 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1200px) {
             .main-container {
-                padding: 60px 40px;
+                padding: 40px 40px;
             }
 
             h1 {
@@ -261,23 +322,32 @@
             }
 
             tbody td {
-                padding: 22px 20px;
-                font-size: 17px;
+                padding: 16px 18px;
+                font-size: 15px;
             }
 
             thead th {
-                padding: 20px 20px;
+                padding: 14px 18px;
             }
 
             .url-cell {
                 max-width: 400px;
-                font-size: 16px;
+                font-size: 15px;
+            }
+
+            .alerts-section {
+                padding: 18px 20px;
+            }
+
+            .alert-item {
+                padding: 10px 14px;
+                font-size: 15px;
             }
         }
 
         @media (max-width: 768px) {
             .main-container {
-                padding: 40px 24px;
+                padding: 30px 20px;
             }
 
             h1 {
@@ -285,26 +355,26 @@
             }
 
             tbody td, thead th {
-                padding: 18px 16px;
-                font-size: 16px;
+                padding: 14px 14px;
+                font-size: 14px;
             }
 
             thead th {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .url-cell {
                 max-width: 250px;
-                font-size: 15px;
+                font-size: 14px;
             }
 
             .country-cell {
-                min-width: 160px;
+                min-width: 140px;
             }
 
             .status-cell {
-                min-width: 140px;
-                font-size: 16px;
+                min-width: 120px;
+                font-size: 14px;
             }
 
             .login-box {
@@ -316,12 +386,22 @@
             }
 
             .header {
-                margin-bottom: 50px;
-                padding-bottom: 30px;
+                margin-bottom: 25px;
+                padding-bottom: 20px;
             }
 
             .regions-wrapper {
-                gap: 50px;
+                gap: 35px;
+            }
+
+            .alerts-section {
+                margin-bottom: 30px;
+                padding: 16px 18px;
+            }
+
+            .alert-item {
+                padding: 10px 12px;
+                font-size: 14px;
             }
         }
     </style>
@@ -357,8 +437,16 @@
                 <h1>TENDER-TRACKER SAGA</h1>
             </div>
 
+            <!-- Alertes Section -->
+            <div class="alerts-section">
+                <div class="alerts-title">Dernières Alertes</div>
+                <div class="alerts-list" id="alertsList">
+                    <div class="alerts-empty">Chargement des alertes...</div>
+                </div>
+            </div>
+
             <div class="regions-wrapper" id="regionsContainer">
-                <p style="text-align: center; color: #999999; padding: 80px 0; font-size: 18px;">Chargement des données...</p>
+                <p style="text-align: center; color: #999999; padding: 50px 0; font-size: 16px;">Chargement des données...</p>
             </div>
         </div>
     </div>
@@ -422,13 +510,65 @@
                     });
                 }
 
+                renderAlerts();
                 renderTable();
 
             } catch (error) {
                 console.error('Erreur:', error);
                 document.getElementById('regionsContainer').innerHTML =
-                    '<p style="text-align: center; color: #8b0000; padding: 80px 0; font-size: 18px;">Erreur lors du chargement des données</p>';
+                    '<p style="text-align: center; color: #8b0000; padding: 50px 0; font-size: 16px;">Erreur lors du chargement des données</p>';
             }
+        }
+
+        // ===== AFFICHAGE DES ALERTES =====
+        function renderAlerts() {
+            const alertsList = document.getElementById('alertsList');
+
+            if (!detectionsMap || Object.keys(detectionsMap).length === 0) {
+                alertsList.innerHTML = '<div class="alerts-empty">Aucune alerte détectée pour le moment</div>';
+                return;
+            }
+
+            // Collecter toutes les détections
+            const allDetections = [];
+            Object.entries(detectionsMap).forEach(([country, tenders]) => {
+                tenders.forEach(tender => {
+                    allDetections.push({
+                        country: country,
+                        title: tender.title,
+                        keywords: tender.matched_keywords,
+                        detected_at: tender.detected_at
+                    });
+                });
+            });
+
+            // Trier par date (les plus récentes en premier)
+            allDetections.sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at));
+
+            // Afficher max 10 dernières alertes
+            const recentAlerts = allDetections.slice(0, 10);
+
+            if (recentAlerts.length === 0) {
+                alertsList.innerHTML = '<div class="alerts-empty">Aucune alerte détectée pour le moment</div>';
+                return;
+            }
+
+            let html = '';
+            recentAlerts.forEach(alert => {
+                const detectedDate = new Date(alert.detected_at);
+                const timeStr = detectedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+                const keywordsStr = alert.keywords.slice(0, 2).join(', ');
+
+                html += `
+                    <div class="alert-item">
+                        <span class="alert-country">${alert.country}</span>
+                        <div class="alert-title">${alert.title}</div>
+                        <span class="alert-keywords">Mots-clés: ${keywordsStr}</span>
+                    </div>
+                `;
+            });
+
+            alertsList.innerHTML = html;
         }
 
         // ===== RENDU DU TABLEAU =====
