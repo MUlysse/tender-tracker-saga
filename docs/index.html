@@ -874,8 +874,8 @@
                         <div class="detail-value" id="modalStatus">-</div>
                     </div>
                     <div class="detail-section">
-                        <div class="detail-label">Titre Détecté</div>
-                        <div class="detail-value" id="modalTitle2">-</div>
+                        <div class="detail-label">Contenu Détecté (avec mots-clés surlignés)</div>
+                        <div class="detail-value" id="modalContent" style="line-height: 1.8; word-wrap: break-word;">-</div>
                     </div>
                     <div class="detail-section">
                         <div class="detail-label">Mots-clés Détectés</div>
@@ -888,10 +888,10 @@
                 </div>
                 <div class="modal-actions">
                     <button class="modal-btn modal-btn-primary" id="modalViewBtn" onclick="viewInViewer()">
-                        Voir avec Surlignage
+                        Ouvrir le Site
                     </button>
-                    <button class="modal-btn" id="modalLinkBtn" onclick="openDirectLink()">
-                        Ouvrir Directement
+                    <button class="modal-btn" id="modalCopyBtn" onclick="copyContent()">
+                        Copier le Contenu
                     </button>
                 </div>
             </div>
@@ -1262,8 +1262,15 @@
             const statusColor = detection.status === '404' ? '#d32f2f' : '#22863a';
             document.getElementById('modalStatus').innerHTML = `<span style="color: ${statusColor}; font-weight: 600;">${status}</span>`;
 
-            // Titre
-            document.getElementById('modalTitle2').textContent = detection.title || 'Pas de titre disponible';
+            // Contenu avec surlignage des mots-clés
+            let contentHtml = escapeHtml(detection.title || 'Pas de contenu disponible');
+            if (detection.matched_keywords && detection.matched_keywords.length > 0) {
+                detection.matched_keywords.forEach(keyword => {
+                    const regex = new RegExp(`(\\b${keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b)`, 'gi');
+                    contentHtml = contentHtml.replace(regex, '<mark style="background-color: #FFFF00; color: black; font-weight: 600; padding: 2px 4px; border-radius: 2px; border: 1px solid #FFA500;">$1</mark>');
+                });
+            }
+            document.getElementById('modalContent').innerHTML = contentHtml;
 
             // Mots-clés
             const keywordsContainer = document.getElementById('modalKeywords');
@@ -1296,22 +1303,26 @@
         }
 
         function viewInViewer() {
-            if (!currentSourceUrl || !currentDetectionData.matched_keywords) {
-                alert('Erreur: données manquantes');
-                return;
-            }
-            const viewerUrl = `viewer.html?url=${encodeURIComponent(currentSourceUrl)}&keywords=${encodeURIComponent(JSON.stringify(currentDetectionData.matched_keywords))}`;
-            window.open(viewerUrl, '_blank');
-            closeDetailsModal();
-        }
-
-        function openDirectLink() {
             if (!currentSourceUrl) {
                 alert('Erreur: URL manquante');
                 return;
             }
+            // Ouvrir directement sans le viewer (viewer bloqué par CORS sur la plupart des sites)
             window.open(currentSourceUrl, '_blank');
             closeDetailsModal();
+        }
+
+        function copyContent() {
+            const content = currentDetectionData.title || '';
+            if (!content) {
+                alert('Rien à copier');
+                return;
+            }
+            navigator.clipboard.writeText(content).then(() => {
+                alert('✅ Contenu copié dans le presse-papiers !');
+            }).catch(err => {
+                alert('❌ Erreur lors de la copie');
+            });
         }
 
         function escapeHtml(text) {
