@@ -525,14 +525,14 @@
         .keywords-display {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 0px;
         }
 
         .keyword-badge {
             background-color: transparent;
             border: none;
             border-radius: 0;
-            padding: 0 4px;
+            padding: 0px;
             font-size: 12.1px;
             font-weight: 400;
             color: #000000;
@@ -696,11 +696,11 @@
 
         .detail-tag {
             background-color: transparent;
-            border: 1px solid #333333;
-            border-radius: 2px;
-            padding: 6px 10px;
+            border: none;
+            border-radius: 0px;
+            padding: 0px;
             font-size: 12.1px;
-            font-weight: 600;
+            font-weight: 400;
             color: #000000;
         }
 
@@ -1221,12 +1221,23 @@
                     });
                 }
 
-                // Mettre à jour l'heure du dernier scan (format UTC)
+                // Afficher "il y a X temps" pour le dernier workflow
                 if (data.last_updated) {
                     const updateDate = new Date(data.last_updated);
-                    const hours = String(updateDate.getUTCHours()).padStart(2, '0');
-                    const minutes = String(updateDate.getUTCMinutes()).padStart(2, '0');
-                    const timeStr = `${hours}:${minutes} UTC`;
+                    const now = new Date();
+                    const diffMs = now - updateDate;
+                    const diffMinutes = Math.floor(diffMs / 60000);
+                    const diffHours = Math.floor(diffMinutes / 60);
+                    const diffDays = Math.floor(diffHours / 24);
+
+                    let timeStr;
+                    if (diffDays > 0) {
+                        timeStr = `il y a ${diffDays}j`;
+                    } else if (diffHours > 0) {
+                        timeStr = `il y a ${diffHours}h`;
+                    } else {
+                        timeStr = `il y a ${diffMinutes}m`;
+                    }
                     document.getElementById('lastScanTime').textContent = timeStr;
 
                     // Démarrer le décompte basé sur last_updated
