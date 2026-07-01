@@ -523,15 +523,25 @@
         }
 
         .keywords-display {
-            display: none;
+            display: inline;
+            flex-wrap: wrap;
+            gap: 0px;
         }
 
         .keyword-badge {
-            display: none;
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 0 !important;
+            padding: 0px !important;
+            font-size: 12.1px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: inline;
         }
 
         .keyword-badge:after {
-            content: '';
+            content: ', ';
         }
 
         .keyword-badge:last-child:after {
@@ -685,7 +695,22 @@
         }
 
         .detail-tag {
-            display: none;
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 0px !important;
+            padding: 0px !important;
+            font-size: 12.1px;
+            font-weight: 400;
+            color: #000000;
+            display: inline;
+        }
+
+        .detail-tag:after {
+            content: ', ';
+        }
+
+        .detail-tag:last-of-type:after {
+            content: '';
         }
 
         .modal-actions {
