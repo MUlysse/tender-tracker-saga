@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onoris Journal — Plateforme Rédacteurs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #FFFFFF; color: #111111; font-family: 'Inter', sans-serif; }
+
+    .app { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+    .stepper-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E5E5;
+      padding: 24px 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .stepper-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+
+    .stepper-item.active, .stepper-item.done { opacity: 1; }
+
+    .stepper-circle {
+      width: 44px;
+      height: 44px;
+      border: 2px solid #111111;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      background: #FFFFFF;
+      color: #111111;
+    }
+
+    .stepper-item.active .stepper-circle { background: #111111; color: #FFFFFF; }
+    .stepper-item.done .stepper-circle { background: #111111; color: #FFFFFF; }
+    .stepper-item.done .stepper-circle::after { content: '✓'; }
+
+    .stepper-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; }
+
+    .main-flex {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 320px;
+      background: #F8F8F8;
+      border-right: 1px solid #E5E5E5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 40px;
+      overflow-y: auto;
+    }
+
+    .mascot-img { width: 160px; height: 160px; margin-bottom: 32px; object-fit: contain; }
+
+    .bubble {
+      background: #FFFFFF;
+      border: 2px solid #111111;
+      padding: 24px;
+      margin-bottom: 40px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 2px 2px 0px rgba(17, 17, 17, 0.1);
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 60px 60px;
+    }
+
+    .card { display: none; }
+    .card.active { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+      border-bottom: 2px solid #111111;
+      padding-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      color: #666666;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #111111;
+      border-radius: 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      background: #FFFFFF;
+      color: #111111;
+    }
+
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      box-shadow: 2px 2px 0px #111111;
+    }
+
+    .dz {
+      border: 2px dashed #111111;
+      padding: 40px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #FFFFFF;
+    }
+
+    .dz:hover, .dz.over { background: #F5F5F5; border-style: solid; }
+    .dz.filled { background: #F5F5F5; border-style: solid; }
+
+    .dz p { margin: 8px 0; font-size: 13px; }
+    .dz .hint { color: #999999; font-size: 11px; margin-top: 8px; }
+
+    .rubrique-options {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #111111;
+    }
+
+    .checkbox-item label { cursor: pointer; margin: 0; font-size: 13px; }
+
+    .btn {
+      padding: 12px 32px;
+      border: 1.5px solid #111111;
+      border-radius: 0;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: #111111; color: #FFFFFF; }
+    .btn-primary:hover { background: #FFFFFF; color: #111111; box-shadow: 3px 3px 0px #111111; }
+
+    .btn-secondary { background: #FFFFFF; color: #111111; }
+    .btn-secondary:hover { background: #111111; color: #FFFFFF; box-shadow: 3px 3px 0px #111111; }
+
+    .nav-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    .error-msg { color: #CC0000; font-size: 11px; margin-top: 6px; }
+    .success-msg { color: #111111; font-size: 11px; margin-top: 6px; }
+
+    .recap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .recap-section {
+      padding: 28px;
+      background: #F8F8F8;
+      border: 1.5px solid #111111;
+    }
+
+    .recap-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      border-bottom: 1.5px solid #111111;
+      padding-bottom: 12px;
+    }
+
+    .recap-item { margin-bottom: 16px; }
+    .recap-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #999999; margin-bottom: 4px; }
+    .recap-value { font-size: 13px; line-height: 1.5; }
+
+    .image-preview { width: 100%; border: 1.5px solid #111111; margin: 12px 0; }
+
+    .copiable {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .copiable textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid #111111;
+      min-height: 80px;
+      font-size: 11px;
+      font-family: monospace;
+      resize: vertical;
+    }
+
+    .btn-copy {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      padding: 6px 12px;
+      font-size: 10px;
+    }
+
+    #linkedin-canvas {
+      width: 100%;
+      border: 1.5px solid #111111;
+      margin: 12px 0;
+    }
+
+    .charter-box {
+      background: #FFFFFF;
+      border: 1.5px solid #111111;
+      padding: 24px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin: 24px 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .charter-box p { margin-bottom: 12px; }
+    .charter-box strong { font-weight: 700; }
+
+    .success-banner {
+      background: #FFFFFF;
+      border: 2px solid #111111;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 2px 2px 0px rgba(17, 17, 17, 0.1);
+    }
+
+    .success-banner h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .success-banner p { font-size: 13px; }
+
+    @media (max-width: 1200px) {
+      .recap-grid { grid-template-columns: 1fr; }
+      .content { padding: 40px; }
+      .sidebar { padding: 40px 24px; width: 280px; }
+    }
+
+    @media (max-width: 768px) {
+      .app { flex-direction: column; }
+      .stepper-bar { grid-template-columns: repeat(2, 1fr); padding: 16px; }
+      .sidebar { width: 100%; padding: 32px 24px; border-right: none; border-bottom: 1px solid #E5E5E5; }
+      .content { padding: 24px; }
+      .mascot-img { width: 120px; height: 120px; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div class="stepper-bar" id="stepper" style="display: none;">
+    <div class="stepper-item future" data-step="1">
+      <div class="stepper-circle">1</div>
+      <div class="stepper-label">Connexion</div>
+    </div>
+    <div class="stepper-item future" data-step="2">
+      <div class="stepper-circle">2</div>
+      <div class="stepper-label">Article</div>
+    </div>
+    <div class="stepper-item future" data-step="3">
+      <div class="stepper-circle">3</div>
+      <div class="stepper-label">Récap</div>
+    </div>
+    <div class="stepper-item future" data-step="4">
+      <div class="stepper-circle">4</div>
+      <div class="stepper-label">Charte</div>
+    </div>
+  </div>
+
+  <div class="main-flex" id="main-flex">
+    <div class="sidebar">
+      <img src="Capture d'écran 2026-06-11 175744.png" alt="Bot Onoris" class="mascot-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Crect fill=%22%23ddd%22 width=%22160%22 height=%22160%22/%3E%3C/svg%3E'">
+      <div class="bubble" id="bubble">Êtes-vous un rédacteur Onoris ou un rédacteur externe ?</div>
+    </div>
+
+    <div class="content">
+      <!-- STEP 0: Welcome -->
+      <div class="card active" id="step-0">
+        <h2>Bienvenue</h2>
+        <p style="font-size: 15px; line-height: 1.8; margin-bottom: 32px;">Rejoignez la plateforme Onoris Journal et partagez votre expertise en géopolitique, finance et emerging markets auprès de nos 10 500 lecteurs.</p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <button class="btn btn-primary" onclick="startTunnel('onoris')">Rédacteur Onoris</button>
+          <button class="btn btn-primary" onclick="startTunnel('external')">Rédacteur Externe</button>
+        </div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="card" id="step-1">
+        <h2 id="step1-title">Connexion</h2>
+        <div id="tunnel-onoris" style="display: none;">
+          <form onsubmit="handleOnorisLogin(event)">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="onoris-email" placeholder="votre.email@onoris.com" required>
+              <div class="error-msg" id="onoris-error"></div>
+            </div>
+            <div class="form-group">
+              <label>Mot de passe</label>
+              <input type="password" id="onoris-password" placeholder="••••••••" required>
+            </div>
+            <div class="nav-buttons">
+              <button type="button" class="btn btn-secondary" onclick="goStep(0)">Retour</button>
+              <button type="submit" class="btn btn-primary">Suivant</button>
+            </div>
+          </form>
+        </div>
+        <div id="tunnel-external" style="display: none;">
+          <form onsubmit="handleExternalRegistration(event)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" id="ext-firstname" placeholder="Jean" required>
+              </div>
+              <div class="form-group">
+                <label>Nom</label>
+                <input type="text" id="ext-lastname" placeholder="Dupont" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="ext-email" placeholder="votre.email@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Téléphone</label>
+              <input type="tel" id="ext-phone" placeholder="+33 6 12 34 56 78" required>
+            </div>
+            <div class="form-group">
+              <label>CV (PDF/Word)</label>
+              <input type="file" id="ext-cv" accept=".pdf,.doc,.docx" required>
+            </div>
+            <div class="nav-buttons">
+              <button type="button" class="btn btn-secondary" onclick="goStep(0)">Retour</button>
+              <button type="submit" class="btn btn-primary">Suivant</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="card" id="step-2">
+        <h2>Article</h2>
+        <form id="article-form">
+          <div class="form-group">
+            <label>Titre de l'article</label>
+            <input type="text" id="article-title" placeholder="Votre titre ici..." required>
+          </div>
+          <div class="form-group">
+            <label>Auteur</label>
+            <input type="text" id="article-author" placeholder="Votre nom" required>
+          </div>
+          <div class="form-group">
+            <label>Rubrique</label>
+            <div class="rubrique-options">
+              <div class="checkbox-item">
+                <input type="checkbox" id="rub-geo" name="rubrique" value="GEOPOLITIQUE">
+                <label for="rub-geo">Géopolitique</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="rub-emerging" name="rubrique" value="EMERGING MARKET">
+                <label for="rub-emerging">Emerging Market</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="rub-finance" name="rubrique" value="FINANCE">
+                <label for="rub-finance">Finance</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Contenu</label>
+            <textarea id="article-body" placeholder="Coller votre article ici..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Image</label>
+            <div class="dz" id="dropzone" ondrop="handleImageDrop(event)" ondragover="event.preventDefault(); this.classList.add('over')" ondragleave="this.classList.remove('over')">
+              <p><strong>Glisser-déposer</strong> ou <strong>cliquer</strong></p>
+              <p class="hint">JPG · PNG · WebP</p>
+            </div>
+            <input type="file" id="article-image" accept=".jpg,.jpeg,.png,.webp" style="display: none;">
+            <div id="image-preview"></div>
+          </div>
+          <div class="nav-buttons">
+            <button type="button" class="btn btn-secondary" onclick="goStep(1)">Retour</button>
+            <button type="button" class="btn btn-primary" onclick="proceedToStep3()">Suivant</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="card" id="step-3">
+        <h2>Récapitulatif</h2>
+        <div class="recap-grid">
+          <div class="recap-section">
+            <div class="recap-title">Article</div>
+            <div id="recap-preview"></div>
+          </div>
+          <div class="recap-section">
+            <div class="recap-title">Post LinkedIn</div>
+            <div class="copiable">
+              <textarea id="linkedin-post" readonly></textarea>
+              <button type="button" class="btn btn-secondary btn-copy" onclick="copyToClipboard('linkedin-post')">Copier</button>
+            </div>
+            <div class="recap-title">Image</div>
+            <canvas id="linkedin-canvas" width="1080" height="1080"></canvas>
+            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="downloadCanvas()">Télécharger PNG</button>
+            <div class="recap-title">SEO</div>
+            <div class="copiable">
+              <textarea id="seo-tags" readonly></textarea>
+              <button type="button" class="btn btn-secondary btn-copy" onclick="copyToClipboard('seo-tags')">Copier</button>
+            </div>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button type="button" class="btn btn-secondary" onclick="goStep(2)">Retour</button>
+          <button type="button" class="btn btn-primary" onclick="goStep(4)">Suivant</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="card" id="step-4">
+        <h2>Charte Onoris</h2>
+        <div class="charter-box">
+          <p><strong>Article 1 — Liberté éditoriale</strong><br>Onoris Journal garantit la liberté éditoriale complète de ses rédacteurs.</p>
+          <p><strong>Article 2 — Rigueur factuelle</strong><br>Chaque article doit être sourcé et vérifiable.</p>
+          <p><strong>Article 3 — Propriété intellectuelle</strong><br>Les rédacteurs conservent la propriété de leurs contenus.</p>
+          <p><strong>Article 4 — Rémunération</strong><br>Les rédacteurs Onoris sont rémunérés selon la grille tarifaire fixée annuellement.</p>
+          <p><strong>Article 5 — Délais de publication</strong><br>La validation éditoriale prend 3 à 5 jours ouvrables.</p>
+          <p><strong>Article 6 — Confidentialité</strong><br>Les informations personnelles sont traitées conformément au RGPD.</p>
+          <p><strong>Article 7 — Respect mutuel</strong><br>Rédacteurs et équipe Onoris s'engagent à collaborer dans le respect.</p>
+        </div>
+        <div class="form-group">
+          <div class="checkbox-item">
+            <input type="checkbox" id="charter-agree" required>
+            <label for="charter-agree">J'accepte la Charte Onoris</label>
+          </div>
+          <div class="error-msg" id="charter-error"></div>
+        </div>
+        <div class="nav-buttons">
+          <button type="button" class="btn btn-secondary" onclick="goStep(3)">Retour</button>
+          <button type="button" class="btn btn-primary" onclick="submitArticle()">Valider et envoyer</button>
+        </div>
+        <div id="success" style="display: none; margin-top: 40px;">
+          <div class="success-banner">
+            <h3>Succès ✓</h3>
+            <p>Votre article a été soumis. Délai de validation : 3 à 5 jours ouvrables.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const FR_STOPWORDS = new Set(['le', 'la', 'les', 'de', 'du', 'des', 'et', 'en', 'un', 'une', 'à', 'pour', 'par', 'sur', 'dans', 'avec', 'qui', 'que', 'est', 'se', 'son', 'sa', 'ses', 'au', 'aux', 'ce', 'ces', 'cet', 'cette', 'ils', 'elles', 'nous', 'vous', 'leur', 'leurs', 'mais', 'ou', 'donc', 'or', 'ni', 'car', 'ne', 'pas', 'plus', 'très', 'aussi', 'tout', 'toute', 'tous', 'tant', 'telle', 'tel', 'plutôt', 'bien', 'assez', 'peu', 'beaucoup', 'moins', 'davantage', 'autant', 'comme', 'quand', 'lors', 'avant', 'après', 'même']);
+
+let state = {
+  currentStep: 0,
+  tunnel: null,
+  user: {},
+  article: {},
+  validatedSteps: []
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('dropzone').addEventListener('click', () => document.getElementById('article-image').click());
+  document.getElementById('article-image').addEventListener('change', handleImageSelect);
+
+  document.querySelectorAll('input[name="rubrique"]').forEach(cb => {
+    cb.addEventListener('change', function() {
+      if (this.checked) {
+        document.querySelectorAll('input[name="rubrique"]').forEach(other => {
+          if (other !== this) other.checked = false;
+        });
+      }
+    });
+  });
+
+  document.querySelectorAll('.stepper-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const step = parseInt(this.dataset.step);
+      if (state.validatedSteps.includes(step)) goStep(step);
+    });
+  });
+});
+
+function startTunnel(tunnel) {
+  state.tunnel = tunnel;
+  state.currentStep = 1;
+  document.getElementById('stepper').style.display = 'grid';
+  document.getElementById('main-flex').style.display = 'flex';
+  renderStep();
+}
+
+function goStep(step) {
+  if (step > state.currentStep && !validateStep(state.currentStep)) return;
+  state.currentStep = step;
+  renderStep();
+}
+
+function renderStep() {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.getElementById(`step-${state.currentStep}`).classList.add('active');
+
+  if (state.currentStep === 1) {
+    document.getElementById('tunnel-onoris').style.display = state.tunnel === 'onoris' ? 'block' : 'none';
+    document.getElementById('tunnel-external').style.display = state.tunnel === 'external' ? 'block' : 'none';
+    document.getElementById('step1-title').textContent = state.tunnel === 'onoris' ? 'Connexion Onoris' : 'Inscription';
+    document.getElementById('bubble').textContent = state.tunnel === 'onoris' ? 'Connecte-toi avec tes identifiants' : 'Remplis tes informations';
+  }
+
+  updateStepper();
+  window.scrollTo(0, 0);
+}
+
+function updateStepper() {
+  document.querySelectorAll('.stepper-item').forEach(item => {
+    const step = parseInt(item.dataset.step);
+    const circle = item.querySelector('.stepper-circle');
+    item.classList.remove('active', 'done', 'future');
+
+    if (step === state.currentStep) {
+      item.classList.add('active');
+    } else if (state.validatedSteps.includes(step)) {
+      item.classList.add('done');
+      circle.classList.add('done-check');
+    } else {
+      item.classList.add('future');
+    }
+  });
+}
+
+function validateStep(step) {
+  if (step === 1) {
+    if (state.tunnel === 'onoris') {
+      const email = document.getElementById('onoris-email').value;
+      if (!email) return false;
+      state.user.email = email;
+    } else {
+      const fname = document.getElementById('ext-firstname').value;
+      const lname = document.getElementById('ext-lastname').value;
+      const email = document.getElementById('ext-email').value;
+      if (!fname || !lname || !email) return false;
+      state.user = { firstName: fname, lastName: lname, email };
+    }
+  } else if (step === 2) {
+    const title = document.getElementById('article-title').value;
+    const author = document.getElementById('article-author').value;
+    const body = document.getElementById('article-body').value;
+    const rubrique = Array.from(document.querySelectorAll('input[name="rubrique"]:checked')).map(cb => cb.value)[0];
+    if (!title || !author || !body || !rubrique) return false;
+    state.article = { title, author, body, rubrique };
+  }
+
+  if (!state.validatedSteps.includes(step)) state.validatedSteps.push(step);
+  return true;
+}
+
+function handleOnorisLogin(e) {
+  e.preventDefault();
+  validateStep(1);
+  goStep(2);
+}
+
+function handleExternalRegistration(e) {
+  e.preventDefault();
+  validateStep(1);
+  goStep(2);
+}
+
+function handleImageDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('over');
+  if (e.dataTransfer.files.length > 0) processImage(e.dataTransfer.files[0]);
+}
+
+function handleImageSelect(e) {
+  if (e.target.files.length > 0) processImage(e.target.files[0]);
+}
+
+function processImage(file) {
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    alert('Format non supporté');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    state.article.image = e.target.result;
+    document.getElementById('image-preview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+    document.getElementById('dropzone').classList.add('filled');
+  };
+  reader.readAsDataURL(file);
+}
+
+function proceedToStep3() {
+  if (!validateStep(2)) {
+    alert('Veuillez remplir tous les champs');
+    return;
+  }
+
+  generateLinkedInPost();
+  generateSEO();
+  populateRecap();
+  initCanvas();
+  goStep(3);
+}
+
+function generateLinkedInPost() {
+  const para = state.article.body.split('\n')[0];
+  const post = `${para}\n\n🔗 Lire l'article complet\n\nPar ${state.article.author}`;
+  document.getElementById('linkedin-post').value = post;
+}
+
+function generateSEO() {
+  const text = state.article.body.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+  const tokens = text.filter(t => t.length > 3 && !FR_STOPWORDS.has(t));
+  const freq = {};
+  tokens.forEach(t => freq[t] = (freq[t] || 0) + 1);
+  const scored = Object.entries(freq).map(([w, f]) => ({ w, s: f * Math.log(tokens.length / f) })).sort((a, b) => b.s - a.s).slice(0, 8).map(e => e.w);
+  document.getElementById('seo-tags').value = `Title: ${state.article.title}\nDescription: ${state.article.body.substring(0, 160)}...\nKeywords: ${scored.join(', ')}`;
+}
+
+function populateRecap() {
+  let html = `
+    <div class="recap-item">
+      <div class="recap-label">Rubrique</div>
+      <div class="recap-value">${state.article.rubrique}</div>
+    </div>
+    <div class="recap-item">
+      <div class="recap-label">Titre</div>
+      <div class="recap-value" style="font-family: 'Playfair Display', serif; font-size: 15px;">${state.article.title}</div>
+    </div>
+    <div class="recap-item">
+      <div class="recap-label">Auteur</div>
+      <div class="recap-value">${state.article.author}</div>
+    </div>
+  `;
+  if (state.article.image) {
+    html += `<img src="${state.article.image}" class="image-preview">`;
+  }
+  document.getElementById('recap-preview').innerHTML = html;
+}
+
+// CANVAS LINKEDIN - COPIÉ DU TEMPLATE GENERATOR
+const W = 1080, H = 1080, ML = 72, MR = 72;
+const RUB_TOP = 100, RUB_GAP = 40, TTL_GAP = 30;
+const CREDIT_X = 48, CREDIT_BOT = 48, LOGO_MARGIN = 44, LOGO_H = 115;
+const RUB_BG = '#2A3342';
+
+let canvas, ctx, bgImage = null, logoWhiteCanvas = null;
+
+function initCanvas() {
+  canvas = document.getElementById('linkedin-canvas');
+  ctx = canvas.getContext('2d');
+  canvas.width = W;
+  canvas.height = H;
+
+  if (state.article.image) {
+    const img = new Image();
+    img.onload = function() {
+      bgImage = img;
+      renderCanvas();
+    };
+    img.src = state.article.image;
+  }
+}
+
+function renderCanvas() {
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, W, H);
+
+  if (!bgImage) {
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '30px Inter';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Chargement...', W / 2, H / 2);
+    return;
+  }
+
+  drawBgImage();
+  drawOverlay();
+  const rub = drawRubrique();
+  const tit = drawTitle(rub.bottom + RUB_GAP);
+  drawAuthor(tit + TTL_GAP);
+  drawCredit();
+}
+
+function drawBgImage() {
+  const iw = bgImage.naturalWidth, ih = bgImage.naturalHeight;
+  const scale = Math.max(W / iw, H / ih);
+  const sw = iw * scale, sh = ih * scale;
+  ctx.drawImage(bgImage, (W - sw) / 2, (H - sh) / 2, sw, sh);
+}
+
+function drawOverlay() {
+  ctx.fillStyle = 'rgba(0,0,0,0.18)';
+  ctx.fillRect(0, 0, W, H);
+
+  const top = ctx.createLinearGradient(0, 0, 0, H * 0.58);
+  top.addColorStop(0, 'rgba(0,0,0,0.70)');
+  top.addColorStop(0.4, 'rgba(0,0,0,0.22)');
+  top.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = top;
+  ctx.fillRect(0, 0, W, H * 0.58);
+
+  const bot = ctx.createLinearGradient(0, H * 0.68, 0, H);
+  bot.addColorStop(0, 'rgba(0,0,0,0)');
+  bot.addColorStop(1, 'rgba(0,0,0,0.55)');
+  ctx.fillStyle = bot;
+  ctx.fillRect(0, H * 0.68, W, H * 0.32);
+}
+
+function drawRubrique() {
+  const text = (state.article.rubrique || 'RUBRIQUE').toUpperCase();
+  const FS = 26, PAD_H = 14, PAD_V = 9;
+
+  ctx.save();
+  ctx.font = `700 ${FS}px Inter`;
+  const tw = ctx.measureText(text).width;
+  const rectW = tw + PAD_H * 2, rectH = FS + PAD_V * 2;
+
+  ctx.fillStyle = RUB_BG;
+  ctx.fillRect(ML, RUB_TOP, rectW, rectH);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'left';
+  ctx.fillText(text, ML + PAD_H, RUB_TOP + PAD_V);
+  ctx.restore();
+
+  return { bottom: RUB_TOP + rectH };
+}
+
+function drawTitle(startY) {
+  const text = state.article.title || '';
+  const FS = 68, LINE_H = FS * 1.18, MAX_W = W - ML - MR;
+
+  ctx.save();
+  ctx.font = `400 ${FS}px "Noto Serif Display", Georgia, serif`;
+  ctx.fillStyle = '#FFFFFF';
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'left';
+
+  const lines = wordWrap(text, MAX_W);
+  for (let i = 0; i < lines.length; i++) {
+    ctx.fillText(lines[i], ML, startY + i * LINE_H);
+  }
+  ctx.restore();
+
+  return startY + lines.length * LINE_H;
+}
+
+function drawAuthor(startY) {
+  const text = state.article.author || '';
+  if (!text) return;
+
+  ctx.save();
+  ctx.font = '400 25px "Open Sans", Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.90)';
+  ctx.textBaseline = 'top';
+  ctx.textAlign = 'left';
+  ctx.fillText(text, ML, startY);
+  ctx.restore();
+}
+
+function drawCredit() {
+  ctx.save();
+  ctx.font = '400 21px "Open Sans", Arial, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.78)';
+  ctx.textBaseline = 'bottom';
+  ctx.textAlign = 'left';
+  ctx.fillText('Onoris Journal', CREDIT_X, H - CREDIT_BOT);
+  ctx.restore();
+}
+
+function wordWrap(text, maxWidth) {
+  if (!text) return [''];
+  const out = [], paras = text.split('\n');
+
+  for (let p = 0; p < paras.length; p++) {
+    const para = paras[p];
+    if (!para.trim()) { out.push(''); continue; }
+
+    const words = para.split(/\s+/).filter(Boolean);
+    let line = '';
+
+    for (let w = 0; w < words.length; w++) {
+      const cand = line ? line + ' ' + words[w] : words[w];
+      if (ctx.measureText(cand).width > maxWidth && line) {
+        out.push(line);
+        line = words[w];
+      } else {
+        line = cand;
+      }
+    }
+    if (line) out.push(line);
+  }
+
+  return out;
+}
+
+function downloadCanvas() {
+  const link = document.createElement('a');
+  link.href = canvas.toDataURL('image/png');
+  link.download = `onoris-${state.article.rubrique.toLowerCase()}.png`;
+  link.click();
+}
+
+function copyToClipboard(id) {
+  const ta = document.getElementById(id);
+  ta.select();
+  document.execCommand('copy');
+  alert('Copié !');
+}
+
+function submitArticle() {
+  if (!document.getElementById('charter-agree').checked) {
+    document.getElementById('charter-error').textContent = 'Vous devez accepter la charte';
+    return;
+  }
+
+  console.log('Submission:', state);
+  document.getElementById('success').style.display = 'block';
+  document.querySelector('.nav-buttons').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
