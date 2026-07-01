@@ -238,32 +238,70 @@ def contains_target_keywords(text):
 
     return matched
 
+def is_element_visible(tag):
+    """
+    Vérifie si un élément est réellement visible (pas caché par CSS/HTML).
+    Retourne False si l'élément est clairement caché.
+    """
+    # Ignorer les éléments cachés
+    style = tag.get('style', '')
+    if 'display' in style and 'none' in style:
+        return False
+    if 'visibility' in style and 'hidden' in style:
+        return False
+    if 'display' in style and 'none' in style.lower():
+        return False
+
+    # Ignorer les éléments avec data-hidden ou aria-hidden
+    if tag.get('data-hidden') or tag.get('aria-hidden') == 'true':
+        return False
+
+    # Ignorer les éléments dans noscript
+    if tag.name == 'noscript':
+        return False
+
+    # Vérifier que le parent n'est pas caché
+    parent = tag.parent
+    while parent and parent.name != 'html':
+        parent_style = parent.get('style', '')
+        if 'display' in parent_style and 'none' in parent_style.lower():
+            return False
+        if parent.get('aria-hidden') == 'true':
+            return False
+        parent = parent.parent
+
+    return True
+
 def extract_tender_info(url, html_content, country, source_keywords):
     """
     Extrait les informations de tender du HTML avec détection multilingue.
-    Recherche dans tous les éléments textuels pour détecter les mots-clés.
+    SEULEMENT le texte VISIBLE est scanné (pas le code HTML caché).
     Retourne une liste de tenders détectés.
     """
     tenders = []
     soup = BeautifulSoup(html_content, 'html.parser')
 
     try:
-        # Enlever les scripts et styles pour ne pas les parser
-        for script in soup(['script', 'style']):
-            script.decompose()
+        # Enlever les scripts, styles, et éléments cachés pour ne pas les parser
+        for element in soup(['script', 'style', 'noscript']):
+            element.decompose()
 
         # Recherche des éléments contenant les mots-clés
         relevant_texts = []
 
-        # Parcourt le contenu du body - chercher dans tous les tags textuels
+        # Parcourt le contenu du body - chercher dans les tags textuels VISIBLES
         for tag in soup.find_all(['p', 'td', 'li', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'button', 'strong', 'em']):
+            # IMPORTANT: Vérifier que l'élément est VRAIMENT visible
+            if not is_element_visible(tag):
+                continue
+
             text = tag.get_text(strip=True)
             if text and len(text) > 5:
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
                     relevant_texts.append((text, matched_kw))
 
-        # Également chercher dans le titre de la page
+        # Également chercher dans le titre de la page (toujours visible)
         title_tag = soup.find('title')
         if title_tag:
             title_text = title_tag.get_text(strip=True)
