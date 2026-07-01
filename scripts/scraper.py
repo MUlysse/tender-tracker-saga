@@ -322,75 +322,76 @@ def is_element_visible(tag):
 
 def calculate_confidence_score(text, matched_keywords, element_type, keyword_count):
     """
-    Score de confiance (0-100) basé sur:
-    - Type d'élément (fiabilité hiérarchique)
-    - Nombre de mots-clés (pertinence)
-    - Longueur du texte (substance)
-
-    SEUIL DE PASSAGE: 60% minimum
+    Score ULTRA-STRICT (0-100):
+    Seulement du contenu VRAIMENT visible et pertinent.
+    SEUIL: 75% minimum (quasi-impossible pour div)
     """
-    score = 0
-
-    # 1. SCORE PAR TYPE (base de confiance)
-    # Plus haut = plus visible à l'utilisateur
+    # 1. SCORE PAR TYPE SEULEMENT (base stricte)
+    # Div et span = quasi rejeté d'emblée
     element_scores = {
-        'title':  95,  # Titre page = ultra-visible
-        'h1':     90,  # Heading 1 = très visible
-        'h2':     85,  # Heading 2 = visible
-        'h3':     80,  # Heading 3 = visible
-        'h4':     75,
-        'p':      70,  # Paragraphe = standard
-        'li':     65,  # Liste = standard
-        'span':   55,  # Span = potentiellement caché
-        'div':    50,  # Div = très variable
+        'title':  100,  # Titre = certain
+        'h1':     95,   # H1 = très certain
+        'h2':     90,   # H2 = certain
+        'h3':     85,   # H3 = certain
+        'h4':     80,
+        'p':      75,   # Paragraphe = seuil minimum
+        'li':     70,   # Liste = juste en dessous
+        'span':   40,   # Span = probablement caché
+        'div':    35,   # Div = très suspect
     }
-    base_score = element_scores.get(element_type, 40)
-    score += base_score
+    score = element_scores.get(element_type, 30)
 
-    # 2. BONUS PAR NOMBRE DE MOTS-CLÉS
-    # Plus de mots-clés = moins de chance d'être un faux positif
+    # 2. BONUS MOTS-CLÉS SÉVÈRE
+    # Doit absolument avoir ≥2 mots-clés pour avoir une chance
     if keyword_count >= 4:
-        score += 20
-    elif keyword_count == 3:
-        score += 15
-    elif keyword_count == 2:
-        score += 8
-    elif keyword_count == 1:
-        score += 0
-
-    # 3. BONUS PAR LONGUEUR DU TEXTE
-    # Texte court = suspect, texte long = substance
-    text_len = len(text.strip())
-    if text_len > 200:
-        score += 15
-    elif text_len > 100:
         score += 10
-    elif text_len > 50:
+    elif keyword_count >= 3:
+        score += 8
+    elif keyword_count == 2:
         score += 5
-    elif text_len < 15:
-        score -= 10  # Pénalité si trop court
+    else:
+        # 1 seul mot-clé = grande pénalité
+        score -= 15
 
-    # 4. PÉNALITÉS
+    # 3. BONUS LONGUEUR SÉVÈRE
+    # Texte court = rejeté
+    text_len = len(text.strip())
+    if text_len > 300:
+        score += 8
+    elif text_len > 150:
+        score += 5
+    elif text_len > 80:
+        score += 2
+    elif text_len < 30:
+        score -= 20  # Pénalité forte si trop court
+
+    # 4. PÉNALITÉS SÉVÈRES
+    # Tout ce qui semble suspect = rejeté
     text_lower = text.lower()
 
-    # Pénalité: contenu template
-    if '<?php' in text or '{%' in text or '{{' in text or '<%' in text:
+    # Contenu template/dynamique
+    if '<?php' in text or '{%' in text or '{{' in text or '<%' in text or '?>' in text:
+        score -= 50
+
+    # Code
+    if 'function(' in text or 'var ' in text or 'const ' in text or 'return ' in text:
         score -= 40
 
-    # Pénalité: contient du code
-    if 'function(' in text or 'var ' in text or 'const ' in text:
-        score -= 30
+    # URLs, chemins, IDs
+    if text.startswith('http') or text.startswith('www.') or text.startswith('/'):
+        score -= 35
 
-    # Pénalité: URL ou chemin fichier seul
-    if text.startswith('http://') or text.startswith('https://') or text.startswith('/'):
-        score -= 25
+    # Données structurées suspectes
+    if text.startswith('{') or text.startswith('[') or text.startswith('<'):
+        score -= 40
 
-    # Pénalité: classe CSS ou ID seul
-    if text.startswith('.') or text.startswith('#'):
-        score -= 20
+    # Seul du vide
+    if not any(c.isalpha() for c in text):
+        score -= 50
 
     # Cap à 100, min à 0
-    return max(0, min(score, 100))
+    final_score = max(0, min(score, 100))
+    return final_score
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
@@ -451,7 +452,7 @@ def extract_tender_info(url, html_content, country, source_keywords):
                             best_detection = (text, matched_kw, score)
 
         # 4. PARAGRAPHES (contenu principal)
-        if best_score < 70:
+        if best_score < 75:
             main_content = soup.find('main') or soup.find('article') or soup.find('body')
             if main_content:
                 p_count = 0
@@ -459,60 +460,60 @@ def extract_tender_info(url, html_content, country, source_keywords):
                     if not is_element_visible(p_tag):
                         continue
                     text = p_tag.get_text(strip=True)
-                    if text and len(text) > 20:  # Min 20 cars pour éviter du contenu vide
+                    if text and len(text) > 30:  # Min 30 cars (était 20)
                         matched_kw = contains_target_keywords(text)
                         if matched_kw:
                             score = calculate_confidence_score(text, matched_kw, 'p', len(matched_kw))
                             if score > best_score:
                                 best_score = score
                                 best_detection = (text, matched_kw, score)
-                            if score >= 80:  # Seuil de satisfaction
+                            if score >= 85:
                                 break
                     p_count += 1
-                    if p_count >= 20:
+                    if p_count >= 15:
                         break
 
-        # 5. LISTES (li) - contenu secondaire
-        if best_score < 65:
+        # 5. LISTES (li) - seulement si vraiment bon
+        if best_score < 75:
             li_count = 0
             for li_tag in soup.find_all('li'):
                 if not is_element_visible(li_tag):
                     continue
                 text = li_tag.get_text(strip=True)
-                if text and len(text) > 20:  # Min 20 cars
+                if text and len(text) > 40:  # Min 40 cars (était 20)
                     matched_kw = contains_target_keywords(text)
-                    if matched_kw:
+                    if matched_kw and len(matched_kw) >= 2:  # OBLIGATOIREMENT 2+ mots-clés
                         score = calculate_confidence_score(text, matched_kw, 'li', len(matched_kw))
                         if score > best_score:
                             best_score = score
                             best_detection = (text, matched_kw, score)
                 li_count += 1
-                if li_count >= 25:
+                if li_count >= 15:
                     break
 
-        # 6. DIVS (dernier recours - content wrapper)
-        # ⚠️ Très strict: doit avoir BEAUCOUP de contenu pour passer
-        if best_score < 60:
+        # 6. DIVS (quasi-impossible de passer - dernier recours EXTRÊME)
+        # ⚠️ ULTRA-STRICT: doit être ÉNORME et avoir 3+ mots-clés
+        if best_score < 75:
             div_count = 0
             for div_tag in soup.find_all('div'):
                 if not is_element_visible(div_tag):
                     continue
                 text = div_tag.get_text(strip=True)
-                # Divs: min 40 cars pour éviter les micro-éléments
-                if text and len(text) > 40:
+                # Divs: min 80 cars et obligatoirement 3+ mots-clés
+                if text and len(text) > 80:
                     matched_kw = contains_target_keywords(text)
-                    if matched_kw:
+                    if matched_kw and len(matched_kw) >= 3:  # OBLIGATOIREMENT 3+ mots-clés
                         score = calculate_confidence_score(text, matched_kw, 'div', len(matched_kw))
                         if score > best_score:
                             best_score = score
                             best_detection = (text, matched_kw, score)
                 div_count += 1
-                if div_count >= 30:
+                if div_count >= 20:
                     break
 
-        # CRÉATION : seulement si confiance ≥ 65%
-        # ⚠️ SEUIL STRICT pour zéro faux positif
-        if best_detection and best_score >= 65:
+        # CRÉATION : seulement si confiance ≥ 75%
+        # ⚠️ ULTRA-STRICT: Zéro faux positif, seulement du contenu VRAIMENT visible
+        if best_detection and best_score >= 75:
             text, matched_kw, score = best_detection
 
             tender_hash = hashlib.md5(f"{url}{datetime.now().isoformat()}".encode()).hexdigest()
