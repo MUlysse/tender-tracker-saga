@@ -441,9 +441,9 @@
         .country-cell {
             font-weight: 600;
             color: #202124;
-            width: 150px;
-            min-width: 150px;
-            flex-shrink: 0;
+            width: 120px;
+            min-width: 120px;
+            max-width: 120px;
         }
 
         .url-cell {
@@ -451,7 +451,7 @@
             font-size: 13.2px;
             flex-grow: 1;
             word-break: break-word;
-            padding-right: 0;
+            min-width: 250px;
         }
 
         .url-cell a {
@@ -474,13 +474,12 @@
 
         .status-cell {
             text-align: center;
-            width: 140px;
-            min-width: 140px;
-            flex-shrink: 0;
+            width: 110px;
+            min-width: 110px;
+            max-width: 110px;
             font-weight: 600;
             color: #202124;
             font-size: 13.2px;
-            padding-left: 20px;
         }
 
         .status-empty {
@@ -514,20 +513,57 @@
         }
 
         .keyword-badge {
-            background-color: #FFFF00;
-            border: 1px solid #FFA500;
-            border-radius: 4px;
-            padding: 4px 8px;
-            font-size: 11px;
-            font-weight: 600;
-            color: black;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0 4px;
+            font-size: 12.1px;
+            font-weight: 400;
+            color: #202124;
             white-space: nowrap;
-            display: inline-block;
+            display: inline;
+        }
+
+        .keyword-badge:after {
+            content: ', ';
+        }
+
+        .keyword-badge:last-child:after {
+            content: '';
         }
 
         .keywords-empty {
             color: #dadce0;
             font-weight: 400;
+        }
+
+        .reset-cell {
+            text-align: center;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+
+        .reset-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            padding: 6px 10px;
+            font-size: 14px;
+            color: #d32f2f;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .reset-btn:hover {
+            background-color: #ffebee;
+            border-color: #d32f2f;
+            color: #b71c1c;
+        }
+
+        .reset-empty {
+            color: #dadce0;
         }
 
         .status-clickable {
@@ -1198,6 +1234,91 @@
             }
         }
 
+        // ===== SUPPRESSION DES DÉTECTIONS =====
+        async function resetDetection(detectionId, country) {
+            if (!confirm(`Supprimer cette alerte pour ${country} ?`)) {
+                return;
+            }
+
+            try {
+                // Charger data.json
+                const response = await fetch('data.json');
+                const data = await response.json();
+
+                // Supprimer la détection
+                data.tenders = data.tenders.filter(t => t.id !== detectionId);
+
+                // Envoyer à l'API GitHub pour mettre à jour le fichier
+                let githubToken = localStorage.getItem('githubToken');
+                if (!githubToken) {
+                    // Demander le token
+                    const token = prompt('Token GitHub requis pour mettre à jour :\n(Générer sur https://github.com/settings/tokens)');
+                    if (!token) {
+                        alert('Action annulée');
+                        return;
+                    }
+                    localStorage.setItem('githubToken', token);
+                    githubToken = token;
+                }
+
+                // Faire un commit sur GitHub via l'API
+                const result = await updateDataJsonOnGitHub(data, githubToken, `Remove detection for ${country}`);
+
+                if (result.success) {
+                    alert('✅ Alerte supprimée pour tous les utilisateurs !');
+                    location.reload();
+                } else {
+                    alert('❌ Erreur : ' + result.error);
+                }
+            } catch (error) {
+                alert('❌ Erreur : ' + error.message);
+            }
+        }
+
+        async function updateDataJsonOnGitHub(data, token, message) {
+            try {
+                // Récupérer le commit SHA actuel
+                const repoUrl = 'https://api.github.com/repos/MUlysse/tender-tracker-saga/contents/docs/data.json';
+                const getResponse = await fetch(repoUrl, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (!getResponse.ok) {
+                    return { success: false, error: 'Token invalide ou permission refusée' };
+                }
+
+                const fileData = await getResponse.json();
+                const currentSha = fileData.sha;
+
+                // Encoder le nouveau contenu en base64
+                const newContent = JSON.stringify(data, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(newContent)));
+
+                // Mettre à jour le fichier
+                const updateResponse = await fetch(repoUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `🗑️ ${message}`,
+                        content: encodedContent,
+                        sha: currentSha
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    return { success: true };
+                } else {
+                    const error = await updateResponse.json();
+                    return { success: false, error: error.message };
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
 // ===== AFFICHAGE DES MOTS-CLÉS =====
         function renderKeywords() {
             const keywordsList = document.getElementById('keywordsList');
@@ -1247,6 +1368,7 @@
                                     <th>Lien</th>
                                     <th>Alerte</th>
                                     <th>Mots-clés</th>
+                                    <th style="text-align: center; width: 80px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1261,11 +1383,11 @@
                     if (hasDetection) {
                         const detection = detectionsMap[source.country][0];
                         const firstKeyword = detection.matched_keywords && detection.matched_keywords.length > 0 ? detection.matched_keywords[0] : '';
-                            if (detection.status === '404') {
+                            detectedKeywords = detection.matched_keywords || [];
+                        if (detection.status === '404') {
                             statusHtml = `<span class="status-inactive">Page inactive</span>`;
                         } else {
                             statusHtml = `<span class="status-alert">Offre</span>`;
-                            detectedKeywords = detection.matched_keywords || [];
                         }
                     }
 
@@ -1280,12 +1402,18 @@
                         ? `<div class="keywords-display">${detectedKeywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('')}</div>`
                         : '<span class="keywords-empty">−</span>';
 
+                    const detectionId = hasDetection ? detectionsMap[source.country][0].id : '';
+                    const resetBtn = hasDetection
+                        ? `<button class="reset-btn" onclick="resetDetection('${detectionId}', '${source.country}')" title="Supprimer cette alerte">✕</button>`
+                        : '<span class="reset-empty">−</span>';
+
                     html += `
                         <tr${rowClass}>
                             <td class="country-cell">${source.country}</td>
                             <td class="url-cell">${urlHtml}</td>
                             <td class="status-cell">${statusHtml}</td>
                             <td class="keywords-cell">${keywordsHtml}</td>
+                            <td class="reset-cell">${resetBtn}</td>
                         </tr>
                     `;
                 });
