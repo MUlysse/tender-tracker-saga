@@ -1147,25 +1147,25 @@
                 clearInterval(countdownInterval);
             }
 
-            // Calculer le prochain scan basé sur le cron (toutes les 6h: 0h, 6h, 12h, 18h UTC)
+            // Scans à: 0h, 6h, 12h, 18h UTC
+            const SCAN_HOURS = [0, 6, 12, 18];
             const now = new Date();
             const currentHourUTC = now.getUTCHours();
+            const currentMinUTC = now.getUTCMinutes();
+            const currentSecUTC = now.getUTCSeconds();
 
-            // Calcul: quel est le prochain multiple de 6?
-            // Si 0:00-5:59 → 6:00
-            // Si 6:00-11:59 → 12:00
-            // Si 12:00-17:59 → 18:00
-            // Si 18:00-23:59 → 0:00 (demain)
+            // Trouver le PROCHAIN scan (strict >)
+            let nextHour = SCAN_HOURS.find(h => h > currentHourUTC);
 
-            let nextScanHour = Math.floor(currentHourUTC / 6) * 6 + 6;
-
-            nextScanTime = new Date(now);
-            nextScanTime.setUTCHours(nextScanHour, 0, 0, 0);
-
-            // Si on passe minuit
-            if (nextScanHour >= 24) {
+            // Si aucun scan après l'heure actuelle aujourd'hui, prendre le 0h de demain
+            if (nextHour === undefined) {
+                nextHour = 0; // 0h demain
+                nextScanTime = new Date(now);
                 nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
-                nextScanTime.setUTCHours(nextScanHour % 24, 0, 0, 0);
+                nextScanTime.setUTCHours(0, 0, 0, 0);
+            } else {
+                nextScanTime = new Date(now);
+                nextScanTime.setUTCHours(nextHour, 0, 0, 0);
             }
 
             // Mettre à jour immédiatement
