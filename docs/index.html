@@ -364,12 +364,12 @@
 
         .keyword-item {
             font-size: 13.2px;
-            color: #5f6368;
-            padding: 6px 8px;
-            background-color: #f8f9fa;
-            border-radius: 2px;
-            border-left: 2px solid #1f2937;
-            padding-left: 10px;
+            color: #000000 !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            border-radius: 0px !important;
+            border-left: none !important;
+            padding-left: 0px !important;
         }
 
         /* ===== TABLE ===== */
@@ -523,21 +523,24 @@
         }
 
         .keywords-display {
-            display: inline;
-            flex-wrap: wrap;
-            gap: 0px;
+            display: inline !important;
+            flex-wrap: wrap !important;
+            gap: 0px !important;
         }
 
         .keyword-badge {
             background-color: transparent !important;
             border: none !important;
-            border-radius: 0 !important;
+            border-radius: 0px !important;
             padding: 0px !important;
-            font-size: 12.1px;
-            font-weight: 400;
-            color: #000000;
-            white-space: nowrap;
-            display: inline;
+            font-size: 12.1px !important;
+            font-weight: 400 !important;
+            color: #000000 !important;
+            white-space: nowrap !important;
+            display: inline !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
+            margin: 0px !important;
         }
 
         .keyword-badge:after {
@@ -1233,16 +1236,20 @@
                 // Afficher date/heure précise du dernier workflow
                 if (data.last_updated) {
                     const updateDate = new Date(data.last_updated);
-                    const year = updateDate.getUTCFullYear();
-                    const month = String(updateDate.getUTCMonth() + 1).padStart(2, '0');
-                    const day = String(updateDate.getUTCDate()).padStart(2, '0');
-                    const hours = String(updateDate.getUTCHours()).padStart(2, '0');
-                    const minutes = String(updateDate.getUTCMinutes()).padStart(2, '0');
-                    const timeStr = `${day}/${month}/${year} ${hours}:${minutes}`;
-                    document.getElementById('lastScanTime').textContent = timeStr;
-
-                    // Démarrer le décompte basé sur last_updated
-                    startCountdown(data.last_updated);
+                    if (!isNaN(updateDate.getTime())) {
+                        const year = updateDate.getUTCFullYear();
+                        const month = String(updateDate.getUTCMonth() + 1).padStart(2, '0');
+                        const day = String(updateDate.getUTCDate()).padStart(2, '0');
+                        const hours = String(updateDate.getUTCHours()).padStart(2, '0');
+                        const minutes = String(updateDate.getUTCMinutes()).padStart(2, '0');
+                        const timeStr = `${day}/${month}/${year} ${hours}:${minutes}`;
+                        document.getElementById('lastScanTime').textContent = timeStr;
+                        startCountdown(data.last_updated);
+                    } else {
+                        document.getElementById('lastScanTime').textContent = '--:--';
+                    }
+                } else {
+                    document.getElementById('lastScanTime').textContent = '--:--';
                 }
 
                 renderKeywords();
