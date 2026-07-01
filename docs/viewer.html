@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tender Tracker - Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+        }
+
+        .viewer-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dadce0;
+            padding: 12px 20px;
+            z-index: 10000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .viewer-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .viewer-logo {
+            font-weight: 600;
+            font-size: 13px;
+            color: #202124;
+            white-space: nowrap;
+        }
+
+        .viewer-url {
+            flex: 1;
+            min-width: 0;
+            font-size: 12px;
+            color: #5f6368;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 400px;
+        }
+
+        .viewer-keywords {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .keyword-badge {
+            background-color: #FFFF00;
+            border: 1px solid #FFA500;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: black;
+            white-space: nowrap;
+        }
+
+        .viewer-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 12px;
+            border: 1px solid #dadce0;
+            background-color: #ffffff;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #f8f9fa;
+            border-color: #1f2937;
+        }
+
+        .btn-close {
+            background-color: #f8f9fa;
+        }
+
+        #content-wrapper {
+            margin-top: 60px;
+            padding: 0;
+        }
+
+        #content {
+            width: 100%;
+            background-color: #ffffff;
+            color: #202124;
+            line-height: 1.6;
+        }
+
+        mark.tender-highlight {
+            background-color: #FFFF00 !important;
+            color: black !important;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 2px;
+            border: 1px solid #FFA500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #5f6368;
+            font-size: 14px;
+        }
+
+        .error {
+            background-color: #fce8e6;
+            border: 1px solid #f1b4b4;
+            border-radius: 2px;
+            padding: 16px;
+            margin: 80px 20px 20px 20px;
+            color: #d32f2f;
+            font-size: 14px;
+        }
+
+        .stats {
+            font-size: 11px;
+            color: #80868b;
+            margin-left: auto;
+        }
+
+        @media (max-width: 768px) {
+            .viewer-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .viewer-url {
+                max-width: 100%;
+            }
+
+            .viewer-keywords {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewer-header">
+        <div class="viewer-info">
+            <div class="viewer-logo">🔍 TENDER TRACKER</div>
+            <div class="viewer-url" id="urlDisplay">Chargement...</div>
+        </div>
+        <div class="viewer-keywords" id="keywordsDisplay"></div>
+        <div class="viewer-actions">
+            <button class="btn" onclick="copyURL()">Copier URL</button>
+            <button class="btn btn-close" onclick="window.close()">Fermer</button>
+        </div>
+    </div>
+
+    <div id="content-wrapper">
+        <div id="content" class="loading">Chargement du contenu...</div>
+    </div>
+
+    <script>
+        // Récupérer les paramètres de l'URL
+        const params = new URLSearchParams(window.location.search);
+        const url = params.get('url');
+        const keywordsParam = params.get('keywords');
+
+        let keywords = [];
+
+        if (keywordsParam) {
+            try {
+                keywords = JSON.parse(decodeURIComponent(keywordsParam));
+            } catch (e) {
+                console.error('Erreur parsing keywords:', e);
+            }
+        }
+
+        // Afficher l'URL
+        if (url) {
+            document.getElementById('urlDisplay').textContent = new URL(url).hostname;
+        }
+
+        // Afficher les mots-clés
+        if (keywords.length > 0) {
+            const keywordsDisplay = document.getElementById('keywordsDisplay');
+            keywordsDisplay.innerHTML = keywords
+                .slice(0, 5)
+                .map(kw => `<span class="keyword-badge">${kw}</span>`)
+                .join('');
+
+            if (keywords.length > 5) {
+                const badge = document.createElement('span');
+                badge.className = 'keyword-badge';
+                badge.textContent = `+${keywords.length - 5} autre(s)`;
+                keywordsDisplay.appendChild(badge);
+            }
+        }
+
+        // Copier l'URL
+        function copyURL() {
+            if (url) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('URL copiée !');
+                });
+            }
+        }
+
+        // Charger et traiter le contenu
+        async function loadAndHighlight() {
+            if (!url) {
+                document.getElementById('content').innerHTML =
+                    '<div class="error">Erreur : Aucune URL fournie. Retournez à Tender Tracker et cliquez sur un lien.</div>';
+                return;
+            }
+
+            try {
+                // Ajouter un timeout pour éviter que ça traîne
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+
+                const response = await fetch(url, {
+                    signal: controller.signal,
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                    }
+                });
+
+                clearTimeout(timeout);
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                let html = await response.text();
+
+                // Nettoyer et préparer le HTML
+                html = cleanHTML(html);
+
+                // Surligner les mots-clés
+                if (keywords.length > 0) {
+                    html = highlightKeywords(html, keywords);
+                }
+
+                // Afficher le contenu
+                document.getElementById('content').innerHTML = html;
+
+                // Corriger les URLs relatives
+                fixRelativeUrls(url);
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                let errorMsg = error.message;
+
+                if (error.name === 'AbortError') {
+                    errorMsg = 'Timeout : Le site a pris trop de temps à charger';
+                }
+
+                if (errorMsg.includes('Failed to fetch')) {
+                    errorMsg = 'Le site bloque les requêtes externes (CORS). Ouvrez directement le lien.';
+                }
+
+                document.getElementById('content').innerHTML =
+                    `<div class="error">
+                        ⚠️ Erreur lors du chargement du contenu<br>
+                        <small>${errorMsg}</small><br><br>
+                        <a href="${escapeHtml(url)}" target="_blank" style="color: #1a73e8; text-decoration: none;">
+                            Ouvrir directement le lien →
+                        </a>
+                    </div>`;
+            }
+        }
+
+        // Nettoyer le HTML
+        function cleanHTML(html) {
+            // Supprimer les scripts
+            html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+
+            // Supprimer les styles complexes
+            html = html.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+
+            // Supprimer les iframe
+            html = html.replace(/<iframe[^>]*>.*?<\/iframe>/gi, '');
+
+            // Garder seulement le body ou le contenu principal
+            const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+            if (bodyMatch) {
+                html = bodyMatch[1];
+            }
+
+            return html;
+        }
+
+        // Surligner les mots-clés
+        function highlightKeywords(html, keywords) {
+            let highlightCount = 0;
+
+            keywords.forEach(keyword => {
+                // Créer une regex insensible à la casse
+                const regex = new RegExp(`(\\b${escapeRegex(keyword)}\\b)`, 'gi');
+
+                // Compter les occurrences (approximativement)
+                const matches = html.match(regex);
+                if (matches) {
+                    highlightCount += matches.length;
+                }
+
+                // Remplacer avec mark
+                html = html.replace(regex, '<mark class="tender-highlight">$1</mark>');
+            });
+
+            // Ajouter le compteur au header
+            if (highlightCount > 0) {
+                const stats = document.createElement('div');
+                stats.className = 'stats';
+                stats.textContent = `${highlightCount} occurrence(s) surlignée(s)`;
+                document.querySelector('.viewer-keywords').appendChild(stats);
+            }
+
+            return html;
+        }
+
+        // Échapper les caractères spéciaux regex
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        // Échapper HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Corriger les URLs relatives
+        function fixRelativeUrls(baseUrl) {
+            const baseUrlObj = new URL(baseUrl);
+            const baseHref = baseUrlObj.protocol + '//' + baseUrlObj.hostname;
+
+            // Corriger les href
+            document.querySelectorAll('a[href]').forEach(link => {
+                let href = link.getAttribute('href');
+                if (href.startsWith('/')) {
+                    link.setAttribute('href', baseHref + href);
+                } else if (!href.startsWith('http')) {
+                    link.setAttribute('href', baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1) + href);
+                }
+            });
+
+            // Corriger les src
+            document.querySelectorAll('img[src], script[src]').forEach(el => {
+                let src = el.getAttribute('src');
+                if (src.startsWith('/')) {
+                    el.setAttribute('src', baseHref + src);
+                } else if (!src.startsWith('http')) {
+                    el.setAttribute('src', baseUrl.substring(0, baseUrl.lastIndexOf('/') + 1) + src);
+                }
+            });
+        }
+
+        // Charger au démarrage
+        window.addEventListener('DOMContentLoaded', loadAndHighlight);
+    </script>
+</body>
+</html>

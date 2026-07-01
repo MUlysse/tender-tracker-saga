@@ -670,14 +670,7 @@
             </div>
 
             <!-- Alertes Tab -->
-            <div id="alerts-tab" class="tab-content active">
-                <div class="alerts-section">
-                    <div class="alerts-title">Dernières Alertes</div>
-                    <div class="alerts-list" id="alertsList">
-                        <div class="alerts-empty">Chargement...</div>
-                    </div>
-                </div>
-            </div>
+            <div id="alerts-tab" class="tab-content active"></div>
 
             <!-- Keywords Tab -->
             <div id="keywords-tab" class="tab-content">
@@ -983,7 +976,6 @@
                     startCountdown(data.last_updated);
                 }
 
-                renderAlerts();
                 renderKeywords();
                 renderTable();
 
@@ -994,55 +986,33 @@
             }
         }
 
-        // ===== AFFICHAGE DES ALERTES =====
-        function renderAlerts() {
-            const alertsList = document.getElementById('alertsList');
+        // ===== OUVERTURE DU VIEWER AVEC SURLIGNAGE =====
+        function highlightKeywordsOnOpen(event, link) {
+            event.preventDefault();
+            const url = link.getAttribute('href');
+            const keywords = link.getAttribute('data-keywords');
 
-            if (!detectionsMap || Object.keys(detectionsMap).length === 0) {
-                alertsList.innerHTML = '<div class="alerts-empty">Aucune alerte détectée pour le moment</div>';
-                return;
+            if (!url) return;
+
+            try {
+                let keywordList = [];
+                if (keywords) {
+                    keywordList = JSON.parse(keywords);
+                }
+
+                // Construire l'URL du viewer
+                const viewerUrl = `viewer.html?url=${encodeURIComponent(url)}&keywords=${encodeURIComponent(JSON.stringify(keywordList))}`;
+
+                // Ouvrir dans une nouvelle fenêtre
+                window.open(viewerUrl, '_blank');
+            } catch (e) {
+                console.error('Erreur:', e);
+                // Fallback : ouvrir directement le lien
+                window.open(url, '_blank');
             }
-
-            // Collecter toutes les détections
-            const allDetections = [];
-            Object.entries(detectionsMap).forEach(([country, tenders]) => {
-                tenders.forEach(tender => {
-                    allDetections.push({
-                        country: country,
-                        title: tender.title,
-                        keywords: tender.matched_keywords,
-                        detected_at: tender.detected_at
-                    });
-                });
-            });
-
-            // Trier par date (les plus récentes en premier)
-            allDetections.sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at));
-
-            // Afficher max 8 dernières alertes
-            const recentAlerts = allDetections.slice(0, 8);
-
-            if (recentAlerts.length === 0) {
-                alertsList.innerHTML = '<div class="alerts-empty">Aucune alerte détectée pour le moment</div>';
-                return;
-            }
-
-            let html = '';
-            recentAlerts.forEach(alert => {
-                const keywordsStr = alert.keywords.slice(0, 2).join(', ');
-                html += `
-                    <div class="alert-item">
-                        <span class="alert-country">${alert.country}</span>
-                        <div class="alert-title">${alert.title}</div>
-                        <span class="alert-keywords">Mots-clés: ${keywordsStr}</span>
-                    </div>
-                `;
-            });
-
-            alertsList.innerHTML = html;
         }
 
-        // ===== AFFICHAGE DES MOTS-CLÉS =====
+// ===== AFFICHAGE DES MOTS-CLÉS =====
         function renderKeywords() {
             const keywordsList = document.getElementById('keywordsList');
             let html = '<div class="keywords-grid">';
@@ -1100,19 +1070,22 @@
 
                     // Vérifier s'il y a une détection 404
                     let statusHtml = '<span class="status-empty">−</span>';
+                    let detectedKeywords = [];
                     if (hasDetection) {
                         const detection = detectionsMap[source.country][0];
                         if (detection.status === '404') {
                             statusHtml = '<span class="status-inactive">Page inactive</span>';
                         } else {
                             statusHtml = '<span class="status-alert">Offre</span>';
+                            detectedKeywords = detection.matched_keywords || [];
                         }
                     }
 
                     const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
+                    const keywordData = hasDetection ? `data-keywords='${JSON.stringify(detectedKeywords)}'` : '';
                     const urlHtml = isUnavailable
                         ? '<span class="url-unavailable">URL indisponible</span>'
-                        : `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.url}</a>`;
+                        : `<a href="${source.url}" target="_blank" rel="noopener noreferrer" onclick="highlightKeywordsOnOpen(event, this)" ${keywordData}>${source.url}</a>`;
 
                     const rowClass = isUnavailable ? ' class="unavailable"' : '';
 
