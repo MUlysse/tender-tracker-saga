@@ -20,7 +20,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #ffffff;
             color: #202124;
-            font-size: 14px;
+            font-size: 15.4px;
             line-height: 1.5;
         }
 
@@ -43,7 +43,7 @@
         }
 
         .login-title {
-            font-size: 28px;
+            font-size: 30.8px;
             font-weight: 600;
             color: #202124;
             margin-bottom: 8px;
@@ -51,7 +51,7 @@
         }
 
         .login-subtitle {
-            font-size: 12px;
+            font-size: 13.2px;
             color: #80868b;
             margin-bottom: 32px;
             text-transform: uppercase;
@@ -70,7 +70,7 @@
 
         .input-group label {
             display: block;
-            font-size: 11px;
+            font-size: 12.1px;
             font-weight: 600;
             color: #202124;
             text-transform: uppercase;
@@ -80,8 +80,8 @@
 
         .input-group input {
             width: 100%;
-            padding: 12px 12px;
-            font-size: 14px;
+            padding: 13.2px 13.2px;
+            font-size: 15.4px;
             border: 1px solid #dadce0;
             background-color: #ffffff;
             color: #202124;
@@ -97,9 +97,9 @@
         }
 
         .login-button {
-            padding: 12px 16px;
+            padding: 13.2px 17.6px;
             margin-top: 8px;
-            font-size: 14px;
+            font-size: 15.4px;
             font-weight: 600;
             color: #ffffff;
             background-color: #1f2937;
@@ -117,7 +117,7 @@
         }
 
         .error-message {
-            font-size: 12px;
+            font-size: 13.2px;
             color: #d32f2f;
             text-align: center;
             display: none;
@@ -141,17 +141,80 @@
             padding: 40px 48px;
         }
 
-        .header {
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 28px;
             border-bottom: 1px solid #dadce0;
             padding-bottom: 20px;
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 35.2px;
             font-weight: 600;
             color: #202124;
             letter-spacing: -0.5px;
+        }
+
+        .last-update {
+            font-size: 12.1px;
+            color: #5f6368;
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .update-label {
+            font-weight: 600;
+            display: block;
+            font-size: 11px;
+        }
+
+        .update-time {
+            display: block;
+            font-size: 13.2px;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        /* ===== TABS ===== */
+        .tabs-container {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #dadce0;
+            padding-bottom: 0;
+        }
+
+        .tab-button {
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5f6368;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .tab-button:hover {
+            color: #202124;
+        }
+
+        .tab-button.active {
+            color: #1f2937;
+            border-bottom-color: #1f2937;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         /* ===== ALERTES SECTION ===== */
@@ -164,7 +227,7 @@
         }
 
         .alerts-title {
-            font-size: 12px;
+            font-size: 13.2px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -181,12 +244,12 @@
         }
 
         .alert-item {
-            padding: 12px;
+            padding: 13.2px;
             background-color: #ffffff;
             border: 1px solid #e8eaed;
             border-left: 3px solid #1f2937;
             border-radius: 2px;
-            font-size: 13px;
+            font-size: 14.3px;
             transition: background-color 0.15s ease;
         }
 
@@ -199,11 +262,11 @@
             color: #202124;
             display: block;
             margin-bottom: 3px;
-            font-size: 13px;
+            font-size: 14.3px;
         }
 
         .alert-title {
-            font-size: 12px;
+            font-size: 13.2px;
             color: #5f6368;
             margin-bottom: 4px;
             line-height: 1.4;
@@ -215,15 +278,63 @@
         }
 
         .alert-keywords {
-            font-size: 11px;
+            font-size: 12.1px;
             color: #80868b;
             display: block;
         }
 
         .alerts-empty {
-            font-size: 13px;
+            font-size: 14.3px;
             color: #80868b;
             padding: 8px 12px;
+        }
+
+        /* ===== KEYWORDS SECTION ===== */
+        .keywords-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            padding: 20px;
+        }
+
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .keywords-category {
+            background-color: #ffffff;
+            border: 1px solid #e8eaed;
+            border-radius: 2px;
+            padding: 16px;
+        }
+
+        .keywords-category-title {
+            font-size: 12.1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #202124;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .keywords-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .keyword-item {
+            font-size: 13.2px;
+            color: #5f6368;
+            padding: 6px 8px;
+            background-color: #f8f9fa;
+            border-radius: 2px;
+            border-left: 2px solid #1f2937;
+            padding-left: 10px;
         }
 
         /* ===== TABLE ===== */
@@ -243,13 +354,13 @@
         }
 
         .region-title {
-            font-size: 11px;
+            font-size: 12.1px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #202124;
             background-color: #f8f9fa;
-            padding: 12px 16px;
+            padding: 13.2px 17.6px;
             border-bottom: 1px solid #dadce0;
             border-left: 3px solid #1f2937;
         }
@@ -261,12 +372,12 @@
         }
 
         thead th {
-            font-size: 11px;
+            font-size: 12.1px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.4px;
             color: #5f6368;
-            padding: 12px 16px;
+            padding: 13.2px 17.6px;
             text-align: left;
             background-color: #f8f9fa;
             border-bottom: 1px solid #dadce0;
@@ -288,8 +399,8 @@
         }
 
         tbody td {
-            padding: 14px 16px;
-            font-size: 13px;
+            padding: 15.4px 17.6px;
+            font-size: 14.3px;
             line-height: 1.5;
         }
 
@@ -303,7 +414,7 @@
 
         .url-cell {
             color: #5f6368;
-            font-size: 12px;
+            font-size: 13.2px;
             flex-grow: 1;
             word-break: break-word;
             padding-right: 0;
@@ -324,7 +435,7 @@
 
         .url-unavailable {
             color: #80868b;
-            font-size: 12px;
+            font-size: 13.2px;
         }
 
         .status-cell {
@@ -334,19 +445,41 @@
             flex-shrink: 0;
             font-weight: 600;
             color: #202124;
-            font-size: 12px;
+            font-size: 13.2px;
             padding-left: 20px;
         }
 
         .status-empty {
             color: #dadce0;
             font-weight: 400;
-            font-size: 12px;
+            font-size: 13.2px;
         }
 
         .status-alert {
-            color: #1f2937;
+            color: #22863a;
             font-weight: 700;
+            font-size: 13.2px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid #dadce0;
+            text-align: center;
+            font-size: 12.1px;
+            color: #80868b;
+        }
+
+        .footer a {
+            color: #1a73e8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #0d47a1;
+            text-decoration: underline;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -357,17 +490,21 @@
 
             .url-cell {
                 max-width: 500px;
-                font-size: 12px;
+                font-size: 13.2px;
             }
 
             tbody td {
-                padding: 12px 14px;
-                font-size: 12px;
+                padding: 13.2px 15.4px;
+                font-size: 13.2px;
             }
 
             thead th {
-                padding: 10px 14px;
-                font-size: 10px;
+                padding: 11px 15.4px;
+                font-size: 11px;
+            }
+
+            .keywords-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
         }
 
@@ -377,21 +514,31 @@
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 26.4px;
             }
 
             .login-box {
                 padding: 36px 28px;
             }
 
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .last-update {
+                text-align: left;
+                margin-top: 8px;
+            }
+
             tbody td, thead th {
-                padding: 10px 12px;
-                font-size: 11px;
+                padding: 11px 13.2px;
+                font-size: 12.1px;
             }
 
             .url-cell {
                 max-width: 300px;
-                font-size: 11px;
+                font-size: 12.1px;
             }
 
             .country-cell {
@@ -402,7 +549,7 @@
             .status-cell {
                 width: 120px;
                 min-width: 120px;
-                font-size: 11px;
+                font-size: 12.1px;
             }
 
             .regions-wrapper {
@@ -410,13 +557,26 @@
             }
 
             .alert-item {
-                padding: 10px;
-                font-size: 12px;
+                padding: 11px;
+                font-size: 13.2px;
             }
 
             .alerts-section {
                 padding: 12px;
                 margin-bottom: 24px;
+            }
+
+            .keywords-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-container {
+                gap: 16px;
+            }
+
+            .tab-button {
+                font-size: 12px;
+                padding: 8px 0;
             }
         }
     </style>
@@ -449,21 +609,46 @@
     <!-- ===== DASHBOARD ===== -->
     <div class="dashboard" id="dashboard">
         <div class="main-container">
-            <div class="header">
+            <div class="header-top">
                 <h1>TENDER-TRACKER SAGA</h1>
+                <div class="last-update">
+                    <span class="update-label">Dernier Scan</span>
+                    <span class="update-time" id="lastScanTime">--:--</span>
+                </div>
             </div>
 
-            <!-- Alertes Section -->
-            <div class="alerts-section">
-                <div class="alerts-title">Dernières Alertes</div>
-                <div class="alerts-list" id="alertsList">
-                    <div class="alerts-empty">Chargement...</div>
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <button class="tab-button active" onclick="switchTab('alerts')">Dernières Alertes</button>
+                <button class="tab-button" onclick="switchTab('keywords')">Mots-clés</button>
+            </div>
+
+            <!-- Alertes Tab -->
+            <div id="alerts-tab" class="tab-content active">
+                <div class="alerts-section">
+                    <div class="alerts-title">Dernières Alertes</div>
+                    <div class="alerts-list" id="alertsList">
+                        <div class="alerts-empty">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keywords Tab -->
+            <div id="keywords-tab" class="tab-content">
+                <div class="keywords-section">
+                    <div id="keywordsList"></div>
                 </div>
             </div>
 
             <!-- Tableau des régions -->
             <div class="regions-wrapper" id="regionsContainer">
-                <p style="text-align: center; color: #80868b; padding: 40px 0; font-size: 13px;">Chargement des données...</p>
+                <p style="text-align: center; color: #80868b; padding: 40px 0; font-size: 14.3px;">Chargement des données...</p>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>Tender-Tracker SAGA © 2026 | Veille Automatisée 24/7</p>
+                <p style="margin-top: 8px;"><a href="https://onoris-journal.com/" target="_blank" rel="noopener noreferrer">Onoris Journal</a></p>
             </div>
         </div>
     </div>
@@ -473,6 +658,109 @@
 
         let sourcesData = [];
         let detectionsMap = {};
+        let keywordsList = [];
+
+        // Mots-clés multilingues
+        const ALL_KEYWORDS = {
+            'Français': [
+                'mobilisation des ressources',
+                'fiscalité',
+                'réforme fiscale',
+                'gestion des finances publiques',
+                'dette souveraine',
+                'restructuration de dette',
+                'marchés publics',
+                'finances publiques',
+                'budgétisation',
+                'mobilisation de ressources',
+                'impôts',
+                'collecte des impôts',
+                'ressources fiscales',
+                'administration fiscale',
+                'modernisation fiscale',
+                'expertise fiscale',
+                'gestion des ressources publiques'
+            ],
+            'English': [
+                'domestic resource mobilization',
+                'drm',
+                'tax reform',
+                'fiscal policy',
+                'public financial management',
+                'pfm',
+                'sovereign debt',
+                'debt restructuring',
+                'public procurement',
+                'tax administration',
+                'revenue mobilization',
+                'tax expertise',
+                'public resource management',
+                'beps',
+                'customs modernization',
+                'revenue authority',
+                'tax modernisation',
+                'tax modernization'
+            ],
+            'Español': [
+                'movilización de recursos internos',
+                'fiscalidad',
+                'reforma fiscal',
+                'gestión de finanzas públicas',
+                'deuda soberana',
+                'reestructuración de deuda',
+                'contratación pública',
+                'administración tributaria',
+                'movilización de recursos',
+                'modernización tributaria',
+                'experticia fiscal',
+                'gestión de recursos públicos'
+            ],
+            'Português': [
+                'mobilização de recursos internos',
+                'fiscalidade',
+                'reforma fiscal',
+                'gestão das finanças públicas',
+                'dívida soberana',
+                'reestruturação da dívida',
+                'contratação pública',
+                'administração tributária',
+                'mobilização de recursos',
+                'modernização tributária',
+                'expertise fiscal',
+                'gestão de recursos públicos'
+            ],
+            'العربية': [
+                'تعبئة الموارد',
+                'الضرائب',
+                'الإصلاح الضريبي',
+                'إدارة المالية العامة',
+                'الدين العام',
+                'التعاقدات العمومية',
+                'الموارد المحلية',
+                'الإيرادات الضريبية',
+                'إدارة الضرائب',
+                'تحديث النظام الضريبي',
+                'خبرة ضريبية',
+                'إدارة الموارد العامة'
+            ]
+        };
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
 
         // ===== AUTHENTIFICATION =====
         async function hashPassword(password) {
@@ -527,13 +815,27 @@
                     });
                 }
 
+                // Mettre à jour l'heure du dernier scan
+                if (data.last_updated) {
+                    const updateDate = new Date(data.last_updated);
+                    const timeStr = updateDate.toLocaleString('fr-FR', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    document.getElementById('lastScanTime').textContent = timeStr;
+                }
+
                 renderAlerts();
+                renderKeywords();
                 renderTable();
 
             } catch (error) {
                 console.error('Erreur:', error);
                 document.getElementById('regionsContainer').innerHTML =
-                    '<p style="text-align: center; color: #d32f2f; padding: 40px 0; font-size: 13px;">Erreur lors du chargement des données</p>';
+                    '<p style="text-align: center; color: #d32f2f; padding: 40px 0; font-size: 14.3px;">Erreur lors du chargement des données</p>';
             }
         }
 
@@ -585,6 +887,26 @@
             alertsList.innerHTML = html;
         }
 
+        // ===== AFFICHAGE DES MOTS-CLÉS =====
+        function renderKeywords() {
+            const keywordsList = document.getElementById('keywordsList');
+            let html = '<div class="keywords-grid">';
+
+            Object.entries(ALL_KEYWORDS).forEach(([lang, keywords]) => {
+                html += `
+                    <div class="keywords-category">
+                        <div class="keywords-category-title">${lang}</div>
+                        <div class="keywords-list">
+                            ${keywords.map(kw => `<div class="keyword-item">${kw}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            keywordsList.innerHTML = html;
+        }
+
         // ===== RENDU DU TABLEAU =====
         function renderTable() {
             const container = document.getElementById('regionsContainer');
@@ -621,7 +943,7 @@
                 countries.forEach(source => {
                     const hasDetection = detectionsMap[source.country] && detectionsMap[source.country].length > 0;
                     const statusHtml = hasDetection
-                        ? '<span class="status-alert">NOUVELLE OFFRE</span>'
+                        ? '<span class="status-alert">Offre</span>'
                         : '<span class="status-empty">−</span>';
 
                     const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
