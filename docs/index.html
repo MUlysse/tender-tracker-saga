@@ -1130,15 +1130,15 @@
                 clearInterval(countdownInterval);
             }
 
-            // Calculer le prochain scan basé sur le cron (toutes les 2h à partir de 0h UTC)
-            // Cron: '0 */2 * * *' = 0h, 2h, 4h, 6h, 8h, 10h, 12h, 14h, 16h, 18h, 20h, 22h UTC
+            // Calculer le prochain scan basé sur le cron (toutes les 6h à partir de 0h UTC)
+            // Cron: '0 */6 * * *' = 0h, 6h, 12h, 18h UTC
             const now = new Date();
             const currentHourUTC = now.getUTCHours();
             const currentMinUTC = now.getUTCMinutes();
             const currentSecUTC = now.getUTCSeconds();
 
-            // Calculer l'heure du prochain scan (heure paire suivante)
-            let nextScanHour = Math.ceil(currentHourUTC / 2) * 2;
+            // Calculer l'heure du prochain scan (multiple de 6h suivant)
+            let nextScanHour = Math.ceil(currentHourUTC / 6) * 6;
             if (nextScanHour >= 24) {
                 nextScanHour = 0; // Demain à 0h
             }
