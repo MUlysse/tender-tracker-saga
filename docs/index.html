@@ -903,17 +903,16 @@
         }
 
         // ===== DÉCOMPTE DU PROCHAIN SCAN =====
-        function startCountdown() {
+        function startCountdown(lastUpdatedTime) {
             // Arrêter l'ancien interval s'il existe
             if (countdownInterval) {
                 clearInterval(countdownInterval);
             }
 
-            // Calculer le prochain scan (2 heures après le dernier)
-            // GitHub Actions exécute le scraper toutes les 2 heures
-            // 12 scans/jour × ~4 min = 1440 min/mois (< 2000 quota gratuit)
-            const now = new Date();
-            nextScanTime = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+            // Calculer le prochain scan (2 heures après le dernier scan réel)
+            // Basé sur last_updated de data.json, PAS sur l'heure actuelle
+            const lastScan = new Date(lastUpdatedTime);
+            nextScanTime = new Date(lastScan.getTime() + 2 * 60 * 60 * 1000);
 
             // Mettre à jour immédiatement
             updateCountdown();
@@ -980,8 +979,8 @@
                     });
                     document.getElementById('lastScanTime').textContent = timeStr;
 
-                    // Démarrer le décompte
-                    startCountdown();
+                    // Démarrer le décompte basé sur last_updated
+                    startCountdown(data.last_updated);
                 }
 
                 renderAlerts();
