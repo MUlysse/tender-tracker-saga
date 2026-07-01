@@ -239,42 +239,103 @@ def contains_target_keywords(text):
 def is_element_visible(tag):
     """
     Vérifie si un élément est réellement visible (pas caché par CSS/HTML).
-    Retourne False si l'élément est clairement caché.
+    STRICT: Filtrer le contenu non-visible, attributs data-*, commentaires.
     """
-    # Ignorer les éléments cachés
-    style = tag.get('style', '')
-    if 'display' in style and 'none' in style:
-        return False
-    if 'visibility' in style and 'hidden' in style:
-        return False
-    if 'display' in style and 'none' in style.lower():
+    if not tag:
         return False
 
-    # Ignorer les éléments avec data-hidden ou aria-hidden
-    if tag.get('data-hidden') or tag.get('aria-hidden') == 'true':
+    # ===== EXCLUSIONS STRICTES =====
+    # Ignorer les éléments de structure
+    if tag.name in ['script', 'style', 'noscript', 'meta', 'link', 'nav', 'footer', 'svg', 'canvas']:
         return False
 
-    # Ignorer les éléments dans noscript
-    if tag.name == 'noscript':
+    # Ignorer les commentaires HTML
+    if isinstance(tag, type(tag.string)) and tag.string:
         return False
 
-    # Vérifier que le parent n'est pas caché
-    parent = tag.parent
-    while parent and parent.name != 'html':
-        parent_style = parent.get('style', '')
-        if 'display' in parent_style and 'none' in parent_style.lower():
+    # Ignorer les éléments avec data-* (contenu template/caché)
+    for attr in tag.attrs:
+        if attr.startswith('data-') and 'hidden' in str(tag.attrs[attr]).lower():
             return False
+
+    # ===== STYLES CACHÉS =====
+    style = tag.get('style', '')
+    if style:
+        style_lower = style.lower()
+        if 'display:none' in style_lower or 'display: none' in style_lower:
+            return False
+        if 'visibility:hidden' in style_lower or 'visibility: hidden' in style_lower:
+            return False
+        if 'height:0' in style_lower or 'width:0' in style_lower:
+            return False
+
+    # Ignorer aria-hidden
+    if tag.get('aria-hidden') == 'true':
+        return False
+    if tag.get('data-hidden'):
+        return False
+
+    # ===== VÉRIFIER LES PARENTS CACHÉS =====
+    parent = tag.parent
+    depth = 0
+    while parent and parent.name and parent.name != 'html' and depth < 10:
+        parent_style = parent.get('style', '')
+        if parent_style:
+            parent_style_lower = parent_style.lower()
+            if 'display:none' in parent_style_lower or 'display: none' in parent_style_lower:
+                return False
         if parent.get('aria-hidden') == 'true':
             return False
         parent = parent.parent
+        depth += 1
 
     return True
 
+def calculate_confidence_score(text, matched_keywords, element_type, keyword_count):
+    """
+    Calcule un score de confiance pour une détection (0-100).
+    Basé sur: type d'élément, nombre de mots-clés, longueur du texte.
+    """
+    score = 0
+
+    # Score par type d'élément (hiérarchie de fiabilité)
+    element_scores = {
+        'title': 95,
+        'h1': 90,
+        'h2': 85,
+        'h3': 80,
+        'p': 70,
+        'li': 65,
+        'div': 50,
+        'span': 40
+    }
+    score += element_scores.get(element_type, 50)
+
+    # Bonus pour nombre de mots-clés
+    if keyword_count >= 3:
+        score += 15
+    elif keyword_count == 2:
+        score += 8
+    elif keyword_count == 1:
+        score += 0
+
+    # Bonus pour longueur du texte (plus long = moins suspect)
+    text_len = len(text.strip())
+    if text_len > 100:
+        score += 10
+    elif text_len > 50:
+        score += 5
+
+    # Pénalité si contient des caractères suspects
+    if '<?php' in text or '{%' in text or '{{' in text:
+        score -= 30
+
+    return min(score, 100)
+
 def extract_tender_info(url, html_content, country, source_keywords):
     """
-    CALIBRÉ : Scanne le texte visible en ordre de pertinence.
-    Hiérarchie : titre > h1 > h2/h3 > paragraphes > listes > divs.
-    Équilibre : détecte assez sans sur-scanner.
+    VALIDÉ : Scanne le contenu visible avec scoring de confiance.
+    Retourne SEULEMENT les détections de haute confiance (≥60%).
     """
     tenders = []
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -284,32 +345,53 @@ def extract_tender_info(url, html_content, country, source_keywords):
         for element in soup(['script', 'style', 'noscript', 'meta', 'link', 'nav', 'footer']):
             element.decompose()
 
-        relevant_texts = []
+        best_detection = None
+        best_score = 0
 
         # 1. Titre (priorité haute)
         title_tag = soup.find('title')
         if title_tag:
             text = title_tag.get_text(strip=True)
-            if text and len(text) > 5:
+            if text and len(text) > 5 and is_element_visible(title_tag):
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
-                    relevant_texts.append((text, matched_kw, 100))  # Priorité 100
+                    score = calculate_confidence_score(text, matched_kw, 'title', len(matched_kw))
+                    if score > best_score:
+                        best_score = score
+                        best_detection = (text, matched_kw, score)
 
-        # 2. H1, H2, H3 (priorité très haute)
-        if not relevant_texts:
-            for heading_tag in soup.find_all(['h1', 'h2', 'h3']):
-                if not is_element_visible(heading_tag):
+        # 2. H1 (très haute priorité)
+        if best_score < 85:
+            for h1_tag in soup.find_all('h1'):
+                if not is_element_visible(h1_tag):
                     continue
-                text = heading_tag.get_text(strip=True)
+                text = h1_tag.get_text(strip=True)
                 if text and len(text) > 5:
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
-                        priority = 90 if heading_tag.name == 'h1' else 80
-                        relevant_texts.append((text, matched_kw, priority))
-                        break
+                        score = calculate_confidence_score(text, matched_kw, 'h1', len(matched_kw))
+                        if score > best_score:
+                            best_score = score
+                            best_detection = (text, matched_kw, score)
+                        if score >= 85:
+                            break
 
-        # 3. Paragraphes visibles (10 au max)
-        if not relevant_texts:
+        # 3. H2, H3 (haute priorité)
+        if best_score < 75:
+            for h_tag in soup.find_all(['h2', 'h3']):
+                if not is_element_visible(h_tag):
+                    continue
+                text = h_tag.get_text(strip=True)
+                if text and len(text) > 5:
+                    matched_kw = contains_target_keywords(text)
+                    if matched_kw:
+                        score = calculate_confidence_score(text, matched_kw, h_tag.name, len(matched_kw))
+                        if score > best_score:
+                            best_score = score
+                            best_detection = (text, matched_kw, score)
+
+        # 4. Paragraphes visibles
+        if best_score < 65:
             main_content = soup.find('main') or soup.find('article') or soup.find('body')
             if main_content:
                 p_count = 0
@@ -317,51 +399,58 @@ def extract_tender_info(url, html_content, country, source_keywords):
                     if not is_element_visible(p_tag):
                         continue
                     text = p_tag.get_text(strip=True)
-                    if text and len(text) > 10:  # Réduit de 15 à 10 pour plus de sensibilité
+                    if text and len(text) > 15:
                         matched_kw = contains_target_keywords(text)
                         if matched_kw:
-                            relevant_texts.append((text, matched_kw, 70))
-                            break
+                            score = calculate_confidence_score(text, matched_kw, 'p', len(matched_kw))
+                            if score > best_score:
+                                best_score = score
+                                best_detection = (text, matched_kw, score)
+                            if score >= 75:
+                                break
                     p_count += 1
-                    if p_count >= 10:  # Augmenté de 5 à 10
+                    if p_count >= 15:
                         break
 
-        # 4. Listes (ul/li) si pas encore trouvé
-        if not relevant_texts:
+        # 5. Listes (li)
+        if best_score < 60:
             li_count = 0
             for li_tag in soup.find_all('li'):
                 if not is_element_visible(li_tag):
                     continue
                 text = li_tag.get_text(strip=True)
-                if text and len(text) > 10:
+                if text and len(text) > 15:
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
-                        relevant_texts.append((text, matched_kw, 60))
-                        break
-                    li_count += 1
-                    if li_count >= 15:
-                        break
+                        score = calculate_confidence_score(text, matched_kw, 'li', len(matched_kw))
+                        if score > best_score:
+                            best_score = score
+                            best_detection = (text, matched_kw, score)
+                li_count += 1
+                if li_count >= 20:
+                    break
 
-        # 5. Divs de contenu (dernier recours)
-        if not relevant_texts:
+        # 6. Divs (dernier recours)
+        if best_score < 55:
             div_count = 0
             for div_tag in soup.find_all('div'):
                 if not is_element_visible(div_tag):
                     continue
                 text = div_tag.get_text(strip=True)
-                if text and len(text) > 20:  # Réduit de 30 à 20
+                if text and len(text) > 30:
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
-                        relevant_texts.append((text, matched_kw, 50))
-                        break
-                    div_count += 1
-                    if div_count >= 20:  # Augmenté de 10 à 20
-                        break
+                        score = calculate_confidence_score(text, matched_kw, 'div', len(matched_kw))
+                        if score > best_score:
+                            best_score = score
+                            best_detection = (text, matched_kw, score)
+                div_count += 1
+                if div_count >= 25:
+                    break
 
-        # Créer un tender si au moins UN mot-clé détecté
-        if relevant_texts:
-            # Trier par priorité, puis par nombre de mots-clés
-            text, matched_kw, _ = max(relevant_texts, key=lambda x: (x[2], len(x[1])))
+        # CRÉATION : seulement si confiance ≥ 60%
+        if best_detection and best_score >= 60:
+            text, matched_kw, score = best_detection
 
             tender_hash = hashlib.md5(f"{url}{datetime.now().isoformat()}".encode()).hexdigest()
             tenders.append({
@@ -370,7 +459,8 @@ def extract_tender_info(url, html_content, country, source_keywords):
                 'title': text[:150] if text else 'Opportunité détectée',
                 'url': url,
                 'detected_at': datetime.now().isoformat(),
-                'matched_keywords': list(set(matched_kw[:5]))
+                'matched_keywords': list(set(matched_kw[:5])),
+                'confidence': round(score, 1)
             })
 
     except Exception as e:
@@ -434,9 +524,10 @@ def scrape_portal(country, url):
 
                 if extracted:
                     keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
-                    print(f"   {country}: {len(extracted)} détection(s) - Mots-clés: {keywords_found}")
+                    confidence = extracted[0].get('confidence', 'N/A')
+                    print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
                 else:
-                    print(f"   {country}: Aucune détection")
+                    print(f"   {country}: − Aucune détection")
 
     except requests.exceptions.Timeout:
         print(f"   {country}: Timeout")
