@@ -501,6 +501,169 @@
             font-size: 13.2px;
         }
 
+        .status-clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        .status-clickable:hover {
+            background-color: rgba(31, 41, 55, 0.1);
+            text-decoration: underline;
+        }
+
+        /* ===== MODAL DÉTAILS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #dadce0;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #dadce0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-title {
+            font-size: 18.2px;
+            font-weight: 600;
+            color: #202124;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #5f6368;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #202124;
+        }
+
+        .modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-label {
+            font-size: 12.1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #5f6368;
+        }
+
+        .detail-value {
+            font-size: 14.3px;
+            color: #202124;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .detail-tag {
+            background-color: #FFFF00;
+            border: 1px solid #FFA500;
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 12.1px;
+            font-weight: 600;
+            color: black;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            padding: 0 24px 24px 24px;
+            border-top: 1px solid #dadce0;
+            margin-top: 16px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 13.2px;
+            font-weight: 600;
+            border: 1px solid #dadce0;
+            background-color: #ffffff;
+            color: #1a73e8;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-btn:hover {
+            background-color: #f8f9fa;
+            border-color: #1f2937;
+        }
+
+        .modal-btn-primary {
+            background-color: #1a73e8;
+            color: #ffffff;
+            border-color: #1a73e8;
+        }
+
+        .modal-btn-primary:hover {
+            background-color: #0d47a1;
+        }
+
         /* ===== FOOTER ===== */
         .footer {
             margin-top: 60px;
@@ -687,6 +850,50 @@
             <!-- Footer -->
             <div class="footer">
                 <p>Tender-Tracker SAGA © 2026 | Veille Automatisée 24/7</p>
+            </div>
+        </div>
+
+        <!-- Modal Détails -->
+        <div class="modal-overlay" id="detailsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle">Détails de la Détection</h2>
+                    <button class="modal-close" onclick="closeDetailsModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-section">
+                        <div class="detail-label">Pays</div>
+                        <div class="detail-value" id="modalCountry">-</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Source</div>
+                        <div class="detail-value" id="modalSource">-</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Statut</div>
+                        <div class="detail-value" id="modalStatus">-</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Titre Détecté</div>
+                        <div class="detail-value" id="modalTitle2">-</div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Mots-clés Détectés</div>
+                        <div class="detail-tags" id="modalKeywords"></div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-label">Date de Détection</div>
+                        <div class="detail-value" id="modalDate">-</div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-primary" id="modalViewBtn" onclick="viewInViewer()">
+                        Voir avec Surlignage
+                    </button>
+                    <button class="modal-btn" id="modalLinkBtn" onclick="openDirectLink()">
+                        Ouvrir Directement
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1032,6 +1239,100 @@
             }
         }
 
+        // ===== GESTION DES DÉTAILS DE DÉTECTION =====
+        let currentDetectionData = {};
+        let currentSourceUrl = '';
+
+        function escapeQuote(str) {
+            if (!str) return '';
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        function showDetailsModal(country, url, detection) {
+            currentSourceUrl = url;
+            currentDetectionData = detection;
+
+            // Remplir la modal
+            document.getElementById('modalTitle').textContent = `Détails - ${country}`;
+            document.getElementById('modalCountry').textContent = country;
+            document.getElementById('modalSource').innerHTML = `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" style="color: #1a73e8; text-decoration: none;">${escapeHtml(url)}</a>`;
+
+            // Statut
+            const status = detection.status === '404' ? 'Page Inactive' : 'Offre Détectée';
+            const statusColor = detection.status === '404' ? '#d32f2f' : '#22863a';
+            document.getElementById('modalStatus').innerHTML = `<span style="color: ${statusColor}; font-weight: 600;">${status}</span>`;
+
+            // Titre
+            document.getElementById('modalTitle2').textContent = detection.title || 'Pas de titre disponible';
+
+            // Mots-clés
+            const keywordsContainer = document.getElementById('modalKeywords');
+            if (detection.matched_keywords && detection.matched_keywords.length > 0) {
+                keywordsContainer.innerHTML = detection.matched_keywords
+                    .map(kw => `<span class="detail-tag">${escapeHtml(kw)}</span>`)
+                    .join('');
+            } else {
+                keywordsContainer.innerHTML = '<span style="color: #80868b;">Aucun mot-clé détecté</span>';
+            }
+
+            // Date
+            const dateStr = detection.detected_at
+                ? new Date(detection.detected_at).toLocaleString('fr-FR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+                : 'Date inconnue';
+            document.getElementById('modalDate').textContent = dateStr;
+
+            // Afficher la modal
+            document.getElementById('detailsModal').classList.add('active');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.remove('active');
+        }
+
+        function viewInViewer() {
+            if (!currentSourceUrl || !currentDetectionData.matched_keywords) {
+                alert('Erreur: données manquantes');
+                return;
+            }
+            const viewerUrl = `viewer.html?url=${encodeURIComponent(currentSourceUrl)}&keywords=${encodeURIComponent(JSON.stringify(currentDetectionData.matched_keywords))}`;
+            window.open(viewerUrl, '_blank');
+            closeDetailsModal();
+        }
+
+        function openDirectLink() {
+            if (!currentSourceUrl) {
+                alert('Erreur: URL manquante');
+                return;
+            }
+            window.open(currentSourceUrl, '_blank');
+            closeDetailsModal();
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Fermer la modal quand on clique sur l'overlay
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('detailsModal');
+            if (event.target === modal) {
+                closeDetailsModal();
+            }
+        });
+
 // ===== AFFICHAGE DES MOTS-CLÉS =====
         function renderKeywords() {
             const keywordsList = document.getElementById('keywordsList');
@@ -1091,12 +1392,14 @@
                     // Vérifier s'il y a une détection 404
                     let statusHtml = '<span class="status-empty">−</span>';
                     let detectedKeywords = [];
+                    let detectionData = {};
                     if (hasDetection) {
                         const detection = detectionsMap[source.country][0];
+                        detectionData = detection;
                         if (detection.status === '404') {
-                            statusHtml = '<span class="status-inactive">Page inactive</span>';
+                            statusHtml = `<span class="status-inactive status-clickable" onclick="showDetailsModal('${escapeQuote(source.country)}', '${escapeQuote(source.url)}', ${JSON.stringify(detection).replace(/'/g, "&apos;")})">Page inactive</span>`;
                         } else {
-                            statusHtml = '<span class="status-alert">Offre</span>';
+                            statusHtml = `<span class="status-alert status-clickable" onclick="showDetailsModal('${escapeQuote(source.country)}', '${escapeQuote(source.url)}', ${JSON.stringify(detection).replace(/'/g, "&apos;")})">Offre</span>`;
                             detectedKeywords = detection.matched_keywords || [];
                         }
                     }
