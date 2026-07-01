@@ -894,17 +894,6 @@
   ],
   "tenders": [
     {
-      "id": "27b14c196b9aad86272d95508656d3a2",
-      "country": "Cayman Islands",
-      "title": "Page inactive - Ressource indisponible",
-      "url": "https://cayman.bonfirehub.com/portal/?tab=openOpportunities",
-      "detected_at": "2026-07-01T13:36:07.945071",
-      "matched_keywords": [
-        "404"
-      ],
-      "status": "404"
-    },
-    {
       "id": "31fe00d1caa57f46c73c27ee26c4ed0b",
       "country": "Bénin",
       "title": "Page inactive - Ressource indisponible",
