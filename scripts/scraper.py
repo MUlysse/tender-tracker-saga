@@ -478,13 +478,13 @@ def extract_tender_info(url, html_content, country, source_keywords):
         if best_detection and best_score >= 75:
             text, matched_kw, score = best_detection
 
-            tender_hash = hashlib.md5(f"{url}{datetime.now().isoformat()}".encode()).hexdigest()
+            tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
             tenders.append({
                 'id': tender_hash,
                 'country': country,
                 'title': text[:150] if text else 'Opportunité détectée',
                 'url': url,
-                'detected_at': datetime.now().isoformat(),
+                'detected_at': datetime.utcnow().isoformat(),
                 'matched_keywords': list(set(matched_kw[:5])),
                 'confidence': round(score, 1)
             })
@@ -567,7 +567,7 @@ def send_webhook_notification(new_tenders):
                     'title': f"{tender['country']} - {tender['title'][:80]}",
                     'description': f"URL: {tender['url']}\n\nMots-clés: {', '.join(tender.get('matched_keywords', [])[:3])}",
                     'color': 0,
-                    'footer': {'text': f"Détecté: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} UTC"}
+                    'footer': {'text': f"Détecté: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC"}
                 }
                 for tender in new_tenders
             ]
@@ -640,7 +640,7 @@ def main():
     updated_data = {
         'sources': sources,
         'tenders': all_tenders,
-        'last_updated': datetime.now().isoformat(),
+        'last_updated': datetime.utcnow().isoformat(),
         'new_tenders_count': len(new_tenders)
     }
 
