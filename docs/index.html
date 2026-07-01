@@ -501,6 +501,35 @@
             font-size: 13.2px;
         }
 
+        .keywords-cell {
+            padding: 15.4px 17.6px;
+            font-size: 12.1px;
+            max-width: 300px;
+        }
+
+        .keywords-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .keyword-badge {
+            background-color: #FFFF00;
+            border: 1px solid #FFA500;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: black;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .keywords-empty {
+            color: #dadce0;
+            font-weight: 400;
+        }
+
         .status-clickable {
             cursor: pointer;
             transition: all 0.2s ease;
@@ -1217,6 +1246,7 @@
                                     <th>Pays</th>
                                     <th>Lien</th>
                                     <th>Alerte</th>
+                                    <th>Mots-clés</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1232,15 +1262,9 @@
                         const detection = detectionsMap[source.country][0];
                         const firstKeyword = detection.matched_keywords && detection.matched_keywords.length > 0 ? detection.matched_keywords[0] : '';
                             if (detection.status === '404') {
-                            const keywordsStr = detection.matched_keywords && detection.matched_keywords.length > 0
-                                ? ` [${detection.matched_keywords.slice(0, 3).join(', ')}]`
-                                : '';
-                            statusHtml = `<span class="status-inactive">Page inactive${keywordsStr}</span>`;
+                            statusHtml = `<span class="status-inactive">Page inactive</span>`;
                         } else {
-                            const keywordsStr = detection.matched_keywords && detection.matched_keywords.length > 0
-                                ? ` [${detection.matched_keywords.slice(0, 3).join(', ')}]`
-                                : '';
-                            statusHtml = `<span class="status-alert">Offre${keywordsStr}</span>`;
+                            statusHtml = `<span class="status-alert">Offre</span>`;
                             detectedKeywords = detection.matched_keywords || [];
                         }
                     }
@@ -1252,11 +1276,16 @@
 
                     const rowClass = isUnavailable ? ' class="unavailable"' : '';
 
+                    const keywordsHtml = detectedKeywords && detectedKeywords.length > 0
+                        ? `<div class="keywords-display">${detectedKeywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('')}</div>`
+                        : '<span class="keywords-empty">−</span>';
+
                     html += `
                         <tr${rowClass}>
                             <td class="country-cell">${source.country}</td>
                             <td class="url-cell">${urlHtml}</td>
                             <td class="status-cell">${statusHtml}</td>
+                            <td class="keywords-cell">${keywordsHtml}</td>
                         </tr>
                     `;
                 });

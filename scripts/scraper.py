@@ -23,7 +23,6 @@ TARGET_KEYWORDS = [
     'gestion des finances publiques',
     'dette souveraine',
     'restructuration de dette',
-    'marchés publics',
     'finances publiques',
     'budgétisation',
     'mobilisation de ressources',
@@ -56,7 +55,6 @@ TARGET_KEYWORDS = [
     'pfm',
     'sovereign debt',
     'debt restructuring',
-    'public procurement',
     'tax administration',
     'revenue mobilization',
     'tax expertise',
@@ -86,7 +84,6 @@ TARGET_KEYWORDS = [
     'gestión de finanzas públicas',
     'deuda soberana',
     'reestructuración de deuda',
-    'contratación pública',
     'administración tributaria',
     'movilización de recursos',
     'modernización tributaria',
@@ -172,7 +169,8 @@ ERROR_404_MESSAGES = [
     # Anglais
     'page not found',
     'this page no longer exists',
-    '404',
+    'error 404',
+    '404 error',
     'not found',
     'resource not available',
     'broken link',
@@ -274,38 +272,50 @@ def is_element_visible(tag):
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
-    Extrait les informations de tender du HTML avec détection multilingue.
-    TRÈS STRICT : Scanne SEULEMENT les éléments vraiment visibles.
+    ULTRA STRICT : Extrait SEULEMENT le texte vraiment visible sur la page.
+    Ne scanne QUE le titre et les en-têtes principaux.
     Retourne une liste de tenders détectés.
     """
     tenders = []
     soup = BeautifulSoup(html_content, 'html.parser')
 
     try:
-        # Enlever TOUT sauf le contenu principal
-        for element in soup(['script', 'style', 'noscript', 'meta', 'link', 'button', 'nav', 'footer', 'header']):
+        # Enlever TOUT le code non-visible
+        for element in soup(['script', 'style', 'noscript', 'meta', 'link', 'button', 'nav', 'footer', 'header', 'svg', 'iframe', 'form', 'input']):
             element.decompose()
 
         # Recherche des éléments contenant les mots-clés
         relevant_texts = []
 
-        # TRÈS STRICT : Scanner SEULEMENT les titres et contenus directs
-        strict_selectors = soup.find_all(['title', 'h1', 'h2', 'h3'])
-
-        for tag in strict_selectors:
-            text = tag.get_text(strip=True)
+        # ULTRA STRICT : Scanner SEULEMENT le titre de la page (le plus fiable)
+        title_tag = soup.find('title')
+        if title_tag:
+            text = title_tag.get_text(strip=True)
             if text and len(text) > 5:
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
                     relevant_texts.append((text, matched_kw))
 
-        # Si rien trouvé dans les titres, chercher dans les paragraphes de contenu direct
+        # Si rien trouvé, chercher UNIQUEMENT dans h1 (titre principal visible)
         if not relevant_texts:
-            for tag in soup.find_all('p'):
+            h1_tags = soup.find_all('h1')
+            for tag in h1_tags:
                 if not is_element_visible(tag):
                     continue
                 text = tag.get_text(strip=True)
-                if text and len(text) > 20:  # Plus strict : min 20 caractères
+                if text and len(text) > 5:
+                    matched_kw = contains_target_keywords(text)
+                    if matched_kw:
+                        relevant_texts.append((text, matched_kw))
+
+        # Si TOUJOURS rien, chercher dans h2 (titre secondaire visible)
+        if not relevant_texts:
+            h2_tags = soup.find_all('h2')
+            for tag in h2_tags[:5]:  # Maximum 5 h2
+                if not is_element_visible(tag):
+                    continue
+                text = tag.get_text(strip=True)
+                if text and len(text) > 8:
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
                         relevant_texts.append((text, matched_kw))
