@@ -275,40 +275,40 @@ def is_element_visible(tag):
 def extract_tender_info(url, html_content, country, source_keywords):
     """
     Extrait les informations de tender du HTML avec détection multilingue.
-    SEULEMENT le texte VISIBLE est scanné (pas le code HTML caché).
+    TRÈS STRICT : Scanne SEULEMENT les éléments vraiment visibles.
     Retourne une liste de tenders détectés.
     """
     tenders = []
     soup = BeautifulSoup(html_content, 'html.parser')
 
     try:
-        # Enlever les scripts, styles, et éléments cachés pour ne pas les parser
-        for element in soup(['script', 'style', 'noscript']):
+        # Enlever TOUT sauf le contenu principal
+        for element in soup(['script', 'style', 'noscript', 'meta', 'link', 'button', 'nav', 'footer', 'header']):
             element.decompose()
 
         # Recherche des éléments contenant les mots-clés
         relevant_texts = []
 
-        # Parcourt le contenu du body - chercher dans les tags textuels VISIBLES
-        for tag in soup.find_all(['p', 'td', 'li', 'div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'button', 'strong', 'em']):
-            # IMPORTANT: Vérifier que l'élément est VRAIMENT visible
-            if not is_element_visible(tag):
-                continue
+        # TRÈS STRICT : Scanner SEULEMENT les titres et contenus directs
+        strict_selectors = soup.find_all(['title', 'h1', 'h2', 'h3'])
 
+        for tag in strict_selectors:
             text = tag.get_text(strip=True)
             if text and len(text) > 5:
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
                     relevant_texts.append((text, matched_kw))
 
-        # Également chercher dans le titre de la page (toujours visible)
-        title_tag = soup.find('title')
-        if title_tag:
-            title_text = title_tag.get_text(strip=True)
-            if title_text:
-                matched_kw = contains_target_keywords(title_text)
-                if matched_kw:
-                    relevant_texts.append((title_text, matched_kw))
+        # Si rien trouvé dans les titres, chercher dans les paragraphes de contenu direct
+        if not relevant_texts:
+            for tag in soup.find_all('p'):
+                if not is_element_visible(tag):
+                    continue
+                text = tag.get_text(strip=True)
+                if text and len(text) > 20:  # Plus strict : min 20 caractères
+                    matched_kw = contains_target_keywords(text)
+                    if matched_kw:
+                        relevant_texts.append((text, matched_kw))
 
         # Créer un tender si au moins UN mot-clé est détecté sur la page
         if relevant_texts:
