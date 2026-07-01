@@ -238,54 +238,83 @@ def contains_target_keywords(text):
 
 def is_element_visible(tag):
     """
-    Vérifie si un élément est réellement visible (pas caché par CSS/HTML).
-    STRICT: Filtrer le contenu non-visible, attributs data-*, commentaires.
+    ULTRA-STRICT: Vérifie qu'un élément est VRAIMENT visible à l'écran.
+    Retourne False si caché par CSS, HTML, ou structure.
+    ⚠️ ZÉRO contenu template/caché/dynamique.
     """
-    if not tag:
+    if not tag or not hasattr(tag, 'name'):
         return False
 
-    # ===== EXCLUSIONS STRICTES =====
-    # Ignorer les éléments de structure
-    if tag.name in ['script', 'style', 'noscript', 'meta', 'link', 'nav', 'footer', 'svg', 'canvas']:
+    # ===== EXCLUSIONS ABSOLUES =====
+    # Balises de structure/métadonnées
+    if tag.name in ['script', 'style', 'noscript', 'meta', 'link', 'nav',
+                     'footer', 'svg', 'canvas', 'iframe', 'embed', 'object']:
         return False
 
-    # Ignorer les commentaires HTML
-    if isinstance(tag, type(tag.string)) and tag.string:
+    # Attributs de dissimulation
+    if tag.get('hidden') or tag.get('aria-hidden') == 'true':
+        return False
+    if tag.get('data-hidden') or tag.get('v-show') == 'false':
         return False
 
-    # Ignorer les éléments avec data-* (contenu template/caché)
-    for attr in tag.attrs:
-        if attr.startswith('data-') and 'hidden' in str(tag.attrs[attr]).lower():
-            return False
-
-    # ===== STYLES CACHÉS =====
+    # ===== STYLES CACHÉS (ULTRA-COMPLET) =====
     style = tag.get('style', '')
     if style:
-        style_lower = style.lower()
-        if 'display:none' in style_lower or 'display: none' in style_lower:
-            return False
-        if 'visibility:hidden' in style_lower or 'visibility: hidden' in style_lower:
-            return False
-        if 'height:0' in style_lower or 'width:0' in style_lower:
+        style_normalized = style.lower().replace(' ', '')
+
+        # Visibility
+        if 'visibility:hidden' in style_normalized or 'visibility:collapse' in style_normalized:
             return False
 
-    # Ignorer aria-hidden
-    if tag.get('aria-hidden') == 'true':
-        return False
-    if tag.get('data-hidden'):
+        # Display
+        if 'display:none' in style_normalized:
+            return False
+
+        # Dimensions zéro
+        if 'height:0' in style_normalized or 'width:0' in style_normalized:
+            return False
+        if 'max-height:0' in style_normalized or 'max-width:0' in style_normalized:
+            return False
+
+        # Opacity zéro
+        if 'opacity:0' in style_normalized:
+            return False
+
+        # Clip/overflow
+        if 'clip:rect(0' in style_normalized or 'clip-path:inset(100%)' in style_normalized:
+            return False
+
+        # Position absolue en dehors
+        if 'position:absolute' in style_normalized and \
+           ('left:-' in style_normalized or 'top:-' in style_normalized or 'right:-' in style_normalized):
+            return False
+
+        # Transform translate très loin
+        if 'transform:translate' in style_normalized and '-9999' in style_normalized:
+            return False
+
+    # ===== CONTENU VIDE =====
+    text = tag.get_text(strip=True)
+    if not text or len(text) < 3:
         return False
 
-    # ===== VÉRIFIER LES PARENTS CACHÉS =====
+    # ===== VÉRIFIER LES PARENTS =====
     parent = tag.parent
     depth = 0
-    while parent and parent.name and parent.name != 'html' and depth < 10:
+    while parent and hasattr(parent, 'name') and parent.name and parent.name != 'html' and depth < 15:
+        # Parent caché par display
         parent_style = parent.get('style', '')
         if parent_style:
-            parent_style_lower = parent_style.lower()
-            if 'display:none' in parent_style_lower or 'display: none' in parent_style_lower:
+            parent_style_norm = parent_style.lower().replace(' ', '')
+            if 'display:none' in parent_style_norm or 'visibility:hidden' in parent_style_norm:
                 return False
+            if 'height:0' in parent_style_norm or 'opacity:0' in parent_style_norm:
+                return False
+
+        # Parent avec aria-hidden
         if parent.get('aria-hidden') == 'true':
             return False
+
         parent = parent.parent
         depth += 1
 
@@ -293,44 +322,75 @@ def is_element_visible(tag):
 
 def calculate_confidence_score(text, matched_keywords, element_type, keyword_count):
     """
-    Calcule un score de confiance pour une détection (0-100).
-    Basé sur: type d'élément, nombre de mots-clés, longueur du texte.
+    Score de confiance (0-100) basé sur:
+    - Type d'élément (fiabilité hiérarchique)
+    - Nombre de mots-clés (pertinence)
+    - Longueur du texte (substance)
+
+    SEUIL DE PASSAGE: 60% minimum
     """
     score = 0
 
-    # Score par type d'élément (hiérarchie de fiabilité)
+    # 1. SCORE PAR TYPE (base de confiance)
+    # Plus haut = plus visible à l'utilisateur
     element_scores = {
-        'title': 95,
-        'h1': 90,
-        'h2': 85,
-        'h3': 80,
-        'p': 70,
-        'li': 65,
-        'div': 50,
-        'span': 40
+        'title':  95,  # Titre page = ultra-visible
+        'h1':     90,  # Heading 1 = très visible
+        'h2':     85,  # Heading 2 = visible
+        'h3':     80,  # Heading 3 = visible
+        'h4':     75,
+        'p':      70,  # Paragraphe = standard
+        'li':     65,  # Liste = standard
+        'span':   55,  # Span = potentiellement caché
+        'div':    50,  # Div = très variable
     }
-    score += element_scores.get(element_type, 50)
+    base_score = element_scores.get(element_type, 40)
+    score += base_score
 
-    # Bonus pour nombre de mots-clés
-    if keyword_count >= 3:
+    # 2. BONUS PAR NOMBRE DE MOTS-CLÉS
+    # Plus de mots-clés = moins de chance d'être un faux positif
+    if keyword_count >= 4:
+        score += 20
+    elif keyword_count == 3:
         score += 15
     elif keyword_count == 2:
         score += 8
     elif keyword_count == 1:
         score += 0
 
-    # Bonus pour longueur du texte (plus long = moins suspect)
+    # 3. BONUS PAR LONGUEUR DU TEXTE
+    # Texte court = suspect, texte long = substance
     text_len = len(text.strip())
-    if text_len > 100:
+    if text_len > 200:
+        score += 15
+    elif text_len > 100:
         score += 10
     elif text_len > 50:
         score += 5
+    elif text_len < 15:
+        score -= 10  # Pénalité si trop court
 
-    # Pénalité si contient des caractères suspects
-    if '<?php' in text or '{%' in text or '{{' in text:
+    # 4. PÉNALITÉS
+    text_lower = text.lower()
+
+    # Pénalité: contenu template
+    if '<?php' in text or '{%' in text or '{{' in text or '<%' in text:
+        score -= 40
+
+    # Pénalité: contient du code
+    if 'function(' in text or 'var ' in text or 'const ' in text:
         score -= 30
 
-    return min(score, 100)
+    # Pénalité: URL ou chemin fichier seul
+    if text.startswith('http://') or text.startswith('https://') or text.startswith('/'):
+        score -= 25
+
+    # Pénalité: classe CSS ou ID seul
+    if text.startswith('.') or text.startswith('#'):
+        score -= 20
+
+    # Cap à 100, min à 0
+    return max(0, min(score, 100))
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
@@ -348,11 +408,11 @@ def extract_tender_info(url, html_content, country, source_keywords):
         best_detection = None
         best_score = 0
 
-        # 1. Titre (priorité haute)
+        # 1. TITRE (confiance max: 95)
         title_tag = soup.find('title')
-        if title_tag:
+        if title_tag and is_element_visible(title_tag):
             text = title_tag.get_text(strip=True)
-            if text and len(text) > 5 and is_element_visible(title_tag):
+            if text and len(text) > 5:
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
                     score = calculate_confidence_score(text, matched_kw, 'title', len(matched_kw))
@@ -390,8 +450,8 @@ def extract_tender_info(url, html_content, country, source_keywords):
                             best_score = score
                             best_detection = (text, matched_kw, score)
 
-        # 4. Paragraphes visibles
-        if best_score < 65:
+        # 4. PARAGRAPHES (contenu principal)
+        if best_score < 70:
             main_content = soup.find('main') or soup.find('article') or soup.find('body')
             if main_content:
                 p_count = 0
@@ -399,27 +459,27 @@ def extract_tender_info(url, html_content, country, source_keywords):
                     if not is_element_visible(p_tag):
                         continue
                     text = p_tag.get_text(strip=True)
-                    if text and len(text) > 15:
+                    if text and len(text) > 20:  # Min 20 cars pour éviter du contenu vide
                         matched_kw = contains_target_keywords(text)
                         if matched_kw:
                             score = calculate_confidence_score(text, matched_kw, 'p', len(matched_kw))
                             if score > best_score:
                                 best_score = score
                                 best_detection = (text, matched_kw, score)
-                            if score >= 75:
+                            if score >= 80:  # Seuil de satisfaction
                                 break
                     p_count += 1
-                    if p_count >= 15:
+                    if p_count >= 20:
                         break
 
-        # 5. Listes (li)
-        if best_score < 60:
+        # 5. LISTES (li) - contenu secondaire
+        if best_score < 65:
             li_count = 0
             for li_tag in soup.find_all('li'):
                 if not is_element_visible(li_tag):
                     continue
                 text = li_tag.get_text(strip=True)
-                if text and len(text) > 15:
+                if text and len(text) > 20:  # Min 20 cars
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
                         score = calculate_confidence_score(text, matched_kw, 'li', len(matched_kw))
@@ -427,17 +487,19 @@ def extract_tender_info(url, html_content, country, source_keywords):
                             best_score = score
                             best_detection = (text, matched_kw, score)
                 li_count += 1
-                if li_count >= 20:
+                if li_count >= 25:
                     break
 
-        # 6. Divs (dernier recours)
-        if best_score < 55:
+        # 6. DIVS (dernier recours - content wrapper)
+        # ⚠️ Très strict: doit avoir BEAUCOUP de contenu pour passer
+        if best_score < 60:
             div_count = 0
             for div_tag in soup.find_all('div'):
                 if not is_element_visible(div_tag):
                     continue
                 text = div_tag.get_text(strip=True)
-                if text and len(text) > 30:
+                # Divs: min 40 cars pour éviter les micro-éléments
+                if text and len(text) > 40:
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
                         score = calculate_confidence_score(text, matched_kw, 'div', len(matched_kw))
@@ -445,11 +507,12 @@ def extract_tender_info(url, html_content, country, source_keywords):
                             best_score = score
                             best_detection = (text, matched_kw, score)
                 div_count += 1
-                if div_count >= 25:
+                if div_count >= 30:
                     break
 
-        # CRÉATION : seulement si confiance ≥ 60%
-        if best_detection and best_score >= 60:
+        # CRÉATION : seulement si confiance ≥ 65%
+        # ⚠️ SEUIL STRICT pour zéro faux positif
+        if best_detection and best_score >= 65:
             text, matched_kw, score = best_detection
 
             tender_hash = hashlib.md5(f"{url}{datetime.now().isoformat()}".encode()).hexdigest()
