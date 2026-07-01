@@ -894,11 +894,22 @@
   ],
   "tenders": [
     {
+      "id": "27b14c196b9aad86272d95508656d3a2",
+      "country": "Cayman Islands",
+      "title": "Page inactive - Ressource indisponible",
+      "url": "https://cayman.bonfirehub.com/portal/?tab=openOpportunities",
+      "detected_at": "2026-07-01T14:30:05.694477",
+      "matched_keywords": [
+        "404"
+      ],
+      "status": "404"
+    },
+    {
       "id": "31fe00d1caa57f46c73c27ee26c4ed0b",
       "country": "Bénin",
       "title": "Page inactive - Ressource indisponible",
       "url": "https://marches-publics.bj/appels-doffres",
-      "detected_at": "2026-07-01T13:36:34.404241",
+      "detected_at": "2026-07-01T14:30:30.318316",
       "matched_keywords": [
         "404"
       ],
@@ -909,13 +920,13 @@
       "country": "Lesotho",
       "title": "Page inactive - Ressource indisponible",
       "url": "https://www.gov.ls/documents/tenders/",
-      "detected_at": "2026-07-01T13:38:24.833279",
+      "detected_at": "2026-07-01T14:32:42.285782",
       "matched_keywords": [
         "404"
       ],
       "status": "404"
     }
   ],
-  "last_updated": "2026-07-01T13:40:24.624594",
-  "new_tenders_count": 0
+  "last_updated": "2026-07-01T14:34:52.764930",
+  "new_tenders_count": 1
 }
