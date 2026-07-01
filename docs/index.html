@@ -523,25 +523,15 @@
         }
 
         .keywords-display {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0px;
+            display: none;
         }
 
         .keyword-badge {
-            background-color: transparent;
-            border: none;
-            border-radius: 0;
-            padding: 0px;
-            font-size: 12.1px;
-            font-weight: 400;
-            color: #000000;
-            white-space: nowrap;
-            display: inline;
+            display: none;
         }
 
         .keyword-badge:after {
-            content: ', ';
+            content: '';
         }
 
         .keyword-badge:last-child:after {
@@ -695,13 +685,7 @@
         }
 
         .detail-tag {
-            background-color: transparent;
-            border: none;
-            border-radius: 0px;
-            padding: 0px;
-            font-size: 12.1px;
-            font-weight: 400;
-            color: #000000;
+            display: none;
         }
 
         .modal-actions {
@@ -1221,23 +1205,15 @@
                     });
                 }
 
-                // Afficher "il y a X temps" pour le dernier workflow
+                // Afficher date/heure précise du dernier workflow
                 if (data.last_updated) {
                     const updateDate = new Date(data.last_updated);
-                    const now = new Date();
-                    const diffMs = now - updateDate;
-                    const diffMinutes = Math.floor(diffMs / 60000);
-                    const diffHours = Math.floor(diffMinutes / 60);
-                    const diffDays = Math.floor(diffHours / 24);
-
-                    let timeStr;
-                    if (diffDays > 0) {
-                        timeStr = `il y a ${diffDays}j`;
-                    } else if (diffHours > 0) {
-                        timeStr = `il y a ${diffHours}h`;
-                    } else {
-                        timeStr = `il y a ${diffMinutes}m`;
-                    }
+                    const year = updateDate.getUTCFullYear();
+                    const month = String(updateDate.getUTCMonth() + 1).padStart(2, '0');
+                    const day = String(updateDate.getUTCDate()).padStart(2, '0');
+                    const hours = String(updateDate.getUTCHours()).padStart(2, '0');
+                    const minutes = String(updateDate.getUTCMinutes()).padStart(2, '0');
+                    const timeStr = `${day}/${month}/${year} ${hours}:${minutes}`;
                     document.getElementById('lastScanTime').textContent = timeStr;
 
                     // Démarrer le décompte basé sur last_updated
