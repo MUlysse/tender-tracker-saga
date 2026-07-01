@@ -38,7 +38,6 @@ TARGET_KEYWORDS = [
     'montant a',
     'montant b',
     'taxe sur les services numériques',
-    'tsn',
     'juridiction du marché',
     'droits d\'imposition',
     'seuil de chiffre d\'affaires',
@@ -69,7 +68,6 @@ TARGET_KEYWORDS = [
     'amount a',
     'amount b',
     'digital services tax',
-    'dst',
     'market jurisdiction',
     'taxing rights',
     'revenue threshold',
@@ -154,41 +152,6 @@ TARGET_KEYWORDS = [
     'قواعد الارتباط',
     'النيكسوس',
     'إعادة تخصيص الأرباح'
-]
-
-# Messages d'erreur 404 multilingues
-ERROR_404_MESSAGES = [
-    # Français
-    'page n\'existe plus',
-    'cette page n\'existe plus',
-    'page not found',
-    'erreur 404',
-    'page non trouvée',
-    'ressource non disponible',
-    'lien cassé',
-    # Anglais
-    'page not found',
-    'this page no longer exists',
-    'error 404',
-    '404 error',
-    'not found',
-    'resource not available',
-    'broken link',
-    'the page you requested could not be found',
-    # Español
-    'página no encontrada',
-    'esta página ya no existe',
-    'recurso no disponible',
-    'enlace roto',
-    # Português
-    'página não encontrada',
-    'esta página não existe mais',
-    'recurso não disponível',
-    'link quebrado',
-    # Arabe
-    'لم يتم العثور على الصفحة',
-    'هذه الصفحة لا تعد موجودة',
-    'مورد غير متاح'
 ]
 
 # Configuration réseau
@@ -547,51 +510,25 @@ def scrape_portal(country, url):
         )
         response.encoding = 'utf-8'
 
-        # Détection d'erreur 404
+        # Pages 404 = ne pas inclure (elles ne sont pas des tenders)
         if response.status_code == 404:
-            tender_hash = hashlib.md5(f"{url}404".encode()).hexdigest()
-            tenders.append({
-                'id': tender_hash,
-                'country': country,
-                'title': 'Page inactive - Erreur 404',
-                'url': url,
-                'detected_at': datetime.now().isoformat(),
-                'matched_keywords': ['404'],
-                'status': '404'
-            })
-            print(f"   {country}: Page inactive (404)")
+            print(f"   {country}: 404 - ignoré")
             time.sleep(RATE_LIMIT_DELAY)
             return tenders
 
         response.raise_for_status()
 
         if response.status_code == 200:
-            # Vérifier aussi si le contenu contient des messages d'erreur 404
-            content_lower = response.text.lower()
-            has_404_message = any(msg.lower() in content_lower for msg in ERROR_404_MESSAGES)
+            # Scraper le contenu (pas de détection 404)
+            extracted = extract_tender_info(url, response.text, country, TARGET_KEYWORDS)
+            tenders.extend(extracted)
 
-            if has_404_message:
-                tender_hash = hashlib.md5(f"{url}404_content".encode()).hexdigest()
-                tenders.append({
-                    'id': tender_hash,
-                    'country': country,
-                    'title': 'Page inactive - Ressource indisponible',
-                    'url': url,
-                    'detected_at': datetime.now().isoformat(),
-                    'matched_keywords': ['404'],
-                    'status': '404'
-                })
-                print(f"   {country}: Page inactive (contenu 404)")
+            if extracted:
+                keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
+                confidence = extracted[0].get('confidence', 'N/A')
+                print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
             else:
-                extracted = extract_tender_info(url, response.text, country, TARGET_KEYWORDS)
-                tenders.extend(extracted)
-
-                if extracted:
-                    keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
-                    confidence = extracted[0].get('confidence', 'N/A')
-                    print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
-                else:
-                    print(f"   {country}: − Aucune détection")
+                print(f"   {country}: − Aucune détection")
 
     except requests.exceptions.Timeout:
         print(f"   {country}: Timeout")
