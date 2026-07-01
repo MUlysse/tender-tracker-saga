@@ -1147,29 +1147,25 @@
                 clearInterval(countdownInterval);
             }
 
-            // Calculer le prochain scan basé sur le cron (toutes les 6h à partir de 0h UTC)
-            // Cron: '0 */6 * * *' = 0h, 6h, 12h, 18h UTC
+            // Calculer le prochain scan basé sur le cron (toutes les 6h: 0h, 6h, 12h, 18h UTC)
             const now = new Date();
             const currentHourUTC = now.getUTCHours();
-            const currentMinUTC = now.getUTCMinutes();
-            const currentSecUTC = now.getUTCSeconds();
 
-            // Calculer l'heure du prochain scan (multiple de 6h suivant)
-            let nextScanHour = Math.ceil(currentHourUTC / 6) * 6;
-            if (nextScanHour >= 24) {
-                nextScanHour = 0; // Demain à 0h
-            }
+            // Calcul: quel est le prochain multiple de 6?
+            // Si 0:00-5:59 → 6:00
+            // Si 6:00-11:59 → 12:00
+            // Si 12:00-17:59 → 18:00
+            // Si 18:00-23:59 → 0:00 (demain)
+
+            let nextScanHour = Math.floor(currentHourUTC / 6) * 6 + 6;
 
             nextScanTime = new Date(now);
             nextScanTime.setUTCHours(nextScanHour, 0, 0, 0);
 
-            // Si le prochain scan est passé aujourd'hui, prendre celui d'après (+ 6h)
-            if (nextScanTime <= now) {
-                nextScanTime.setUTCHours(nextScanHour + 6, 0, 0, 0);
-                if (nextScanTime.getUTCHours() >= 24) {
-                    nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
-                    nextScanTime.setUTCHours((nextScanHour + 6) % 24, 0, 0, 0);
-                }
+            // Si on passe minuit
+            if (nextScanHour >= 24) {
+                nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
+                nextScanTime.setUTCHours(nextScanHour % 24, 0, 0, 0);
             }
 
             // Mettre à jour immédiatement
@@ -1225,16 +1221,12 @@
                     });
                 }
 
-                // Mettre à jour l'heure du dernier scan
+                // Mettre à jour l'heure du dernier scan (format UTC)
                 if (data.last_updated) {
                     const updateDate = new Date(data.last_updated);
-                    const timeStr = updateDate.toLocaleString('fr-FR', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
+                    const hours = String(updateDate.getUTCHours()).padStart(2, '0');
+                    const minutes = String(updateDate.getUTCMinutes()).padStart(2, '0');
+                    const timeStr = `${hours}:${minutes} UTC`;
                     document.getElementById('lastScanTime').textContent = timeStr;
 
                     // Démarrer le décompte basé sur last_updated
