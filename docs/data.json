@@ -894,227 +894,223 @@
   ],
   "tenders": [
     {
-      "id": "ecc9ac9db66f6bd712dce3d59b7e50ed",
+      "id": "ba872960adfd70866ab7418ebfeb990f",
       "country": "Bahamas",
       "title": "PressThe GovernmentOverview and Structure of the GovernmentStructure of the Branches of GovernmentGovernor GeneralThe JudiciaryOverview of Judicial Br",
       "url": "https://www.bahamas.gov.bs/index.php/tender-and-tender-notices",
-      "detected_at": "2026-07-01T15:07:49.556710",
+      "detected_at": "2026-07-01T16:21:53.213861",
       "matched_keywords": [
         "tsn"
-      ]
+      ],
+      "confidence": 65
     },
     {
-      "id": "3e55b2d5083dc9ed1066ba4e59cb9d3e",
+      "id": "8b0fc452151b6cd197aa8e05404aa5f7",
       "country": "British Virgin Islands",
       "title": "Government of the Virgin IslandsThe No 1 Source For Government Information, News, & ServicesFacebookTwitterYoutubeTender NoticesTender Invitation for ",
       "url": "https://bvi.gov.vg/tags/tender-notices",
-      "detected_at": "2026-07-01T15:07:52.185266",
+      "detected_at": "2026-07-01T16:21:59.712776",
       "matched_keywords": [
         "dst"
-      ]
+      ],
+      "confidence": 65
     },
     {
       "id": "27b14c196b9aad86272d95508656d3a2",
       "country": "Cayman Islands",
       "title": "Page inactive - Ressource indisponible",
       "url": "https://cayman.bonfirehub.com/portal/?tab=openOpportunities",
-      "detected_at": "2026-07-01T15:07:53.756795",
+      "detected_at": "2026-07-01T16:22:01.461276",
       "matched_keywords": [
         "404"
       ],
       "status": "404"
     },
     {
-      "id": "de57db6ede86a541b464ba11dc7c1b0e",
+      "id": "7ab599bb94eda631024f006904a3a923",
       "country": "Gibraltar",
       "title": "PressPress releasesJob OpportunitiesTender AwardsTender NoticesOfficial NoticesGibraltar Fact SheetsContact Press Office",
       "url": "https://www.gibraltar.gov.gi/press/tender-notices?np=1",
-      "detected_at": "2026-07-01T15:08:05.910202",
+      "detected_at": "2026-07-01T16:22:14.375632",
       "matched_keywords": [
         "dst"
-      ]
+      ],
+      "confidence": 75
     },
     {
-      "id": "a505afb5ab447fd6a3e7ab399a77f2cd",
+      "id": "32a6c813b77374b3d99ecd6f80b2360c",
       "country": "Liechtenstein",
       "title": "DeEnAuf einen BlickFokusKontakt & MedienDatenschutzImpressumBarrierefreiheitWeihnachtenmilano-cortinaDeEnengagiert.Wir gehen unseren eigenen Weg und s",
       "url": "https://www.liechtenstein.li/",
-      "detected_at": "2026-07-01T15:08:08.102299",
+      "detected_at": "2026-07-01T16:22:17.101964",
       "matched_keywords": [
         "dst"
-      ]
+      ],
+      "confidence": 65
     },
     {
-      "id": "d5f625a40dcc4c4a1a193128d255289e",
+      "id": "95d8af84dbf641e99ea71ac94bf6e7db",
       "country": "Côte d'Ivoire",
       "title": "Numéro AOType de marchéObjetAutorité ContractanteDate de publicationDate limiteP 68/2022PRESTATIONSécurité privée des sites de la RTI\r\nRADIODIFFUSION ",
       "url": "https://www.marchespublics.ci/appel_offre",
-      "detected_at": "2026-07-01T15:08:10.633126",
+      "detected_at": "2026-07-01T16:22:20.098038",
       "matched_keywords": [
-        "dst",
-        "impôts"
-      ]
+        "impôts",
+        "dst"
+      ],
+      "confidence": 73
     },
     {
       "id": "31fe00d1caa57f46c73c27ee26c4ed0b",
       "country": "Bénin",
       "title": "Page inactive - Ressource indisponible",
       "url": "https://marches-publics.bj/appels-doffres",
-      "detected_at": "2026-07-01T15:08:14.493348",
+      "detected_at": "2026-07-01T16:22:24.345942",
       "matched_keywords": [
         "404"
       ],
       "status": "404"
     },
     {
-      "id": "d3be3e433b6f84f2b1dbaae8ad9f8ec8",
+      "id": "a29268138dd7769d7e28e6d14fd55c19",
       "country": "Mali",
       "title": "Nom Autorité ContractanteNom serviceLibellé du DossierDate du dossierDossierMINISTERE DE L'AGRICULTUREDIRECTION NATIONALE DU GENIE RURALTravaux d'amén",
       "url": "https://dgmp.gouv.ml/",
-      "detected_at": "2026-07-01T15:08:22.610454",
+      "detected_at": "2026-07-01T16:22:33.770998",
       "matched_keywords": [
         "drm",
-        "finances publiques",
-        "impôts"
-      ]
+        "impôts",
+        "finances publiques"
+      ],
+      "confidence": 100
     },
     {
-      "id": "641cb67d45514c32618bc4a6fa419303",
+      "id": "e318e2b9958999c69cdcc121c463fd30",
       "country": "Congo-Brazzaville",
       "title": "BOAMP - Bulletin Officiel des Marchés PublicsConsultez les marchés publics et accédez aux BOAMP par achat unitaire ou par abonnementAchat unitaire :15",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-01T15:08:46.085529",
+      "detected_at": "2026-07-01T16:22:57.040010",
       "matched_keywords": [
         "gestion des finances publiques",
         "finances publiques"
-      ]
+      ],
+      "confidence": 73
     },
     {
-      "id": "5746928b02dc77948253137c92d870a4",
+      "id": "979fd0d4a2628fc5eb99f6fa675e5e58",
       "country": "Kenya",
       "title": "Treasury Building, Nairobi+254 20 2252299pstnt@treasury.go.keSearchTreasury TendersTreasury TendersNo.Tender Ref No.Tender DescriptionStart DateClosin",
       "url": "https://www.treasury.go.ke/treasury-tenders?page=1",
-      "detected_at": "2026-07-01T15:09:03.583105",
+      "detected_at": "2026-07-01T16:23:11.551852",
       "matched_keywords": [
         "pfm"
-      ]
+      ],
+      "confidence": 65
     },
     {
-      "id": "b05438784a26ee9c3a28d311ec134478",
-      "country": "Uganda",
-      "title": "PDEsPDE PlansBID NoticesBEB NoticesContracts AwardedSuppliersProcurement NoticesDisposal NoticesBid OpeningBid ArchivesDisposal ArchivesBid Opening Ar",
-      "url": "https://egpuganda.go.ug/bid-notices",
-      "detected_at": "2026-07-01T15:09:11.441804",
-      "matched_keywords": [
-        "dst"
-      ]
-    },
-    {
-      "id": "6162f46585bd334734c93431e6422202",
+      "id": "94624b91a21c16dc5b77dd4ed374fb90",
       "country": "Malawi",
       "title": "Malawi Revenue Authority",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-01T15:09:51.430272",
+      "detected_at": "2026-07-01T16:24:11.578303",
       "matched_keywords": [
         "revenue authority"
-      ]
+      ],
+      "confidence": 65
     },
     {
-      "id": "4ff23ddc470c8b6fa7e02a7d2d4d2b13",
+      "id": "158a9886897795bc488179a7fca7d15f",
       "country": "Sierra Leone",
       "title": "Call on: + 232-75-902460Open Hours: Mon - Fri 8.00 am - 4.45 pmElectronic Government Procurement (E-GP)HomeLegal InstrumentsActs & RegulationsCircular",
       "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-01T15:09:53.400082",
+      "detected_at": "2026-07-01T16:24:14.031912",
       "matched_keywords": [
         "revenue authority",
         "dst",
         "pfm"
-      ]
+      ],
+      "confidence": 80
     },
     {
       "id": "b9165ca6f63ff200c0e7c36f86d9ca6c",
       "country": "Lesotho",
       "title": "Page inactive - Ressource indisponible",
       "url": "https://www.gov.ls/documents/tenders/",
-      "detected_at": "2026-07-01T15:10:02.555487",
+      "detected_at": "2026-07-01T16:24:29.196512",
       "matched_keywords": [
         "404"
       ],
       "status": "404"
     },
     {
-      "id": "7a5165deccc673df07914ca9901b5e1c",
+      "id": "1c229025e12a381bc1302b872db2b611",
       "country": "Zimbabwe",
       "title": "eGP SystemDate:Electronic Government Procurement System of ZimbabweTenders InformationLatest TendersPast TendersAward NoticesAnnual Procurement Plan--",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-01T15:10:06.094319",
+      "detected_at": "2026-07-01T16:24:32.867185",
       "matched_keywords": [
         "dst",
         "debt restructuring"
-      ]
+      ],
+      "confidence": 73
     },
     {
-      "id": "9e087edf449a1895476c4558df9bb6f0",
+      "id": "058efa11aff7321aedc65fc078f00352",
       "country": "Gambia",
       "title": "Official Procurement PortalFind and Win Public Tenders in The GambiaAccess high-value government contracts and bidding opportunities across all public",
       "url": "https://www.tenders.gm/",
-      "detected_at": "2026-07-01T15:10:07.815929",
+      "detected_at": "2026-07-01T16:24:35.415363",
       "matched_keywords": [
         "tsn"
-      ]
+      ],
+      "confidence": 65
     },
     {
-      "id": "585235d1e0e6800a7e2119b0d3943826",
+      "id": "1702f2ec06d44adfae66970fed97f1ef",
       "country": "Cap Vert",
-      "title": "Avaliação das Propostas na Contratação Pública",
+      "title": "BM reúne com ARAP para inteirar da situação da contratação pública em Cabo Verde",
       "url": "https://www.mf.gov.cv/web/ecompras",
-      "detected_at": "2026-07-01T15:10:29.514733",
+      "detected_at": "2026-07-01T16:24:54.493126",
       "matched_keywords": [
         "contratação pública"
-      ]
+      ],
+      "confidence": 75
     },
     {
-      "id": "9a4c7843a4a85613bd37992cbef52445",
-      "country": "Qatar",
-      "title": "Advanced SearchLoginRegisterRegister as an IndividualRegister as a CompanyRegister as a GovernmentRegister as a Turkish ManufacturerContact UsSite Map",
-      "url": "https://www.ashghal.gov.qa/en/Tenders/pages/ERPTenderDetailes.aspx?Status=Open",
-      "detected_at": "2026-07-01T15:11:19.659816",
-      "matched_keywords": [
-        "tsn"
-      ]
-    },
-    {
-      "id": "3b556c0ec13a946836ba2f07216f74dc",
+      "id": "906b92566dd83451b7abe87288d5ff8f",
       "country": "Bahreïn",
       "title": "eTendering LoginCreate an Account in eTenderingعربيSearchFind TendersSearchMinistryAll MinistriesAldana Amphitheatre B.S.C. (c)BAC Jet Fuel Company W.",
       "url": "https://www.tenderboard.gov.bh/",
-      "detected_at": "2026-07-01T15:11:24.351683",
+      "detected_at": "2026-07-01T16:25:45.007475",
       "matched_keywords": [
         "tsn",
         "dst"
-      ]
+      ],
+      "confidence": 73
     },
     {
-      "id": "c2564a9260e35ffc96c6a493a1fc0f64",
+      "id": "a80190e8c2c6ccc2c1ea4d349c834871",
       "country": "Singapour",
       "title": "A Singapore Government Agency WebsiteHow to identifyOfficial website links end with .gov.sgGovernment agencies communicate via.gov.sgwebsites(e.g. go.",
       "url": "https://www.gebiz.gov.sg/ptn/opportunity/opportunityDetails.xhtml",
-      "detected_at": "2026-07-01T15:11:44.262349",
+      "detected_at": "2026-07-01T16:26:06.806580",
       "matched_keywords": [
         "revenue authority"
-      ]
+      ],
+      "confidence": 65
     },
     {
-      "id": "71d63e9e471cd2894d0f6eabd0d29da8",
+      "id": "62303d2efa52838591f9550ee9302076",
       "country": "Onoris Journal",
       "title": "Le processus de restructuration de la dette souveraine du Venezuela, dont le montant total est évalué entre 150 et 200 milliards de dollars, fait actu",
       "url": "https://onoris-journal.com/",
-      "detected_at": "2026-07-01T15:12:05.750592",
+      "detected_at": "2026-07-01T16:26:29.220795",
       "matched_keywords": [
         "dette souveraine"
-      ]
+      ],
+      "confidence": 85
     }
   ],
-  "last_updated": "2026-07-01T15:12:06.751899",
-  "new_tenders_count": 18
+  "last_updated": "2026-07-01T16:26:30.221966",
+  "new_tenders_count": 16
 }
