@@ -1169,11 +1169,6 @@
             }
         }
 
-        // ===== OUVERTURE DES LIENS AVEC MOT-CLÉ =====
-        function openWithKeyword(launcherUrl) {
-            window.open(launcherUrl, '_blank');
-        }
-
 // ===== AFFICHAGE DES MOTS-CLÉS =====
         function renderKeywords() {
             const keywordsList = document.getElementById('keywordsList');
@@ -1236,12 +1231,16 @@
                     if (hasDetection) {
                         const detection = detectionsMap[source.country][0];
                         const firstKeyword = detection.matched_keywords && detection.matched_keywords.length > 0 ? detection.matched_keywords[0] : '';
-                        const launcherUrl = `launcher.html?url=${encodeURIComponent(source.url)}&keyword=${encodeURIComponent(firstKeyword)}`;
-
-                        if (detection.status === '404') {
-                            statusHtml = `<span class="status-inactive status-clickable" onclick="openWithKeyword('${launcherUrl.replace(/'/g, "\\'")}')">Page inactive</span>`;
+                            if (detection.status === '404') {
+                            const keywordsStr = detection.matched_keywords && detection.matched_keywords.length > 0
+                                ? ` [${detection.matched_keywords.slice(0, 3).join(', ')}]`
+                                : '';
+                            statusHtml = `<span class="status-inactive">Page inactive${keywordsStr}</span>`;
                         } else {
-                            statusHtml = `<span class="status-alert status-clickable" onclick="openWithKeyword('${launcherUrl.replace(/'/g, "\\'")}')">Offre</span>`;
+                            const keywordsStr = detection.matched_keywords && detection.matched_keywords.length > 0
+                                ? ` [${detection.matched_keywords.slice(0, 3).join(', ')}]`
+                                : '';
+                            statusHtml = `<span class="status-alert">Offre${keywordsStr}</span>`;
                             detectedKeywords = detection.matched_keywords || [];
                         }
                     }
