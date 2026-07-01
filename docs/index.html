@@ -1146,12 +1146,12 @@
             nextScanTime = new Date(now);
             nextScanTime.setUTCHours(nextScanHour, 0, 0, 0);
 
-            // Si le prochain scan est passé aujourd'hui, prendre celui d'après
+            // Si le prochain scan est passé aujourd'hui, prendre celui d'après (+ 6h)
             if (nextScanTime <= now) {
-                nextScanTime.setUTCHours(nextScanHour + 2, 0, 0, 0);
+                nextScanTime.setUTCHours(nextScanHour + 6, 0, 0, 0);
                 if (nextScanTime.getUTCHours() >= 24) {
                     nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
-                    nextScanTime.setUTCHours(0, 0, 0, 0);
+                    nextScanTime.setUTCHours((nextScanHour + 6) % 24, 0, 0, 0);
                 }
             }
 
