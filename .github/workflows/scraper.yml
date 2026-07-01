@@ -2,9 +2,12 @@ name: Tender-Tracker SAGA - Scraper
 
 on:
   schedule:
-    # Exécution toutes les 12 heures (0h et 12h UTC)
-    - cron: '0 0,12 * * *'
+    # Exécution toutes les 2 heures (gratuit et efficace)
+    # 12 scans/jour × ~4 min = 48 min/jour = 1440 min/mois < 2000 (quota gratuit)
+    - cron: '0 */2 * * *'
   workflow_dispatch: # Permet un lancement manuel depuis GitHub UI
+  repository_dispatch:
+    types: [run-scraper]  # Permet de déclencher via webhook
 
 jobs:
   scrape-tenders:
@@ -13,10 +16,11 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          persist-credentials: true
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -36,17 +40,26 @@ jobs:
         run: |
           python scripts/scraper.py
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Commit & Push Changes
         if: success()
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: '✅ Automated Tender Update - ${{ github.run_number }}'
-          commit_options: '--no-verify'
-          file_pattern: 'docs/data.json'
-          skip_fetch: false
-          skip_checkout: false
+        run: |
+          if git diff --quiet docs/data.json; then
+            echo "✅ No changes to commit"
+          else
+            echo "📝 Changes detected - committing..."
+            git add docs/data.json
+            git commit -m "✅ Automated Tender Update - Run #${{ github.run_number }}"
+            git push origin main
+            echo "✅ Changes pushed successfully"
+          fi
 
       - name: Notify Failure
         if: failure()
         run: |
-          echo "❌ Scraper failed - Check logs at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "❌ Scraper failed - Run: ${{ github.run_id }}"
+          echo "📋 Logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
