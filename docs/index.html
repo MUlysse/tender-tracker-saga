@@ -17,11 +17,11 @@
         }
 
         body {
-            font-family: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #ffffff;
-            color: #1a1a1a;
-            font-size: 16px;
-            line-height: 1.6;
+            color: #202124;
+            font-size: 14px;
+            line-height: 1.5;
         }
 
         /* ===== LOGIN SCREEN ===== */
@@ -35,23 +35,33 @@
 
         .login-box {
             width: 100%;
-            max-width: 400px;
-            padding: 60px 40px;
+            max-width: 360px;
+            padding: 48px 40px;
             text-align: center;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
         }
 
         .login-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 40px;
-            letter-spacing: -0.5px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .login-subtitle {
+            font-size: 12px;
+            color: #80868b;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
 
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
         }
 
         .input-group {
@@ -60,55 +70,58 @@
 
         .input-group label {
             display: block;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: #202124;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 16px 18px;
-            font-size: 18px;
-            border: 1px solid #d0d0d0;
+            padding: 12px 12px;
+            font-size: 14px;
+            border: 1px solid #dadce0;
             background-color: #ffffff;
-            color: #1a1a1a;
-            transition: border-color 0.2s ease;
+            color: #202124;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
             font-family: inherit;
+            border-radius: 2px;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #1a1a1a;
-            background-color: #fafafa;
+            border-color: #1f2937;
+            box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
         }
 
         .login-button {
-            padding: 16px 18px;
-            font-size: 16px;
+            padding: 12px 16px;
+            margin-top: 8px;
+            font-size: 14px;
             font-weight: 600;
             color: #ffffff;
-            background-color: #1a1a1a;
+            background-color: #1f2937;
             border: none;
             cursor: pointer;
             transition: background-color 0.2s ease;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
             font-family: inherit;
+            border-radius: 2px;
         }
 
         .login-button:hover {
-            background-color: #333333;
+            background-color: #111827;
         }
 
         .error-message {
-            font-size: 14px;
-            color: #8b0000;
+            font-size: 12px;
+            color: #d32f2f;
             text-align: center;
             display: none;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         /* ===== MAIN DASHBOARD ===== */
@@ -123,108 +136,122 @@
         }
 
         .main-container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 50px 60px;
+            padding: 40px 48px;
         }
 
         .header {
-            margin-bottom: 35px;
-            border-bottom: 1px solid #d0d0d0;
-            padding-bottom: 30px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid #dadce0;
+            padding-bottom: 20px;
         }
 
         h1 {
-            font-size: 42px;
-            font-weight: 700;
-            color: #1a1a1a;
-            letter-spacing: -1px;
-            margin-bottom: 5px;
+            font-size: 32px;
+            font-weight: 600;
+            color: #202124;
+            letter-spacing: -0.5px;
         }
 
         /* ===== ALERTES SECTION ===== */
         .alerts-section {
-            background-color: #fafafa;
-            border: 1px solid #e0e0e0;
-            border-left: 4px solid #1a1a1a;
-            padding: 22px 24px;
-            margin-bottom: 45px;
-            border-radius: 0;
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            padding: 16px;
+            margin-bottom: 32px;
         }
 
         .alerts-title {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            color: #1a1a1a;
-            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            color: #202124;
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 3px solid #1f2937;
         }
 
         .alerts-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .alert-item {
-            padding: 12px 16px;
+            padding: 12px;
             background-color: #ffffff;
-            border: 1px solid #e8e8e8;
-            border-left: 3px solid #1a1a1a;
-            font-size: 16px;
+            border: 1px solid #e8eaed;
+            border-left: 3px solid #1f2937;
+            border-radius: 2px;
+            font-size: 13px;
+            transition: background-color 0.15s ease;
+        }
+
+        .alert-item:hover {
+            background-color: #f8f9fa;
         }
 
         .alert-country {
             font-weight: 600;
-            color: #1a1a1a;
+            color: #202124;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
+            font-size: 13px;
         }
 
         .alert-title {
-            font-size: 15px;
-            color: #555555;
-            margin-bottom: 6px;
+            font-size: 12px;
+            color: #5f6368;
+            margin-bottom: 4px;
             line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .alert-keywords {
-            font-size: 13px;
-            color: #999999;
+            font-size: 11px;
+            color: #80868b;
             display: block;
         }
 
         .alerts-empty {
-            font-size: 16px;
-            color: #aaaaaa;
-            font-style: italic;
-            padding: 12px 0;
+            font-size: 13px;
+            color: #80868b;
+            padding: 8px 12px;
         }
 
         /* ===== TABLE ===== */
         .regions-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 50px;
+            gap: 40px;
         }
 
         .region-section {
             display: flex;
             flex-direction: column;
             gap: 0;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            overflow: hidden;
         }
 
         .region-title {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: #1a1a1a;
-            background-color: #f5f5f5;
-            padding: 14px 20px;
-            border-left: 4px solid #1a1a1a;
-            margin-bottom: 0;
+            letter-spacing: 0.5px;
+            color: #202124;
+            background-color: #f8f9fa;
+            padding: 12px 16px;
+            border-bottom: 1px solid #dadce0;
+            border-left: 3px solid #1f2937;
         }
 
         table {
@@ -233,175 +260,163 @@
             background-color: #ffffff;
         }
 
-        thead {
-            background-color: #f9f9f9;
-        }
-
         thead th {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            color: #666666;
-            padding: 16px 20px;
+            letter-spacing: 0.4px;
+            color: #5f6368;
+            padding: 12px 16px;
             text-align: left;
-            border-bottom: 2px solid #d0d0d0;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dadce0;
+            font-weight: 600;
         }
 
         tbody tr {
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e8eaed;
             transition: background-color 0.15s ease;
         }
 
         tbody tr:hover {
-            background-color: #f9f9f9;
+            background-color: #f8f9fa;
         }
 
         tbody tr.unavailable {
-            background-color: #fafafa;
+            background-color: #f8f9fa;
+            opacity: 0.7;
         }
 
         tbody td {
-            padding: 18px 20px;
-            font-size: 16px;
-            line-height: 1.6;
+            padding: 14px 16px;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
         .country-cell {
-            font-weight: 500;
-            color: #1a1a1a;
-            min-width: 200px;
+            font-weight: 600;
+            color: #202124;
+            width: 150px;
+            min-width: 150px;
+            flex-shrink: 0;
         }
 
         .url-cell {
-            color: #555555;
-            font-size: 17px;
-            max-width: 550px;
+            color: #5f6368;
+            font-size: 12px;
+            flex-grow: 1;
             word-break: break-word;
+            padding-right: 0;
         }
 
         .url-cell a {
-            color: #555555;
+            color: #1a73e8;
             text-decoration: none;
-            border-bottom: 1px solid #cccccc;
-            transition: border-color 0.2s ease;
+            transition: color 0.2s ease;
+            padding: 2px 0;
+            display: inline-block;
         }
 
         .url-cell a:hover {
-            border-bottom-color: #1a1a1a;
+            color: #0d47a1;
+            text-decoration: underline;
         }
 
         .url-unavailable {
-            color: #aaaaaa;
-            font-style: italic;
-            font-size: 16px;
+            color: #80868b;
+            font-size: 12px;
         }
 
         .status-cell {
             text-align: center;
-            min-width: 160px;
+            width: 140px;
+            min-width: 140px;
+            flex-shrink: 0;
             font-weight: 600;
-            color: #1a1a1a;
-            font-size: 18px;
+            color: #202124;
+            font-size: 12px;
+            padding-left: 20px;
         }
 
         .status-empty {
-            color: #d0d0d0;
+            color: #dadce0;
             font-weight: 400;
-            font-size: 17px;
+            font-size: 12px;
+        }
+
+        .status-alert {
+            color: #1f2937;
+            font-weight: 700;
         }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 1200px) {
             .main-container {
-                padding: 40px 40px;
-            }
-
-            h1 {
-                font-size: 36px;
-            }
-
-            tbody td {
-                padding: 16px 18px;
-                font-size: 15px;
-            }
-
-            thead th {
-                padding: 14px 18px;
+                padding: 32px 36px;
             }
 
             .url-cell {
-                max-width: 400px;
-                font-size: 15px;
+                max-width: 500px;
+                font-size: 12px;
             }
 
-            .alerts-section {
-                padding: 18px 20px;
+            tbody td {
+                padding: 12px 14px;
+                font-size: 12px;
             }
 
-            .alert-item {
+            thead th {
                 padding: 10px 14px;
-                font-size: 15px;
+                font-size: 10px;
             }
         }
 
         @media (max-width: 768px) {
             .main-container {
-                padding: 30px 20px;
+                padding: 24px 20px;
             }
 
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+            }
+
+            .login-box {
+                padding: 36px 28px;
             }
 
             tbody td, thead th {
-                padding: 14px 14px;
-                font-size: 14px;
-            }
-
-            thead th {
+                padding: 10px 12px;
                 font-size: 11px;
             }
 
             .url-cell {
-                max-width: 250px;
-                font-size: 14px;
+                max-width: 300px;
+                font-size: 11px;
             }
 
             .country-cell {
-                min-width: 140px;
+                width: 120px;
+                min-width: 120px;
             }
 
             .status-cell {
+                width: 120px;
                 min-width: 120px;
-                font-size: 14px;
-            }
-
-            .login-box {
-                padding: 40px 30px;
-            }
-
-            .login-title {
-                font-size: 28px;
-            }
-
-            .header {
-                margin-bottom: 25px;
-                padding-bottom: 20px;
+                font-size: 11px;
             }
 
             .regions-wrapper {
-                gap: 35px;
-            }
-
-            .alerts-section {
-                margin-bottom: 30px;
-                padding: 16px 18px;
+                gap: 28px;
             }
 
             .alert-item {
-                padding: 10px 12px;
-                font-size: 14px;
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            .alerts-section {
+                padding: 12px;
+                margin-bottom: 24px;
             }
         }
     </style>
@@ -410,7 +425,8 @@
     <!-- ===== LOGIN SCREEN ===== -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h2 class="login-title">TENDER-TRACKER SAGA</h2>
+            <h2 class="login-title">TENDER-TRACKER</h2>
+            <p class="login-subtitle">Accès Sécurisé</p>
 
             <form class="login-form" onsubmit="handleLogin(event)">
                 <div class="input-group">
@@ -418,15 +434,15 @@
                     <input
                         type="password"
                         id="passwordInput"
-                        placeholder="Entrez votre code"
+                        placeholder="••••••••"
                         required
                         autocomplete="off"
                     />
                 </div>
-                <button type="submit" class="login-button">Accéder</button>
+                <button type="submit" class="login-button">Connexion</button>
             </form>
 
-            <div class="error-message" id="errorMessage">Code incorrect</div>
+            <div class="error-message" id="errorMessage">Code incorrect. Réessayez.</div>
         </div>
     </div>
 
@@ -441,12 +457,13 @@
             <div class="alerts-section">
                 <div class="alerts-title">Dernières Alertes</div>
                 <div class="alerts-list" id="alertsList">
-                    <div class="alerts-empty">Chargement des alertes...</div>
+                    <div class="alerts-empty">Chargement...</div>
                 </div>
             </div>
 
+            <!-- Tableau des régions -->
             <div class="regions-wrapper" id="regionsContainer">
-                <p style="text-align: center; color: #999999; padding: 50px 0; font-size: 16px;">Chargement des données...</p>
+                <p style="text-align: center; color: #80868b; padding: 40px 0; font-size: 13px;">Chargement des données...</p>
             </div>
         </div>
     </div>
@@ -516,7 +533,7 @@
             } catch (error) {
                 console.error('Erreur:', error);
                 document.getElementById('regionsContainer').innerHTML =
-                    '<p style="text-align: center; color: #8b0000; padding: 50px 0; font-size: 16px;">Erreur lors du chargement des données</p>';
+                    '<p style="text-align: center; color: #d32f2f; padding: 40px 0; font-size: 13px;">Erreur lors du chargement des données</p>';
             }
         }
 
@@ -545,8 +562,8 @@
             // Trier par date (les plus récentes en premier)
             allDetections.sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at));
 
-            // Afficher max 10 dernières alertes
-            const recentAlerts = allDetections.slice(0, 10);
+            // Afficher max 8 dernières alertes
+            const recentAlerts = allDetections.slice(0, 8);
 
             if (recentAlerts.length === 0) {
                 alertsList.innerHTML = '<div class="alerts-empty">Aucune alerte détectée pour le moment</div>';
@@ -555,10 +572,7 @@
 
             let html = '';
             recentAlerts.forEach(alert => {
-                const detectedDate = new Date(alert.detected_at);
-                const timeStr = detectedDate.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
                 const keywordsStr = alert.keywords.slice(0, 2).join(', ');
-
                 html += `
                     <div class="alert-item">
                         <span class="alert-country">${alert.country}</span>
@@ -598,7 +612,7 @@
                                 <tr>
                                     <th>Pays</th>
                                     <th>Lien</th>
-                                    <th>Statut / Alerte</th>
+                                    <th>Alerte</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -607,8 +621,8 @@
                 countries.forEach(source => {
                     const hasDetection = detectionsMap[source.country] && detectionsMap[source.country].length > 0;
                     const statusHtml = hasDetection
-                        ? '<strong>NOUVELLE OFFRE</strong>'
-                        : '<span class="status-empty">-</span>';
+                        ? '<span class="status-alert">NOUVELLE OFFRE</span>'
+                        : '<span class="status-empty">−</span>';
 
                     const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
                     const urlHtml = isUnavailable
@@ -641,18 +655,12 @@
             document.getElementById('passwordInput').focus();
         });
 
-        // Auto-refresh toutes les 5 minutes (si authentifié)
+        // Auto-refresh toutes les 5 minutes
         setInterval(() => {
             if (document.getElementById('dashboard').classList.contains('active')) {
                 loadData();
             }
         }, 5 * 60 * 1000);
-
-        // SÉCURITÉ : Aucune mémorisation
-        // - Pas de localStorage
-        // - Pas de sessionStorage
-        // - Mot de passe demandé à chaque F5 / rechargement
-        // - Les données sont chargées en mémoire RAM uniquement
     </script>
 </body>
 </html>

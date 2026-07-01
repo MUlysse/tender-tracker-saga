@@ -30,6 +30,10 @@ TARGET_KEYWORDS = [
     'impôts',
     'collecte des impôts',
     'ressources fiscales',
+    'administration fiscale',
+    'modernisation fiscale',
+    'expertise fiscale',
+    'gestion des ressources publiques',
 
     # Anglais
     'domestic resource mobilization',
@@ -48,6 +52,8 @@ TARGET_KEYWORDS = [
     'beps',
     'customs modernization',
     'revenue authority',
+    'tax modernisation',
+    'tax modernization',
 
     # Espagnol
     'movilización de recursos internos',
@@ -59,6 +65,9 @@ TARGET_KEYWORDS = [
     'contratación pública',
     'administración tributaria',
     'movilización de recursos',
+    'modernización tributaria',
+    'experticia fiscal',
+    'gestión de recursos públicos',
 
     # Portugais
     'mobilização de recursos internos',
@@ -70,6 +79,9 @@ TARGET_KEYWORDS = [
     'contratação pública',
     'administração tributária',
     'mobilização de recursos',
+    'modernização tributária',
+    'expertise fiscal',
+    'gestão de recursos públicos',
 
     # Arabe
     'تعبئة الموارد',
@@ -79,7 +91,11 @@ TARGET_KEYWORDS = [
     'الدين العام',
     'التعاقدات العمومية',
     'الموارد المحلية',
-    'الإيرادات الضريبية'
+    'الإيرادات الضريبية',
+    'إدارة الضرائب',
+    'تحديث النظام الضريبي',
+    'خبرة ضريبية',
+    'إدارة الموارد العامة'
 ]
 
 # Configuration réseau
