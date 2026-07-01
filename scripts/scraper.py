@@ -272,9 +272,9 @@ def is_element_visible(tag):
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
-    ÉQUILIBRÉ : Scanne le texte visible sans être trop strict.
-    Cherche dans : titre, en-têtes, contenu principal visible.
-    Retourne une liste de tenders détectés.
+    CALIBRÉ : Scanne le texte visible en ordre de pertinence.
+    Hiérarchie : titre > h1 > h2/h3 > paragraphes > listes > divs.
+    Équilibre : détecte assez sans sur-scanner.
     """
     tenders = []
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -284,19 +284,18 @@ def extract_tender_info(url, html_content, country, source_keywords):
         for element in soup(['script', 'style', 'noscript', 'meta', 'link', 'nav', 'footer']):
             element.decompose()
 
-        # Recherche des éléments contenant les mots-clés
         relevant_texts = []
 
-        # 1. Chercher dans le titre de la page
+        # 1. Titre (priorité haute)
         title_tag = soup.find('title')
         if title_tag:
             text = title_tag.get_text(strip=True)
             if text and len(text) > 5:
                 matched_kw = contains_target_keywords(text)
                 if matched_kw:
-                    relevant_texts.append((text, matched_kw))
+                    relevant_texts.append((text, matched_kw, 100))  # Priorité 100
 
-        # 2. Chercher dans h1, h2, h3 (en-têtes visibles)
+        # 2. H1, H2, H3 (priorité très haute)
         if not relevant_texts:
             for heading_tag in soup.find_all(['h1', 'h2', 'h3']):
                 if not is_element_visible(heading_tag):
@@ -305,49 +304,64 @@ def extract_tender_info(url, html_content, country, source_keywords):
                 if text and len(text) > 5:
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
-                        relevant_texts.append((text, matched_kw))
+                        priority = 90 if heading_tag.name == 'h1' else 80
+                        relevant_texts.append((text, matched_kw, priority))
                         break
 
-        # 3. Si toujours rien, chercher dans le contenu principal visible
+        # 3. Paragraphes visibles (10 au max)
         if not relevant_texts:
-            # Chercher dans les sections principales
             main_content = soup.find('main') or soup.find('article') or soup.find('body')
             if main_content:
-                # Scanner les premiers paragraphes visibles
                 p_count = 0
                 for p_tag in main_content.find_all('p'):
                     if not is_element_visible(p_tag):
                         continue
                     text = p_tag.get_text(strip=True)
-                    if text and len(text) > 15:  # Min 15 caractères
+                    if text and len(text) > 10:  # Réduit de 15 à 10 pour plus de sensibilité
                         matched_kw = contains_target_keywords(text)
                         if matched_kw:
-                            relevant_texts.append((text, matched_kw))
+                            relevant_texts.append((text, matched_kw, 70))
                             break
                     p_count += 1
-                    if p_count >= 5:  # Max 5 paragraphes
+                    if p_count >= 10:  # Augmenté de 5 à 10
                         break
 
-        # 4. Si encore rien, chercher dans les divs de contenu
+        # 4. Listes (ul/li) si pas encore trouvé
+        if not relevant_texts:
+            li_count = 0
+            for li_tag in soup.find_all('li'):
+                if not is_element_visible(li_tag):
+                    continue
+                text = li_tag.get_text(strip=True)
+                if text and len(text) > 10:
+                    matched_kw = contains_target_keywords(text)
+                    if matched_kw:
+                        relevant_texts.append((text, matched_kw, 60))
+                        break
+                    li_count += 1
+                    if li_count >= 15:
+                        break
+
+        # 5. Divs de contenu (dernier recours)
         if not relevant_texts:
             div_count = 0
             for div_tag in soup.find_all('div'):
                 if not is_element_visible(div_tag):
                     continue
                 text = div_tag.get_text(strip=True)
-                if text and len(text) > 30:  # Min 30 caractères pour les divs
+                if text and len(text) > 20:  # Réduit de 30 à 20
                     matched_kw = contains_target_keywords(text)
                     if matched_kw:
-                        relevant_texts.append((text, matched_kw))
+                        relevant_texts.append((text, matched_kw, 50))
                         break
-                div_count += 1
-                if div_count >= 10:  # Max 10 divs
-                    break
+                    div_count += 1
+                    if div_count >= 20:  # Augmenté de 10 à 20
+                        break
 
-        # Créer un tender si au moins UN mot-clé est détecté sur la page
+        # Créer un tender si au moins UN mot-clé détecté
         if relevant_texts:
-            # Prendre le résultat avec le plus de mots-clés
-            text, matched_kw = max(relevant_texts, key=lambda x: len(x[1]))
+            # Trier par priorité, puis par nombre de mots-clés
+            text, matched_kw, _ = max(relevant_texts, key=lambda x: (x[2], len(x[1])))
 
             tender_hash = hashlib.md5(f"{url}{datetime.now().isoformat()}".encode()).hexdigest()
             tenders.append({
@@ -356,7 +370,7 @@ def extract_tender_info(url, html_content, country, source_keywords):
                 'title': text[:150] if text else 'Opportunité détectée',
                 'url': url,
                 'detected_at': datetime.now().isoformat(),
-                'matched_keywords': list(set(matched_kw[:5]))  # Dédupliquer et limiter à 5
+                'matched_keywords': list(set(matched_kw[:5]))
             })
 
     except Exception as e:
