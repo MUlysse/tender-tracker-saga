@@ -157,20 +157,27 @@
             letter-spacing: -0.5px;
         }
 
-        .last-update {
+        .scan-info {
+            display: flex;
+            gap: 40px;
             font-size: 12.1px;
             color: #5f6368;
             text-align: right;
             line-height: 1.6;
         }
 
-        .update-label {
+        .scan-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scan-label {
             font-weight: 600;
             display: block;
             font-size: 11px;
         }
 
-        .update-time {
+        .scan-time {
             display: block;
             font-size: 13.2px;
             color: #202124;
@@ -461,6 +468,12 @@
             font-size: 13.2px;
         }
 
+        .status-inactive {
+            color: #d32f2f;
+            font-weight: 700;
+            font-size: 13.2px;
+        }
+
         /* ===== FOOTER ===== */
         .footer {
             margin-top: 60px;
@@ -611,9 +624,15 @@
         <div class="main-container">
             <div class="header-top">
                 <h1>TENDER-TRACKER SAGA</h1>
-                <div class="last-update">
-                    <span class="update-label">Dernier Scan</span>
-                    <span class="update-time" id="lastScanTime">--:--</span>
+                <div class="scan-info">
+                    <div class="scan-box">
+                        <span class="scan-label">Dernier Scan</span>
+                        <span class="scan-time" id="lastScanTime">--:--</span>
+                    </div>
+                    <div class="scan-box">
+                        <span class="scan-label">Prochain Scan</span>
+                        <span class="scan-time" id="nextScanTime">--:--</span>
+                    </div>
                 </div>
             </div>
 
@@ -648,7 +667,6 @@
             <!-- Footer -->
             <div class="footer">
                 <p>Tender-Tracker SAGA © 2026 | Veille Automatisée 24/7</p>
-                <p style="margin-top: 8px;"><a href="https://onoris-journal.com/" target="_blank" rel="noopener noreferrer">Onoris Journal</a></p>
             </div>
         </div>
     </div>
@@ -659,6 +677,8 @@
         let sourcesData = [];
         let detectionsMap = {};
         let keywordsList = [];
+        let nextScanTime = null;
+        let countdownInterval = null;
 
         // Mots-clés multilingues
         const ALL_KEYWORDS = {
@@ -679,7 +699,19 @@
                 'administration fiscale',
                 'modernisation fiscale',
                 'expertise fiscale',
-                'gestion des ressources publiques'
+                'gestion des ressources publiques',
+                'pilier 1 ocde',
+                'beps 2.0',
+                'montant a',
+                'montant b',
+                'taxe sur les services numériques',
+                'tsn',
+                'juridiction du marché',
+                'droits d\'imposition',
+                'seuil de chiffre d\'affaires',
+                'chiffre d\'affaires mondial',
+                'règle de lien économique',
+                'nexus'
             ],
             'English': [
                 'domestic resource mobilization',
@@ -699,7 +731,19 @@
                 'customs modernization',
                 'revenue authority',
                 'tax modernisation',
-                'tax modernization'
+                'tax modernization',
+                'oecd pillar 1',
+                'beps 2.0',
+                'amount a',
+                'amount b',
+                'digital services tax',
+                'dst',
+                'market jurisdiction',
+                'taxing rights',
+                'revenue threshold',
+                'global turnover',
+                'nexus rules',
+                'profit reallocation'
             ],
             'Español': [
                 'movilización de recursos internos',
@@ -713,7 +757,19 @@
                 'movilización de recursos',
                 'modernización tributaria',
                 'experticia fiscal',
-                'gestión de recursos públicos'
+                'gestión de recursos públicos',
+                'pilar 1 ocde',
+                'beps 2.0',
+                'monto a',
+                'monto b',
+                'impuesto sobre los servicios digitales',
+                'isd',
+                'jurisdicción del mercado',
+                'derechos de imposición',
+                'umbral de ingresos',
+                'facturación global',
+                'reglas de nexo',
+                'reasignación de beneficios'
             ],
             'Português': [
                 'mobilização de recursos internos',
@@ -727,7 +783,19 @@
                 'mobilização de recursos',
                 'modernização tributária',
                 'expertise fiscal',
-                'gestão de recursos públicos'
+                'gestão de recursos públicos',
+                'pilar 1 ocde',
+                'beps 2.0',
+                'montante a',
+                'montante b',
+                'imposto sobre os serviços digitais',
+                'isd',
+                'jurisdição de mercado',
+                'direitos de tributação',
+                'limiar de receita',
+                'faturação global',
+                'regras de nexo',
+                'realocação de lucros'
             ],
             'العربية': [
                 'تعبئة الموارد',
@@ -741,7 +809,20 @@
                 'إدارة الضرائب',
                 'تحديث النظام الضريبي',
                 'خبرة ضريبية',
-                'إدارة الموارد العامة'
+                'إدارة الموارد العامة',
+                'الركيزة الأولى',
+                'beps 2.0',
+                'المبلغ أ',
+                'المبلغ ب',
+                'ضريبة الخدمات الرقمية',
+                'dst',
+                'الولاية القضائية للسوق',
+                'حقوق فرض الضرائب',
+                'حد الإيرادات',
+                'العائدات العالمية',
+                'قواعس الارتباط',
+                'النيكسوس',
+                'إعادة تخصيص الأرباح'
             ]
         };
 
@@ -794,6 +875,42 @@
             document.getElementById('dashboard').classList.add('active');
         }
 
+        // ===== DÉCOMPTE DU PROCHAIN SCAN =====
+        function startCountdown() {
+            // Arrêter l'ancien interval s'il existe
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+
+            // Calculer le prochain scan (5 minutes après le dernier)
+            const now = new Date();
+            nextScanTime = new Date(now.getTime() + 5 * 60 * 1000);
+
+            // Mettre à jour immédiatement
+            updateCountdown();
+
+            // Mettre à jour toutes les secondes
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        function updateCountdown() {
+            if (!nextScanTime) return;
+
+            const now = new Date();
+            const diff = nextScanTime - now;
+
+            if (diff <= 0) {
+                document.getElementById('nextScanTime').textContent = 'Imminent';
+                return;
+            }
+
+            const minutes = Math.floor(diff / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            const timeStr = `${minutes}m ${seconds}s`;
+
+            document.getElementById('nextScanTime').textContent = timeStr;
+        }
+
         // ===== CHARGEMENT DES DONNÉES =====
         async function loadData() {
             try {
@@ -826,6 +943,9 @@
                         minute: '2-digit'
                     });
                     document.getElementById('lastScanTime').textContent = timeStr;
+
+                    // Démarrer le décompte
+                    startCountdown();
                 }
 
                 renderAlerts();
@@ -942,9 +1062,17 @@
 
                 countries.forEach(source => {
                     const hasDetection = detectionsMap[source.country] && detectionsMap[source.country].length > 0;
-                    const statusHtml = hasDetection
-                        ? '<span class="status-alert">Offre</span>'
-                        : '<span class="status-empty">−</span>';
+
+                    // Vérifier s'il y a une détection 404
+                    let statusHtml = '<span class="status-empty">−</span>';
+                    if (hasDetection) {
+                        const detection = detectionsMap[source.country][0];
+                        if (detection.status === '404') {
+                            statusHtml = '<span class="status-inactive">Page inactive</span>';
+                        } else {
+                            statusHtml = '<span class="status-alert">Offre</span>';
+                        }
+                    }
 
                     const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
                     const urlHtml = isUnavailable

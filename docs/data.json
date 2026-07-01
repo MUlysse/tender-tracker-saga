@@ -437,9 +437,15 @@
       "country": "Africa Tenders",
       "url": "https://africatenders.net/",
       "keywords": ["domestic resource mobilization", "tax", "fiscal reform", "public resource management", "beps"]
+    },
+    {
+      "region": "Test Admin",
+      "country": "Onoris Journal",
+      "url": "https://onoris-journal.com/",
+      "keywords": ["domestic resource mobilization", "tax", "fiscal reform", "public resource management", "beps", "tax administration", "tax modernisation", "public resource management"]
     }
   ],
   "tenders": [],
-  "last_updated": "2026-06-30T00:00:00Z",
+  "last_updated": "2026-07-01T00:00:00Z",
   "new_tenders_count": 0
 }
