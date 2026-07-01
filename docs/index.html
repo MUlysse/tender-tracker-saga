@@ -1169,32 +1169,6 @@
             }
         }
 
-        // ===== OUVERTURE DU VIEWER AVEC SURLIGNAGE =====
-        function highlightKeywordsOnOpen(event, link) {
-            event.preventDefault();
-            const url = link.getAttribute('href');
-            const keywords = link.getAttribute('data-keywords');
-
-            if (!url) return;
-
-            try {
-                let keywordList = [];
-                if (keywords) {
-                    keywordList = JSON.parse(keywords);
-                }
-
-                // Construire l'URL du viewer
-                const viewerUrl = `viewer.html?url=${encodeURIComponent(url)}&keywords=${encodeURIComponent(JSON.stringify(keywordList))}`;
-
-                // Ouvrir dans une nouvelle fenêtre
-                window.open(viewerUrl, '_blank');
-            } catch (e) {
-                console.error('Erreur:', e);
-                // Fallback : ouvrir directement le lien
-                window.open(url, '_blank');
-            }
-        }
-
         // ===== OUVERTURE DES LIENS AVEC MOT-CLÉ =====
         function openWithKeyword(launcherUrl) {
             window.open(launcherUrl, '_blank');
@@ -1273,10 +1247,9 @@
                     }
 
                     const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
-                    const keywordData = hasDetection ? `data-keywords='${JSON.stringify(detectedKeywords)}'` : '';
                     const urlHtml = isUnavailable
                         ? '<span class="url-unavailable">URL indisponible</span>'
-                        : `<a href="${source.url}" target="_blank" rel="noopener noreferrer" onclick="highlightKeywordsOnOpen(event, this)" ${keywordData}>${source.url}</a>`;
+                        : `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.url}</a>`;
 
                     const rowClass = isUnavailable ? ' class="unavailable"' : '';
 
