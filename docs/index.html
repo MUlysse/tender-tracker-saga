@@ -1403,22 +1403,49 @@
             'Danida - Denmark': 'dk', 'SIDA - Sweden': 'se', 'JICA - Japan': 'jp'
         };
 
+        const COUNTRY_COLORS = {
+            'Bahamas': '#0066cc', 'British Virgin Islands': '#003478', 'Cayman Islands': '#003478',
+            'Panama': '#cc0000', 'Bermuda': '#00a86b', 'St Kitts and Nevis': '#00a041',
+            'Dominican Republic': '#003478', 'Jersey': '#0066cc', 'Liechtenstein': '#003478',
+            'Gibraltar': '#cc0000', 'Bénin': '#ffcc00', 'Burkina Faso': '#009543',
+            'Sénégal': '#ffcc00', 'Côte d\'Ivoire': '#ffcc00', 'Togo': '#ffcc00',
+            'Niger': '#ffcc00', 'Mauritanie': '#cc0000', 'Tchad': '#ffcc00',
+            'Gabon': '#003478', 'Congo-Brazzaville': '#ffcc00', 'RDC': '#003478',
+            'Mali': '#ffcc00', 'Djibouti': '#cc0000', 'Guinée': '#cc0000',
+            'Guinée équatoriale': '#003478', 'Nigeria': '#008751', 'Kenya': '#000000',
+            'Cameroun': '#ffcc00', 'South Africa': '#000000', 'Ethiopia': '#ffcc00',
+            'Zambia': '#008751', 'Uganda': '#000000', 'Malawi': '#000000',
+            'Botswana': '#003478', 'Tanzania': '#000000', 'Sierra Leone': '#008751',
+            'Gambia': '#cc0000', 'Liberia': '#003478', 'Rwanda': '#008751',
+            'Mozambique': '#ffcc00', 'Maroc': '#cc0000', 'Angola': '#000000',
+            'Tunisie': '#cc0000', 'Ghana': '#ffcc00', 'Égypte': '#cc0000',
+            'Zimbabwe': '#008751', 'Cap Vert': '#003478', 'Lesotho': '#009543',
+            'UAE': '#00a041', 'Île Maurice': '#ff0000', 'Oman': '#cc0000',
+            'Seychelles': '#003478', 'Qatar': '#8b1c1c', 'Bahreïn': '#ffffff',
+            'Algérie': '#ffcc00', 'Indonésie': '#cc0000', 'Arabie Saoudite': '#006c35',
+            'Madagascar': '#cc0000', 'Singapour': '#cc0000', 'Thaïlande': '#cc0000',
+            'Comores': '#cc0000', 'AFD - France': '#003478', 'GIZ - Germany': '#000000',
+            'Norad - Norway': '#ba0c2f', 'Danida - Denmark': '#cc0000', 'SIDA - Sweden': '#006aa7',
+            'JICA - Japan': '#bc002d', 'World Bank': '#1f4788', 'AfDB': '#003d7a',
+            'Onoris Journal': '#333333', 'Global Tenders': '#0066cc', 'Africa Tenders': '#009543',
+            'Tender Soko': '#ffcc00', 'Development Aid': '#008751'
+        };
+
         function getCountryDisplay(country) {
-            let imgSrc = '';
+            let flagHtml = '';
 
             if (COUNTRY_CODES[country]) {
-                // Pays: utiliser code ISO
-                imgSrc = 'flags/' + COUNTRY_CODES[country] + '.png';
+                // Pays avec code ISO
+                const code = COUNTRY_CODES[country];
+                flagHtml = '<img src="flags/' + code + '.png?v=2" class="country-flag" alt="' + country + '">';
             } else {
-                // Organisations: utiliser nom complet avec espaces
-                imgSrc = 'flags/' + country + '.png';
+                // Organisations: remplacer espaces par underscores
+                const cleanName = country.replace(/ /g, '_');
+                flagHtml = '<img src="flags/' + cleanName + '.png?v=2" class="country-flag" alt="' + country + '">';
             }
 
-            // Ajouter timestamp pour forcer rechargement
-            const ts = Math.floor(Date.now() / 60000);
-            imgSrc += '?t=' + ts;
-
-            return `<div class="country-flag-container"><img src="${imgSrc}" alt="${country}" class="country-flag" loading="lazy"></div><div class="country-name">${country}</div>`;
+            const nameHtml = '<div class="country-name">' + country + '</div>';
+            return '<div class="country-flag-container">' + flagHtml + '</div>' + nameHtml;
         }
 
         // ===== RENDU DU TABLEAU =====
