@@ -56,7 +56,8 @@
       "Bash(python3 -m py_compile scraper.py)",
       "PowerShell(grep -i tender)",
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000\" -Directory | Where-Object {$_.Name -match \"tender\"})",
-      "Bash(gh run *)"
+      "Bash(gh run *)",
+      "PowerShell(cd C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000; \\(Get-Content docs/data.json | ConvertFrom-Json\\).sources | Select-Object -ExpandProperty country | Sort-Object -Unique)"
     ]
   }
 }
