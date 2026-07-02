@@ -463,7 +463,9 @@
         }
 
         .country-flag-container {
-            width: 50%;
+            width: 40%;
+            min-width: 60px;
+            padding: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -472,10 +474,8 @@
         }
 
         .country-flag {
-            width: 90%;
-            height: 90%;
-            max-width: 70px;
-            max-height: 52px;
+            max-width: 50px;
+            max-height: 38px;
             object-fit: contain;
         }
 
@@ -1405,17 +1405,23 @@
         };
 
         function getCountryDisplay(country) {
-            let flagImg = '';
+            let flagSrc = '';
 
             if (COUNTRY_CODES[country]) {
                 // Pays avec code ISO
                 const code = COUNTRY_CODES[country];
-                flagImg = `<img src="flags/${code}.png" alt="${country}" class="country-flag" style="object-fit: contain;">`;
+                flagSrc = `flags/${code}.png`;
             } else if (['World Bank', 'AfDB', 'Onoris Journal', 'Global Tenders', 'Africa Tenders', 'Tender Soko', 'Development Aid'].includes(country)) {
-                // Organisations avec logo personnalisé
-                flagImg = `<img src="flags/${country}.png" alt="${country}" class="country-flag" style="object-fit: contain;">`;
+                // Organisations avec logo personnalisé (encodeURIComponent pour les espaces)
+                flagSrc = `flags/${encodeURIComponent(country)}.png`;
             } else {
-                // Fallback
+                flagSrc = null;
+            }
+
+            let flagImg = '';
+            if (flagSrc) {
+                flagImg = `<img src="${flagSrc}" alt="${country}" class="country-flag" style="object-fit: contain; width: 100%; height: 100%;">`;
+            } else {
                 flagImg = `<div style="width: 100%; height: 100%; background: #ddd; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px;">?</div>`;
             }
 
