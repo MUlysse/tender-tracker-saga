@@ -894,166 +894,121 @@
   ],
   "tenders": [
     {
-      "id": "3666c8227bfbcd217a1dd85a04368caf",
+      "id": "cfee9b0c32e23ab591465250effce3f7",
       "country": "Dominican Republic",
-      "title": "Contract Notice Management Increase Contrast Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login ➙ Con",
+      "title": "Increase Contrast Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login ➙ Contract Notice Management Pag",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-07-02T10:52:23.721120",
+      "detected_at": "2026-07-02T11:30:20.580628",
       "matched_keywords": [
         "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "4ac3d8db6b9aaabb0a4e110877492116",
+      "id": "00216c7275d1a271beb8d420e0219875",
       "country": "Côte d'Ivoire",
-      "title": "DGMP - Direction Générale des Marchés Publics Direction Générale des Marchés Publics Une administration publique certifiée à la Norme ISO 9001 version",
+      "title": "Direction Générale des Marchés Publics Une administration publique certifiée à la Norme ISO 9001 version 2015 | Siège Ecrivez-nous info@marchespublics",
       "url": "https://www.marchespublics.ci/appel_offre",
-      "detected_at": "2026-07-02T10:52:32.788390",
+      "detected_at": "2026-07-02T11:30:29.860298",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "6acac8f88b94c4ee6097dcb637f89354",
+      "id": "39633fadbd5c1f26288d1f82c31b558a",
       "country": "Mali",
-      "title": "DGMP-DSP :: Marchés publics électroniques du Mali Appels d'offres Outils de gestion Statistiques Connexion Direction Générale des Marchés Publics et d",
+      "title": "Appels d'offres Outils de gestion Statistiques Connexion Direction Générale des Marchés Publics et des Délégations de Service Public (DGMP-DSP) Portai",
       "url": "https://dgmp.gouv.ml/",
-      "detected_at": "2026-07-02T10:52:43.440098",
+      "detected_at": "2026-07-02T11:30:41.360937",
       "matched_keywords": [
-        "finances publiques",
+        "budgétisation",
         "impôts",
-        "fiscalité",
         "mobilisation des ressources",
-        "budgétisation"
+        "fiscalité",
+        "finances publiques"
       ],
       "confidence": 85.0
     },
     {
-      "id": "3483de74b0ac25339ce47b69df091b12",
+      "id": "91dc7c6868727cc80a0f65184d447102",
       "country": "Congo-Brazzaville",
-      "title": "ARMP - Autorité de Régulation des Marchés Publics contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN Accueil À propos de l'ARM",
+      "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN Accueil À propos de l'ARMP Présentation de l'ARMP Vision et Missions Histor",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-02T10:53:18.304197",
+      "detected_at": "2026-07-02T11:31:28.632818",
       "matched_keywords": [
-        "finances publiques",
-        "gestion des finances publiques"
+        "gestion des finances publiques",
+        "finances publiques"
       ],
       "confidence": 85.0
     },
     {
-      "id": "e8be87c1ace6f7adb245f50d71d6494c",
+      "id": "4eca4fd2a9f1d20c68d86150ec977ee8",
       "country": "Guinée équatoriale",
-      "title": "Appels d’offres - ARMP - Autorité de Régulation des Marchés Publics Aller au contenu Règlementations Permutateur de Menu Arrêtés Circulaire Décrets en",
+      "title": "Aller au contenu Règlementations Permutateur de Menu Arrêtés Circulaire Décrets en cours Dossiers Types Lexique Permutateur de Menu Page 1 (De A à C) ",
       "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-02T10:53:50.121962",
+      "detected_at": "2026-07-02T11:32:01.357467",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "c612aa50323d6caa53afdaba99ee73a7",
-      "country": "Kenya",
-      "title": "Treasury Tenders | The National Treasury Skip to main content Please wait... Treasury Building, Nairobi +254 20 2252299 pstnt@treasury.go.ke FAQs Staf",
-      "url": "https://www.treasury.go.ke/treasury-tenders?page=1",
-      "detected_at": "2026-07-02T10:53:52.401412",
-      "matched_keywords": [
-        "pfm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "fd7117c1a7d2998c65096157b8cab697",
+      "id": "1c0b29a9b7cb5c88b3b6349c0ddae64d",
       "country": "Malawi",
-      "title": "Procurement Notices | Public Procurement and Disposal of Assets Authority Home About us Mission, Vision, Values Board of Directors Management Director",
+      "title": "Home About us Mission, Vision, Values Board of Directors Management Directorates Contact Us Services Supplier Registration Reforms The MSME Order e-Go",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-02T10:55:08.142869",
+      "detected_at": "2026-07-02T11:32:53.592988",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "ec677c5709f69dd8e6f93b0bcea50119",
-      "country": "Sierra Leone",
-      "title": "Call on: + 232-75-902460 Open Hours: Mon - Fri 8.00 am - 4.45 pm Electronic Government Procurement (E-GP) Home Legal Instruments Acts & Regulations Ci",
-      "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-02T10:55:10.072156",
-      "matched_keywords": [
-        "revenue authority",
-        "pfm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "ccbb82125d47f4576efd5d5061185964",
+      "id": "395c35ba0e550535932d54348bc3e7f7",
       "country": "Zimbabwe",
-      "title": "Zimbabwe electronic Government Procurement System eGP System Home About About eGP System About PRAZ Resources Announcement Workshops Help Manuals FAQ ",
+      "title": "eGP System Home About About eGP System About PRAZ Resources Announcement Workshops Help Manuals FAQ Other Resources Downloads Modules Bulletin Board P",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-02T10:55:26.161816",
+      "detected_at": "2026-07-02T11:33:12.032908",
       "matched_keywords": [
         "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "0d52bd8fb719700ecd7d62f136c69697",
-      "country": "Mozambique",
-      "title": "Principal | UFSA UFSA Unidade Funcional de Supervisão das Aquisições gal generated by WOWSlider.com Principal Catálogo Conheça o CBS Consultar Itens d",
-      "url": "https://www.ufsa.gov.mz/",
-      "detected_at": "2026-07-02T10:55:30.876773",
-      "matched_keywords": [
-        "contratação pública"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "5a9b9e4064c1b1fb9e6e087547245da6",
+      "id": "8aae6404b28b5177841d5e367efba8d1",
       "country": "Cap Vert",
-      "title": "Inicio - ecompras - Ministério das Finanças Navigation Menu Menu Sobre Fornecedores Apoio Atualidades Objetivo Principais Caractéristicas Como Funcion",
-      "url": "https://www.mf.gov.cv/web/ecompras",
-      "detected_at": "2026-07-02T10:55:36.667148",
+      "title": "Navigation Menu Menu Sobre Fornecedores Apoio Atualidades Objetivo Principais Caractéristicas Como Funciona Inscrição / Requisição de Acessos Qualific",
+      "url": "https://www.mf.gov.cv/web/ecompras/concursos-abertos",
+      "detected_at": "2026-07-02T11:33:27.242425",
       "matched_keywords": [
         "contratação pública"
       ],
       "confidence": 85.0
     },
     {
-      "id": "aed72b0845e08ff11b5df3a1a4086b10",
-      "country": "Arabie Saoudite",
-      "title": "Tenders and Procurement Scroll linktext linktext linktext linktext linktext | Open Data Voice Commands Special Colors Contact Us | عربي | Thursday 02/",
-      "url": "https://mof.gov.sa/en/tenders/Pages/default.aspx",
-      "detected_at": "2026-07-02T10:56:36.060395",
-      "matched_keywords": [
-        "fiscal policy"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "38d7e9615ab5bb2ac4413ef8659c646c",
+      "id": "058bfabedda5247025cd7e98c580a307",
       "country": "Singapour",
-      "title": "GeBIZ | Opportunities A Singapore Government Agency Website How to identify Official website links end with .gov.sg Government agencies communicate vi",
+      "title": "A Singapore Government Agency Website How to identify Official website links end with .gov.sg Government agencies communicate via .gov.sg websites (e.",
       "url": "https://www.gebiz.gov.sg/ptn/opportunity/opportunityDetails.xhtml",
-      "detected_at": "2026-07-02T10:57:47.287604",
+      "detected_at": "2026-07-02T11:36:15.665103",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "bb8812a9bc640bb9eb29fafb73b8ef1e",
+      "id": "88004446d6592ed457a7ea1ddb1e5c94",
       "country": "Onoris Journal",
-      "title": "Onoris.com - Actualités économiques et financières Accueil Qui sommes nous ? Nous contacter Devenez rédacteur Direct Flash M&A Flash Monde Interviews ",
+      "title": "Accueil Qui sommes nous ? Nous contacter Devenez rédacteur Direct Flash M&A Flash Monde Interviews Podcast Finance Emerging Market Géopolitique Biogra",
       "url": "https://onoris-journal.com/",
-      "detected_at": "2026-07-02T10:58:31.137651",
+      "detected_at": "2026-07-02T11:37:40.517292",
       "matched_keywords": [
         "dette souveraine"
       ],
       "confidence": 85.0
     }
   ],
-  "last_updated": "2026-07-02T10:58:32.138800",
-  "new_tenders_count": 14
+  "last_updated": "2026-07-02T11:37:41.518561",
+  "new_tenders_count": 10
 }
