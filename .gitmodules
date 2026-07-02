@@ -1,0 +1,3 @@
+[submodule "tender-tracker-saga"]
+    path = tender-tracker-saga
+    url = https://github.com/MUlysse/tender-tracker-saga.git
