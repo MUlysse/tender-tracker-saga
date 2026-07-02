@@ -463,20 +463,22 @@
         }
 
         .country-flag-container {
-            width: 40%;
-            min-width: 60px;
-            padding: 8px;
+            width: 50%;
+            min-width: 80px;
+            max-width: 120px;
+            padding: 0;
             display: flex;
-            align-items: center;
+            align-items: stretch;
             justify-content: center;
-            background-color: #f0f0f0;
+            background-color: transparent;
             border-right: 1px solid #cccccc;
         }
 
         .country-flag {
-            width: 48px !important;
-            height: 36px !important;
-            object-fit: contain;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+            object-position: center;
         }
 
         .country-name {
@@ -1477,7 +1479,6 @@
                                     <th>Lien</th>
                                     <th>Alerte</th>
                                     <th>Mots-clés</th>
-                                    <th style="text-align: center; width: 80px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1511,18 +1512,12 @@
                         ? `<div class="keywords-display">${detectedKeywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('')}</div>`
                         : '<span class="keywords-empty">−</span>';
 
-                    const detectionId = hasDetection ? detectionsMap[source.country][0].id : '';
-                    const resetBtn = hasDetection
-                        ? `<button class="reset-btn" onclick="resetDetection('${detectionId}', '${source.country}')" title="Supprimer cette alerte">✕</button>`
-                        : '<span class="reset-empty">−</span>';
-
                     html += `
                         <tr${rowClass}>
                             <td class="country-cell">${getCountryDisplay(source.country)}</td>
                             <td class="url-cell">${urlHtml}</td>
                             <td class="status-cell">${statusHtml}</td>
                             <td class="keywords-cell">${keywordsHtml}</td>
-                            <td class="reset-cell">${resetBtn}</td>
                         </tr>
                     `;
                 });
