@@ -490,17 +490,23 @@
         }
 
         .status-cell .status-alert {
-            color: #1b5e20;
+            color: #ffffff;
             font-weight: 700;
             font-size: 15.4px;
             display: inline-block;
+            background-color: #1b5e20;
+            padding: 6px 10px;
+            border-radius: 2px;
         }
 
         .status-cell .status-inactive {
-            color: #d32f2f;
+            color: #ffffff;
             font-weight: 700;
             font-size: 15.4px;
             display: inline-block;
+            background-color: #8b1c1c;
+            padding: 6px 10px;
+            border-radius: 2px;
         }
 
         .status-cell .status-empty {
@@ -592,6 +598,15 @@
         .status-clickable:hover {
             background-color: rgba(31, 41, 55, 0.1);
             text-decoration: underline;
+        }
+
+        /* ===== TITLE STYLING ===== */
+        .title-tender {
+            color: #000000;
+        }
+
+        .title-saga {
+            color: #999999;
         }
 
         /* ===== MODAL DÉTAILS ===== */
@@ -904,17 +919,7 @@
     <div class="dashboard" id="dashboard">
         <div class="main-container">
             <div class="header-top">
-                <h1>TENDER-TRACKER SAGA</h1>
-                <div class="scan-info">
-                    <div class="scan-box">
-                        <span class="scan-label">Dernier Scan</span>
-                        <span class="scan-time" id="lastScanTime">--:--</span>
-                    </div>
-                    <div class="scan-box">
-                        <span class="scan-label">Prochain Scan</span>
-                        <span class="scan-time" id="nextScanTime">--:--</span>
-                    </div>
-                </div>
+                <h1><span class="title-tender">TENDER-TRACKER</span> <span class="title-saga">SAGA</span></h1>
             </div>
 
             <!-- Tabs -->
@@ -1230,25 +1235,6 @@
                     });
                 }
 
-                // Afficher date/heure précise du dernier workflow
-                if (data.last_updated) {
-                    const updateDate = new Date(data.last_updated);
-                    if (!isNaN(updateDate.getTime())) {
-                        const year = updateDate.getUTCFullYear();
-                        const month = String(updateDate.getUTCMonth() + 1).padStart(2, '0');
-                        const day = String(updateDate.getUTCDate()).padStart(2, '0');
-                        const hours = String(updateDate.getUTCHours()).padStart(2, '0');
-                        const minutes = String(updateDate.getUTCMinutes()).padStart(2, '0');
-                        const timeStr = `${day}/${month}/${year} ${hours}:${minutes}`;
-                        document.getElementById('lastScanTime').textContent = timeStr;
-                        startCountdown(data.last_updated);
-                    } else {
-                        document.getElementById('lastScanTime').textContent = '--:--';
-                    }
-                } else {
-                    document.getElementById('lastScanTime').textContent = '--:--';
-                }
-
                 renderKeywords();
                 renderTable();
 
@@ -1364,6 +1350,32 @@
             keywordsList.innerHTML = html;
         }
 
+        // ===== DRAPEAUX PAYS =====
+        const COUNTRY_FLAGS = {
+            'Jersey': '🇯🇪', 'Cayman Islands': '🇰🇾', 'Bermuda': '🇧🇲', 'Liechtenstein': '🇱🇮', 'Panama': '🇵🇦',
+            'Gibraltar': '🇬🇮', 'St Kitts and Nevis': '🇰🇳', 'Dominican Republic': '🇩🇴', 'Bahamas': '🇧🇸',
+            'British Virgin Islands': '🇻🇬', 'Bénin': '🇧🇯', 'Burkina Faso': '🇧🇫', 'Sénégal': '🇸🇳',
+            'Côte d\'Ivoire': '🇨🇮', 'Togo': '🇹🇬', 'Niger': '🇳🇪', 'Mauritanie': '🇲🇷', 'Tchad': '🇹🇩',
+            'Gabon': '🇬🇦', 'Congo-Brazzaville': '🇨🇬', 'RDC': '🇨🇩', 'Mali': '🇲🇱', 'Djibouti': '🇩🇯',
+            'Guinée': '🇬🇳', 'Guinée équatoriale': '🇬🇶', 'Nigeria': '🇳🇬', 'Kenya': '🇰🇪', 'Cameroun': '🇨🇲',
+            'South Africa': '🇿🇦', 'Ethiopia': '🇪🇹', 'Zambia': '🇿🇲', 'Uganda': '🇺🇬', 'Malawi': '🇲🇼',
+            'Botswana': '🇧🇼', 'Tanzania': '🇹🇿', 'Sierra Leone': '🇸🇱', 'Gambia': '🇬🇲', 'Liberia': '🇱🇷',
+            'Rwanda': '🇷🇼', 'Mozambique': '🇲🇿', 'Maroc': '🇲🇦', 'Angola': '🇦🇴', 'Tunisie': '🇹🇳',
+            'Ghana': '🇬🇭', 'Égypte': '🇪🇬', 'Zimbabwe': '🇿🇼', 'Cap Vert': '🇨🇻', 'Lesotho': '🇱🇸',
+            'UAE': '🇦🇪', 'Île Maurice': '🇲🇺', 'Oman': '🇴🇲', 'Seychelles': '🇸🇨', 'Qatar': '🇶🇦',
+            'Bahreïn': '🇧🇭', 'Algérie': '🇩🇿', 'Indonésie': '🇮🇩', 'Arabie Saoudite': '🇸🇦',
+            'Madagascar': '🇲🇬', 'Singapour': '🇸🇬', 'Thaïlande': '🇹🇭', 'Comores': '🇰🇲',
+            'World Bank': '🏦', 'AfDB': '🏦', 'AFD - France': '🇫🇷', 'GIZ - Germany': '🇩🇪',
+            'Norad - Norway': '🇳🇴', 'Danida - Denmark': '🇩🇰', 'SIDA - Sweden': '🇸🇪',
+            'JICA - Japan': '🇯🇵', 'Onoris Journal': '📰', 'Global Tenders': '🌍', 'Africa Tenders': '🌍', 'Tender Soko': '🌍',
+            'Development Aid': '🤝'
+        };
+
+        function getCountryDisplay(country) {
+            const flag = COUNTRY_FLAGS[country] || '🌍';
+            return `${flag} ${country}`;
+        }
+
         // ===== RENDU DU TABLEAU =====
         function renderTable() {
             const container = document.getElementById('regionsContainer');
@@ -1434,7 +1446,7 @@
 
                     html += `
                         <tr${rowClass}>
-                            <td class="country-cell">${source.country}</td>
+                            <td class="country-cell">${getCountryDisplay(source.country)}</td>
                             <td class="url-cell">${urlHtml}</td>
                             <td class="status-cell">${statusHtml}</td>
                             <td class="keywords-cell">${keywordsHtml}</td>
