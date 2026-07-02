@@ -55,7 +55,8 @@
       "Bash(git init *)",
       "Bash(python3 -m py_compile scraper.py)",
       "PowerShell(grep -i tender)",
-      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000\" -Directory | Where-Object {$_.Name -match \"tender\"})"
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000\" -Directory | Where-Object {$_.Name -match \"tender\"})",
+      "Bash(gh run *)"
     ]
   }
 }
