@@ -894,121 +894,106 @@
   ],
   "tenders": [
     {
-      "id": "cfee9b0c32e23ab591465250effce3f7",
+      "id": "d03eb747f4f75d0b3c102590193a242d",
       "country": "Dominican Republic",
-      "title": "Increase Contrast Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login ➙ Contract Notice Management Pag",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-07-02T11:30:20.580628",
+      "detected_at": "2026-07-02T12:45:12.512931",
       "matched_keywords": [
         "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "00216c7275d1a271beb8d420e0219875",
-      "country": "Côte d'Ivoire",
-      "title": "Direction Générale des Marchés Publics Une administration publique certifiée à la Norme ISO 9001 version 2015 | Siège Ecrivez-nous info@marchespublics",
-      "url": "https://www.marchespublics.ci/appel_offre",
-      "detected_at": "2026-07-02T11:30:29.860298",
-      "matched_keywords": [
-        "impôts"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "39633fadbd5c1f26288d1f82c31b558a",
-      "country": "Mali",
-      "title": "Appels d'offres Outils de gestion Statistiques Connexion Direction Générale des Marchés Publics et des Délégations de Service Public (DGMP-DSP) Portai",
-      "url": "https://dgmp.gouv.ml/",
-      "detected_at": "2026-07-02T11:30:41.360937",
-      "matched_keywords": [
-        "budgétisation",
-        "impôts",
-        "mobilisation des ressources",
-        "fiscalité",
-        "finances publiques"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "91dc7c6868727cc80a0f65184d447102",
+      "id": "f4bb2b55eda9bcb3c06ed7e7e7340462",
       "country": "Congo-Brazzaville",
-      "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN Accueil À propos de l'ARMP Présentation de l'ARMP Vision et Missions Histor",
+      "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-02T11:31:28.632818",
+      "detected_at": "2026-07-02T12:45:24.509969",
       "matched_keywords": [
-        "gestion des finances publiques",
-        "finances publiques"
+        "finances publiques",
+        "gestion des finances publiques"
       ],
       "confidence": 85.0
     },
     {
-      "id": "4eca4fd2a9f1d20c68d86150ec977ee8",
+      "id": "1a4492335151c88e4873180dc2da149b",
       "country": "Guinée équatoriale",
-      "title": "Aller au contenu Règlementations Permutateur de Menu Arrêtés Circulaire Décrets en cours Dossiers Types Lexique Permutateur de Menu Page 1 (De A à C) ",
+      "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
       "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-02T11:32:01.357467",
+      "detected_at": "2026-07-02T12:45:27.533674",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "1c0b29a9b7cb5c88b3b6349c0ddae64d",
+      "id": "9d0cb3141f676c975fe7325092f23919",
       "country": "Malawi",
-      "title": "Home About us Mission, Vision, Values Board of Directors Management Directorates Contact Us Services Supplier Registration Reforms The MSME Order e-Go",
+      "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-02T11:32:53.592988",
+      "detected_at": "2026-07-02T12:45:38.350065",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "395c35ba0e550535932d54348bc3e7f7",
-      "country": "Zimbabwe",
-      "title": "eGP System Home About About eGP System About PRAZ Resources Announcement Workshops Help Manuals FAQ Other Resources Downloads Modules Bulletin Board P",
-      "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-02T11:33:12.032908",
+      "id": "e607bc72a353f676eb084fad8ba6b8a2",
+      "country": "Sierra Leone",
+      "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
+      "url": "https://nppa.gov.sl/bid/",
+      "detected_at": "2026-07-02T12:45:41.021441",
       "matched_keywords": [
-        "debt restructuring"
+        "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "8aae6404b28b5177841d5e367efba8d1",
-      "country": "Cap Vert",
-      "title": "Navigation Menu Menu Sobre Fornecedores Apoio Atualidades Objetivo Principais Caractéristicas Como Funciona Inscrição / Requisição de Acessos Qualific",
-      "url": "https://www.mf.gov.cv/web/ecompras/concursos-abertos",
-      "detected_at": "2026-07-02T11:33:27.242425",
+      "id": "e8b4be1709b25c7f46e492fb8845170c",
+      "country": "Angola",
+      "title": "REPÚBLICA DE ANGOLA Menu Registo do Utilizador Preços de Referência Acordo Quadro Catálogo Electrônico Serviço ao Utilizador Dinâmico Electrónico Plan",
+      "url": "https://compraspublicas.minfin.gov.ao/ComprasPublicas/",
+      "detected_at": "2026-07-02T12:45:49.027973",
       "matched_keywords": [
         "contratação pública"
       ],
       "confidence": 85.0
     },
     {
-      "id": "058bfabedda5247025cd7e98c580a307",
-      "country": "Singapour",
-      "title": "A Singapore Government Agency Website How to identify Official website links end with .gov.sg Government agencies communicate via .gov.sg websites (e.",
-      "url": "https://www.gebiz.gov.sg/ptn/opportunity/opportunityDetails.xhtml",
-      "detected_at": "2026-07-02T11:36:15.665103",
+      "id": "c00cc8ba495e5e7f3c07723c85bc20fd",
+      "country": "Zimbabwe",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 02-Jul-2026 2:45:46 PM Electronic Government Procurement Sys",
+      "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
+      "detected_at": "2026-07-02T12:45:54.659942",
       "matched_keywords": [
-        "revenue authority"
+        "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "88004446d6592ed457a7ea1ddb1e5c94",
+      "id": "b37c38cbd8e97bf95cc470e5d847bf8c",
+      "country": "World Bank",
+      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-07-02T12:46:05.594952",
+      "matched_keywords": [
+        "public financial management"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "a83def2980dc459031ca67df22238f3f",
       "country": "Onoris Journal",
-      "title": "Accueil Qui sommes nous ? Nous contacter Devenez rédacteur Direct Flash M&A Flash Monde Interviews Podcast Finance Emerging Market Géopolitique Biogra",
+      "title": "Accueil Qui sommes nous ? Nous contacter Devenez rédacteur Direct Interviews Podcast Finance Emerging Market Géopolitique Biographies Connexion NOTRE ",
       "url": "https://onoris-journal.com/",
-      "detected_at": "2026-07-02T11:37:40.517292",
+      "detected_at": "2026-07-02T12:46:16.032749",
       "matched_keywords": [
         "dette souveraine"
       ],
       "confidence": 85.0
     }
   ],
-  "last_updated": "2026-07-02T11:37:41.518561",
-  "new_tenders_count": 10
+  "last_updated": "2026-07-02T12:46:17.902176",
+  "new_tenders_count": 9
 }
