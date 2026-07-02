@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Flags</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        img {
+            width: 100px;
+            height: 75px;
+            border: 1px solid #999;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test des drapeaux</h1>
+
+    <div class="test">
+        <h2>1. Images locales (./flags/)</h2>
+        <p>Pays: Bahamas (code 'bs')</p>
+        <img src="./flags/bs.png" alt="Bahamas flag">
+        <p>Organisation: World_Bank</p>
+        <img src="./flags/World_Bank.png" alt="World Bank logo">
+    </div>
+
+    <div class="test">
+        <h2>2. Images via jsDelivr CDN</h2>
+        <p>Pays: Emirates (code 'ae')</p>
+        <img src="https://cdn.jsdelivr.net/gh/MUlysse/tender-tracker-saga@main/docs/flags/ae.png" alt="UAE flag">
+        <p>Organisation: Development Aid</p>
+        <img src="https://cdn.jsdelivr.net/gh/MUlysse/tender-tracker-saga@main/docs/flags/Development_Aid.png" alt="Dev Aid logo">
+    </div>
+
+    <div class="test">
+        <h2>3. Images via raw.githubusercontent.com</h2>
+        <p>Pays: Senegal (code 'sn')</p>
+        <img src="https://raw.githubusercontent.com/MUlysse/tender-tracker-saga/main/docs/flags/sn.png" alt="Senegal flag">
+        <p>Organisation: AfDB</p>
+        <img src="https://raw.githubusercontent.com/MUlysse/tender-tracker-saga/main/docs/flags/AfDB.png" alt="AfDB logo">
+    </div>
+
+    <div class="test">
+        <h2>Console</h2>
+        <p>Ouvrez la console (F12) pour voir les erreurs de chargement d'images</p>
+    </div>
+
+    <script>
+        // Log toutes les images qui ne se chargent pas
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                console.error('Image failed to load:', e.target.src);
+            }
+        }, true);
+
+        // Vérifier toutes les images au chargement
+        window.addEventListener('load', function() {
+            console.log('=== Flag Image Loading Report ===');
+            document.querySelectorAll('img').forEach(img => {
+                const loaded = img.complete && img.naturalHeight !== 0;
+                const status = loaded ? '✓ OK' : '✗ FAILED';
+                console.log(status + ': ' + img.src);
+            });
+        });
+    </script>
+</body>
+</html>
