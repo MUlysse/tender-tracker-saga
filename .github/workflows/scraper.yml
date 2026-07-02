@@ -33,6 +33,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r scripts/requirements.txt
 
+      - name: Install Chrome/Chromium for Selenium
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+          which chromedriver || echo "ChromeDriver not found in PATH"
+
       - name: Run Scraper
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
