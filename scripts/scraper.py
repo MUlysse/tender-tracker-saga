@@ -623,28 +623,28 @@ def scrape_portal(country, url):
         except:
             driver = webdriver.Chrome(options=options)
 
-        # Timeouts courts (l'utilisateur dit que 2 min c'est déjà beaucoup)
-        driver.set_page_load_timeout(10)
-        driver.set_script_timeout(10)
+        # Timeouts généreux pour capturer tous les contenus (même les chargements tardifs)
+        driver.set_page_load_timeout(20)
+        driver.set_script_timeout(20)
 
         try:
             driver.get(url)
 
-            # Attendre le DOM minimal
-            WebDriverWait(driver, 5).until(
+            # Attendre le DOM
+            WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
 
-            # Attendre le readyState (rapidement)
+            # Attendre le readyState
             try:
-                WebDriverWait(driver, 3).until(
+                WebDriverWait(driver, 8).until(
                     lambda d: d.execute_script("return document.readyState") == "complete"
                 )
             except:
                 pass
 
-            # Délai minimal pour animations
-            time.sleep(1)
+            # Délai pour animations et chargements AJAX tardifs
+            time.sleep(3)
 
             # EXTRAIRE LE TEXTE VISIBLE VIA INNERTEXT
             # C'est GARANTIE le texte visible (CSS évalué)
