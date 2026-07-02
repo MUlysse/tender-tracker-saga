@@ -166,9 +166,14 @@ TARGET_KEYWORDS = [
 ]
 
 # Configuration réseau
-REQUEST_TIMEOUT = 10
+REQUEST_TIMEOUT = 20  # Augmenté pour les sites lents
 REQUEST_HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Encoding': 'gzip, deflate',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
 }
 RATE_LIMIT_DELAY = 1  # secondes entre chaque requête
 
@@ -299,83 +304,134 @@ def is_element_visible(tag):
 
     return True
 
-def is_text_truly_visible(text, soup):
+def get_visible_text_only(soup):
     """
-    Equivalent d'une 'Ctrl+F': vérifie que le texte est VRAIMENT sur la page.
-    Retourne False si le texte ne se trouve que dans du contenu caché (tables, code, etc.).
+    Extrait UNIQUEMENT le texte visible (équivalent Ctrl+F).
+    Enlève tout contenu caché, tableaux, scripts, etc.
+    C'est la vraie source de vérité pour la recherche de mots-clés.
     """
-    if not text or len(text) < 5:
+    # Faire une copie pour ne pas modifier l'original
+    soup_copy = BeautifulSoup(str(soup), 'html.parser')
+
+    # Enlever TOUT contenu invisible/structuré
+    for invisible in soup_copy(['script', 'style', 'noscript', 'meta', 'link',
+                               'svg', 'canvas', 'iframe', 'embed', 'object',
+                               'nav', 'footer', 'table', 'thead', 'tbody', 'tr', 'td', 'th']):
+        invisible.decompose()
+
+    # Enlever les éléments avec display:none, visibility:hidden, etc.
+    for element in soup_copy.find_all(True):
+        if element.name and element.get('hidden'):
+            element.decompose()
+            continue
+        if element.get('aria-hidden') == 'true':
+            element.decompose()
+            continue
+
+        style = element.get('style', '').lower()
+        if any(x in style for x in ['display:none', 'visibility:hidden', 'visibility:collapse',
+                                     'opacity:0', 'height:0', 'width:0']):
+            element.decompose()
+
+    # Extraire le texte visible avec normalisation
+    visible_text = soup_copy.get_text(separator=' ', strip=True)
+    # Normaliser les espaces
+    visible_text = ' '.join(visible_text.split())
+    return visible_text
+
+def is_text_truly_visible(text, visible_text):
+    """
+    Vérifie que le texte existe VRAIMENT dans le contenu visible (Ctrl+F).
+    Prend le texte et la source visible en paramètres.
+    """
+    if not text or len(text) < 5 or not visible_text:
         return True
 
-    # Chercher le texte dans le contenu visible uniquement
-    # Enlever les balises de contenu invisible
-    soup_copy = BeautifulSoup(str(soup), 'html.parser')
-    for invisible_tag in soup_copy(['script', 'style', 'noscript', 'table', 'nav', 'footer']):
-        invisible_tag.decompose()
+    # Normaliser
+    text_norm = ' '.join(text.split()).lower()
+    visible_norm = visible_text.lower()
 
-    # Chercher le texte dans ce qui reste
-    visible_text = soup_copy.get_text(strip=True)
-
-    # Normaliser pour la comparaison (case-insensitive, espaces simplifiés)
-    text_normalized = ' '.join(text.split()).lower()
-    visible_text_normalized = ' '.join(visible_text.split()).lower()
-
-    # Vérifier si au moins le début du texte est présent
-    text_length = len(text_normalized)
-    if text_length == 0:
-        return False
-
-    # Chercher une partie significative du texte (au moins 20 chars)
-    if text_length > 20:
-        return text_normalized[:20] in visible_text_normalized
+    # Chercher le texte COMPLET dans le visible (au minimum 30 chars)
+    if len(text_norm) > 30:
+        # Chercher une partie significative (les 30 premiers chars)
+        search_text = text_norm[:30]
+        return search_text in visible_norm
     else:
-        return text_normalized in visible_text_normalized
+        # Texte court: chercher le texte complet
+        return text_norm in visible_norm
 
 def scrape_portal_with_selenium(country, url):
     """
     Scrape un portail avec Selenium pour exécuter le JavaScript.
     Utilisé pour les sites dynamiques (comme Onoris).
     """
-    try:
-        if not SELENIUM_AVAILABLE:
-            return None
+    if not SELENIUM_AVAILABLE:
+        return None
 
+    driver = None
+    try:
         options = Options()
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_argument(f'user-agent={REQUEST_HEADERS["User-Agent"]}')
+        options.add_argument('--disable-gpu')
+        options.add_argument('--disable-web-resources')
+        options.add_argument('--disable-default-apps')
 
         try:
             service = Service(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=service, options=options)
-        except Exception:
-            # Fallback si webdriver-manager échoue
-            driver = webdriver.Chrome(options=options)
+        except Exception as e_driver:
+            try:
+                driver = webdriver.Chrome(options=options)
+            except Exception:
+                return None
 
-        driver.set_page_load_timeout(15)
+        driver.set_page_load_timeout(20)
+        driver.set_script_timeout(20)
 
         try:
             driver.get(url)
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.TAG_NAME, "body"))
+
+            # Attendre le chargement du DOM
+            WebDriverWait(driver, 15).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
-            time.sleep(2)  # Attendre le rendu JS complet
 
-            html_content = driver.page_source
-            driver.quit()
-            return html_content
-
-        except Exception as e:
+            # Attendre que le jQuery soit prêt si disponible
             try:
-                driver.quit()
+                driver.execute_script("return document.readyState")
+                WebDriverWait(driver, 10).until(
+                    lambda d: d.execute_script("return document.readyState") == "complete"
+                )
             except:
                 pass
+
+            # Attendre un peu plus pour que les animations JS se terminent
+            time.sleep(3)
+
+            html_content = driver.page_source
+
+            # Vérifier qu'on a du contenu valide
+            if html_content and len(html_content) > 500:
+                return html_content
+            else:
+                return None
+
+        except Exception as e:
             return None
 
     except Exception as e:
         return None
+
+    finally:
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
 
 def calculate_confidence_score(text, matched_keywords, element_type, keyword_count):
     """
@@ -445,6 +501,20 @@ def calculate_confidence_score(text, matched_keywords, element_type, keyword_cou
     # Seul du vide
     if not any(c.isalpha() for c in text):
         score -= 50
+
+    # REJET: Contenu HTML mal parsé (beaucoup de majuscules sans espaces)
+    # Ex: "NomAutoritéContractanteNomServiceLibellé" = parsé du tableau
+    words = text.split()
+    if len(words) > 0:
+        # Vérifier si c'est du texte normal (50% minimum de minuscules)
+        lowercase_ratio = sum(1 for c in text if c.islower()) / len(text)
+        if lowercase_ratio < 0.3:  # Moins de 30% de minuscules = suspect
+            score -= 45
+
+        # Vérifier la longueur moyenne des mots (texte normal = 4-7 chars/mot)
+        avg_word_len = len(text.replace(' ', '')) / len(words)
+        if avg_word_len > 12:  # Mots très longs = contenu mal parsé
+            score -= 30
 
     # Cap à 100, min à 0
     final_score = max(0, min(score, 100))
@@ -573,16 +643,24 @@ def extract_tender_info(url, html_content, country, source_keywords):
         if best_detection and best_score >= 75:
             text, matched_kw, score = best_detection
 
-            tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
-            tenders.append({
-                'id': tender_hash,
-                'country': country,
-                'title': text[:150] if text else 'Opportunité détectée',
-                'url': url,
-                'detected_at': datetime.utcnow().isoformat(),
-                'matched_keywords': list(set(matched_kw[:5])),
-                'confidence': round(score, 1)
-            })
+            # VÉRIFICATION FINALE: Le texte existe-t-il VRAIMENT (Ctrl+F) ?
+            visible_text = get_visible_text_only(soup)
+            if not is_text_truly_visible(text, visible_text):
+                # Le texte ne passe pas le test Ctrl+F = faux positif
+                # Ne pas créer le tender
+                pass
+            else:
+                # ✅ OK: Le texte est vraiment visible
+                tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
+                tenders.append({
+                    'id': tender_hash,
+                    'country': country,
+                    'title': text[:150] if text else 'Opportunité détectée',
+                    'url': url,
+                    'detected_at': datetime.utcnow().isoformat(),
+                    'matched_keywords': list(set(matched_kw[:5])),
+                    'confidence': round(score, 1)
+                })
 
     except Exception as e:
         print(f"⚠️  Erreur lors du parsing de {country}: {e}")
@@ -591,45 +669,54 @@ def extract_tender_info(url, html_content, country, source_keywords):
 
 def scrape_portal(country, url):
     """
-    Scrape un portail individuel avec détection multilingue et gestion d'erreur 404.
-    Utilise Selenium si disponible pour les sites avec JavaScript.
+    Scrape un portail individuel avec détection multilingue.
+    Utilise Selenium si requests échoue ou si pas de détection.
     Retourne une liste de tenders trouvés (une ligne = une détection).
     """
     tenders = []
     html_content = None
 
     try:
-        # Essayer d'abord avec requests (rapide)
-        response = requests.get(
-            url,
-            headers=REQUEST_HEADERS,
-            timeout=REQUEST_TIMEOUT,
-            verify=True
-        )
-        response.encoding = 'utf-8'
+        # Essayer avec requests (rapide)
+        try:
+            response = requests.get(
+                url,
+                headers=REQUEST_HEADERS,
+                timeout=REQUEST_TIMEOUT,
+                verify=True,
+                allow_redirects=True
+            )
+            response.encoding = 'utf-8'
 
-        # Pages 404 = ne pas inclure (elles ne sont pas des tenders)
-        if response.status_code == 404:
-            print(f"   {country}: 404 - ignoré")
-            time.sleep(RATE_LIMIT_DELAY)
-            return tenders
+            # Pages 404 = ne pas inclure
+            if response.status_code == 404:
+                print(f"   {country}: 404 - ignoré")
+                time.sleep(RATE_LIMIT_DELAY)
+                return tenders
 
-        response.raise_for_status()
+            if response.status_code == 200:
+                html_content = response.text
 
-        if response.status_code == 200:
-            html_content = response.text
+        except requests.exceptions.Timeout:
+            print(f"   {country}: Timeout (requests) - tentative Selenium...")
+            html_content = None
+        except requests.exceptions.HTTPError as e:
+            print(f"   {country}: HTTPError {e.response.status_code} - tentative Selenium...")
+            html_content = None
+        except requests.exceptions.ConnectionError:
+            print(f"   {country}: Erreur connexion (requests) - tentative Selenium...")
+            html_content = None
 
-            # Vérifier si c'est une page "vide" ou très minimaliste (peut être du JS)
-            if len(html_content) < 2000 or 'react' in html_content.lower() or 'angular' in html_content.lower():
-                # Essayer avec Selenium si disponible
-                if SELENIUM_AVAILABLE:
-                    print(f"   {country}: Tentative Selenium (contenu JS détecté)...")
-                    selenium_html = scrape_portal_with_selenium(country, url)
-                    if selenium_html and len(selenium_html) > len(html_content):
-                        html_content = selenium_html
-                        print(f"   {country}: Contenu Selenium récupéré")
+        # Si requests a échoué OU si c'est une page JS, essayer Selenium
+        if not html_content or len(html_content) < 1000:
+            if SELENIUM_AVAILABLE:
+                print(f"   {country}: Tentative Selenium...")
+                html_content = scrape_portal_with_selenium(country, url)
+                if html_content:
+                    print(f"   {country}: ✓ Contenu Selenium récupéré ({len(html_content)} bytes)")
 
-            # Scraper le contenu
+        # Si on a du contenu, scraper
+        if html_content:
             extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
             tenders.extend(extracted)
 
@@ -639,13 +726,11 @@ def scrape_portal(country, url):
                 print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
             else:
                 print(f"   {country}: − Aucune détection")
+        else:
+            print(f"   {country}: ❌ Impossible de scraper (requests ET Selenium échoués)")
 
-    except requests.exceptions.Timeout:
-        print(f"   {country}: Timeout")
-    except requests.exceptions.ConnectionError:
-        print(f"   {country}: Erreur de connexion")
     except Exception as e:
-        print(f"   {country}: Erreur - {type(e).__name__}")
+        print(f"   {country}: ❌ Erreur inattendue - {type(e).__name__}: {str(e)[:50]}")
 
     time.sleep(RATE_LIMIT_DELAY)
     return tenders
