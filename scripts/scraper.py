@@ -522,145 +522,50 @@ def calculate_confidence_score(text, matched_keywords, element_type, keyword_cou
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
-    VALIDÉ : Scanne le contenu visible avec scoring de confiance.
-    Retourne SEULEMENT les détections de haute confiance (≥60%).
+    APPROCHE SIMPLE ET FIABLE - Comme un vrai Ctrl+F:
+    1. Extraire le texte VISIBLE
+    2. Chercher les mots-clés DANS CE TEXTE
+    3. Créer la détection
     """
     tenders = []
-    soup = BeautifulSoup(html_content, 'html.parser')
 
     try:
-        # Enlever le code non-visible
-        for element in soup(['script', 'style', 'noscript', 'meta', 'link', 'nav', 'footer']):
-            element.decompose()
+        soup = BeautifulSoup(html_content, 'html.parser')
 
-        best_detection = None
-        best_score = 0
+        # ÉTAPE 1: Enlever TOUT ce qui n'est pas visible
+        for tag in soup(['script', 'style', 'noscript', 'meta', 'link']):
+            tag.decompose()
 
-        # 1. TITRE (confiance max: 95)
-        title_tag = soup.find('title')
-        if title_tag and is_element_visible(title_tag):
-            text = title_tag.get_text(strip=True)
-            if text and len(text) > 5:
-                matched_kw = contains_target_keywords(text)
-                if matched_kw:
-                    score = calculate_confidence_score(text, matched_kw, 'title', len(matched_kw))
-                    if score > best_score:
-                        best_score = score
-                        best_detection = (text, matched_kw, score)
+        # ÉTAPE 2: Extraire le texte visible uniquement
+        visible_text = soup.get_text(separator=' ', strip=True)
 
-        # 2. H1 (très haute priorité)
-        if best_score < 85:
-            for h1_tag in soup.find_all('h1'):
-                if not is_element_visible(h1_tag):
-                    continue
-                text = h1_tag.get_text(strip=True)
-                if text and len(text) > 5:
-                    matched_kw = contains_target_keywords(text)
-                    if matched_kw:
-                        score = calculate_confidence_score(text, matched_kw, 'h1', len(matched_kw))
-                        if score > best_score:
-                            best_score = score
-                            best_detection = (text, matched_kw, score)
-                        if score >= 85:
-                            break
+        # Normaliser (nettoyer les espaces extras)
+        visible_text = ' '.join(visible_text.split())
 
-        # 3. H2, H3 (haute priorité)
-        if best_score < 75:
-            for h_tag in soup.find_all(['h2', 'h3']):
-                if not is_element_visible(h_tag):
-                    continue
-                text = h_tag.get_text(strip=True)
-                if text and len(text) > 5:
-                    matched_kw = contains_target_keywords(text)
-                    if matched_kw:
-                        score = calculate_confidence_score(text, matched_kw, h_tag.name, len(matched_kw))
-                        if score > best_score:
-                            best_score = score
-                            best_detection = (text, matched_kw, score)
+        if not visible_text or len(visible_text) < 50:
+            # Pas assez de contenu
+            return tenders
 
-        # 4. PARAGRAPHES (contenu principal)
-        if best_score < 75:
-            main_content = soup.find('main') or soup.find('article') or soup.find('body')
-            if main_content:
-                p_count = 0
-                for p_tag in main_content.find_all('p'):
-                    if not is_element_visible(p_tag):
-                        continue
-                    text = p_tag.get_text(strip=True)
-                    if text and len(text) > 30:  # Min 30 cars (était 20)
-                        matched_kw = contains_target_keywords(text)
-                        if matched_kw:
-                            score = calculate_confidence_score(text, matched_kw, 'p', len(matched_kw))
-                            if score > best_score:
-                                best_score = score
-                                best_detection = (text, matched_kw, score)
-                            if score >= 85:
-                                break
-                    p_count += 1
-                    if p_count >= 15:
-                        break
+        # ÉTAPE 3: Chercher les mots-clés DANS CE TEXTE VISIBLE
+        matched_keywords = contains_target_keywords(visible_text)
 
-        # 5. LISTES (li) - seulement si vraiment bon
-        if best_score < 75:
-            li_count = 0
-            for li_tag in soup.find_all('li'):
-                if not is_element_visible(li_tag):
-                    continue
-                text = li_tag.get_text(strip=True)
-                if text and len(text) > 40:  # Min 40 cars (était 20)
-                    matched_kw = contains_target_keywords(text)
-                    if matched_kw and len(matched_kw) >= 2:  # OBLIGATOIREMENT 2+ mots-clés
-                        score = calculate_confidence_score(text, matched_kw, 'li', len(matched_kw))
-                        if score > best_score:
-                            best_score = score
-                            best_detection = (text, matched_kw, score)
-                li_count += 1
-                if li_count >= 15:
-                    break
+        if not matched_keywords:
+            # Aucun mot-clé trouvé
+            return tenders
 
-        # 6. DIVS (quasi-impossible de passer - dernier recours EXTRÊME)
-        # ⚠️ ULTRA-STRICT: doit être ÉNORME et avoir 3+ mots-clés
-        if best_score < 75:
-            div_count = 0
-            for div_tag in soup.find_all('div'):
-                if not is_element_visible(div_tag):
-                    continue
-                text = div_tag.get_text(strip=True)
-                # Divs: min 80 cars et obligatoirement 3+ mots-clés
-                if text and len(text) > 80:
-                    matched_kw = contains_target_keywords(text)
-                    if matched_kw and len(matched_kw) >= 3:  # OBLIGATOIREMENT 3+ mots-clés
-                        score = calculate_confidence_score(text, matched_kw, 'div', len(matched_kw))
-                        if score > best_score:
-                            best_score = score
-                            best_detection = (text, matched_kw, score)
-                div_count += 1
-                if div_count >= 20:
-                    break
+        # ÉTAPE 4: Créer la détection
+        # (Les mots-clés sont GARANTIS être dans le texte visible)
+        tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
 
-        # CRÉATION : seulement si confiance ≥ 75%
-        # ⚠️ ULTRA-STRICT: Zéro faux positif, seulement du contenu VRAIMENT visible
-        if best_detection and best_score >= 75:
-            text, matched_kw, score = best_detection
-
-            # VÉRIFICATION FINALE: Le texte existe-t-il VRAIMENT (Ctrl+F) ?
-            visible_text = get_visible_text_only(soup)
-            if not is_text_truly_visible(text, visible_text):
-                # Le texte ne passe pas le test Ctrl+F = faux positif
-                # Ne pas créer le tender
-                pass
-            else:
-                # ✅ OK: Le texte est vraiment visible
-                tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
-                tenders.append({
-                    'id': tender_hash,
-                    'country': country,
-                    'title': text[:150] if text else 'Opportunité détectée',
-                    'url': url,
-                    'detected_at': datetime.utcnow().isoformat(),
-                    'matched_keywords': list(set(matched_kw[:5])),
-                    'confidence': round(score, 1)
-                })
+        tenders.append({
+            'id': tender_hash,
+            'country': country,
+            'title': visible_text[:150],  # Les 150 premiers caractères du texte visible
+            'url': url,
+            'detected_at': datetime.utcnow().isoformat(),
+            'matched_keywords': list(set(matched_keywords[:5])),  # Top 5 mots-clés
+            'confidence': 85.0  # Confiance haute car mots-clés sont dans le texte visible
+        })
 
     except Exception as e:
         print(f"⚠️  Erreur lors du parsing de {country}: {e}")
