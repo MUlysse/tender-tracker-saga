@@ -646,7 +646,6 @@ def scrape_portal(country, url):
             time.sleep(3)
 
             # EXTRAIRE LE TEXTE VISIBLE VIA INNERTEXT
-            # C'est GARANTIE le texte visible (CSS évalué)
             visible_text = driver.execute_script("""
                 return document.body.innerText || '';
             """)
@@ -659,6 +658,9 @@ def scrape_portal(country, url):
                 if extracted:
                     keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
                     print(f"   {country}: ✓ Détection - {keywords_found}")
+                    # DEBUG: Afficher les 300 premiers caractères pour vérifier
+                    preview = visible_text[:300].replace('\n', ' ')
+                    print(f"      Preview: {preview}...")
                 else:
                     print(f"   {country}: −")
             else:
