@@ -423,6 +423,7 @@
 
         tbody tr {
             border-bottom: 1px solid #999999;
+            height: 80px;
         }
 
         tbody tr:nth-child(odd) {
@@ -439,7 +440,7 @@
         }
 
         tbody td {
-            padding: 15.4px 17.6px;
+            padding: 0;
             font-size: 14.3px;
             line-height: 1.5;
             color: #000000;
@@ -453,9 +454,9 @@
         .country-cell {
             font-weight: 700;
             color: #0a0a0a;
-            width: 160px;
-            min-width: 160px;
-            max-width: 160px;
+            width: 240px;
+            min-width: 240px;
+            max-width: 240px;
             padding: 0 !important;
             display: flex;
             align-items: stretch;
@@ -463,30 +464,32 @@
         }
 
         .country-flag-container {
-            width: 50%;
+            width: 40%;
             min-width: 80px;
-            max-width: 120px;
-            padding: 0;
+            padding: 8px;
             display: flex;
-            align-items: stretch;
+            align-items: center;
             justify-content: center;
             background-color: transparent;
-            border-right: 1px solid #cccccc;
+            border-right: 6px solid white;
+            flex-shrink: 0;
         }
 
         .country-flag {
             width: 100% !important;
             height: 100% !important;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
         }
 
         .country-name {
-            width: 50%;
-            padding: 15.4px 12px;
+            width: 60%;
+            padding: 12px 10px;
             display: flex;
             align-items: center;
             font-size: 14.3px;
+            overflow: hidden;
+            word-wrap: break-word;
         }
 
         .url-cell {
