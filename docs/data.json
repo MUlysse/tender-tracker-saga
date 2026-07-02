@@ -315,7 +315,7 @@
     {
       "region": "Afrique Anglophone",
       "country": "Kenya",
-      "url": "https://www.treasury.go.ke/treasury-tenders?page=1",
+      "url": "https://www.treasury.go.ke/treasury-tenders?page=0",
       "keywords": [
         "domestic resource mobilization",
         "tax",
@@ -507,7 +507,7 @@
     {
       "region": "Afrique Lusophone",
       "country": "Mozambique",
-      "url": "https://www.ufsa.gov.mz/",
+      "url": "https://www.ufsa.gov.mz/concursos.php",
       "keywords": [
         "domestic resource mobilization",
         "tax",
@@ -531,7 +531,7 @@
     {
       "region": "Afrique Lusophone",
       "country": "Cap Vert",
-      "url": "https://www.mf.gov.cv/web/ecompras",
+      "url": "https://www.mf.gov.cv/web/ecompras/concursos-abertos",
       "keywords": [
         "domestic resource mobilization",
         "tax",
@@ -579,7 +579,7 @@
     {
       "region": "Maghreb & Moyen-Orient",
       "country": "Arabie Saoudite",
-      "url": "https://mof.gov.sa/en/tenders/Pages/default.aspx",
+      "url": "https://tenders.etimad.sa/Tender/AllTendersForVisitor?PageNumber=1",
       "keywords": [
         "domestic resource mobilization",
         "tax",

@@ -166,7 +166,7 @@ TARGET_KEYWORDS = [
 ]
 
 # Configuration réseau
-REQUEST_TIMEOUT = 20  # Augmenté pour les sites lents
+REQUEST_TIMEOUT = 30  # Augmenté pour les sites lents
 REQUEST_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -389,8 +389,8 @@ def scrape_portal_with_selenium(country, url):
             except Exception:
                 return None
 
-        driver.set_page_load_timeout(20)
-        driver.set_script_timeout(20)
+        driver.set_page_load_timeout(30)
+        driver.set_script_timeout(30)
 
         try:
             driver.get(url)
@@ -522,49 +522,62 @@ def calculate_confidence_score(text, matched_keywords, element_type, keyword_cou
 
 def extract_tender_info(url, html_content, country, source_keywords):
     """
-    APPROCHE SIMPLE ET FIABLE - Comme un vrai Ctrl+F:
-    1. Extraire le texte VISIBLE
-    2. Chercher les mots-clés DANS CE TEXTE
-    3. Créer la détection
+    APPROCHE STRICTE - Pas de faux positifs:
+    1. Enlever HEAD complètement (métadonnées)
+    2. Enlever scripts, styles, etc.
+    3. Extraire SEULEMENT le BODY visible
+    4. Chercher les mots-clés
+    5. Valider que c'est du vrai contenu
     """
     tenders = []
 
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
 
-        # ÉTAPE 1: Enlever TOUT ce qui n'est pas visible
-        for tag in soup(['script', 'style', 'noscript', 'meta', 'link']):
+        # ÉTAPE 1: Enlever la HEAD complètement (métadonnées = faux positifs)
+        for tag in soup(['head', 'script', 'style', 'noscript', 'meta', 'link']):
             tag.decompose()
 
-        # ÉTAPE 2: Extraire le texte visible uniquement
-        visible_text = soup.get_text(separator=' ', strip=True)
+        # ÉTAPE 2: Extraire le BODY uniquement (contenu réel)
+        body = soup.find('body')
+        if not body:
+            body = soup  # Fallback si pas de body tag
 
-        # Normaliser (nettoyer les espaces extras)
+        # ÉTAPE 3: Extraire le texte visible
+        visible_text = body.get_text(separator=' ', strip=True)
         visible_text = ' '.join(visible_text.split())
 
-        if not visible_text or len(visible_text) < 50:
-            # Pas assez de contenu
+        if not visible_text or len(visible_text) < 100:
+            # Pas assez de contenu (métadonnées seulement)
             return tenders
 
-        # ÉTAPE 3: Chercher les mots-clés DANS CE TEXTE VISIBLE
+        # ÉTAPE 4: Chercher les mots-clés DANS LE BODY UNIQUEMENT
         matched_keywords = contains_target_keywords(visible_text)
 
         if not matched_keywords:
-            # Aucun mot-clé trouvé
             return tenders
 
-        # ÉTAPE 4: Créer la détection
-        # (Les mots-clés sont GARANTIS être dans le texte visible)
+        # ÉTAPE 5: Validation - S'assurer que c'est du contenu valide
+        # (pas juste des fragments de métadonnées)
+        # Vérifier que le texte a des mots longs (vrais contenus, pas juste "en", "de", etc.)
+        words = visible_text.split()
+        long_words = [w for w in words if len(w) > 4]
+
+        if len(long_words) < 5:
+            # Trop peu de contenu valide = probablement métadonnées
+            return tenders
+
+        # ÉTAPE 6: Créer la détection
         tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
 
         tenders.append({
             'id': tender_hash,
             'country': country,
-            'title': visible_text[:150],  # Les 150 premiers caractères du texte visible
+            'title': visible_text[:150],
             'url': url,
             'detected_at': datetime.utcnow().isoformat(),
-            'matched_keywords': list(set(matched_keywords[:5])),  # Top 5 mots-clés
-            'confidence': 85.0  # Confiance haute car mots-clés sont dans le texte visible
+            'matched_keywords': list(set(matched_keywords[:5])),
+            'confidence': 85.0
         })
 
     except Exception as e:
