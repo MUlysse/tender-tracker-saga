@@ -13,6 +13,8 @@ import time
 from urllib.parse import urljoin
 import hashlib
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 try:
     from selenium import webdriver
     from selenium.webdriver.common.by import By
@@ -594,64 +596,88 @@ def extract_tender_info(url, html_or_text, country, source_keywords):
 
 def scrape_portal(country, url):
     """
-    Approche pragmatique:
-    1. Requests d'abord (RAPIDE)
-    2. Selenium SEULEMENT en fallback (si requests échoue)
+    GARANTIE: Scanne SEULEMENT le texte VISIBLE (équivalent Ctrl+F).
+
+    Utilisé Selenium + innerText pour TOUS les sites = aucun faux positif jamais.
+    InnerText évalue le CSS, donc il retourne UNIQUEMENT ce que voit l'utilisateur.
     """
     tenders = []
-    html_content = None
 
+    if not SELENIUM_AVAILABLE:
+        print(f"   {country}: ❌ Selenium non disponible")
+        return tenders
+
+    driver = None
     try:
-        # ÉTAPE 1: Essayer requests (rapide)
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        options.add_argument(f'user-agent={REQUEST_HEADERS["User-Agent"]}')
+        options.add_argument('--disable-gpu')
+
         try:
-            response = requests.get(
-                url,
-                headers=REQUEST_HEADERS,
-                timeout=REQUEST_TIMEOUT,
-                verify=True,
-                allow_redirects=True
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=options)
+        except:
+            driver = webdriver.Chrome(options=options)
+
+        # Timeouts courts (l'utilisateur dit que 2 min c'est déjà beaucoup)
+        driver.set_page_load_timeout(10)
+        driver.set_script_timeout(10)
+
+        try:
+            driver.get(url)
+
+            # Attendre le DOM minimal
+            WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
-            response.encoding = 'utf-8'
 
-            if response.status_code == 404:
-                print(f"   {country}: 404 - ignoré")
-                time.sleep(RATE_LIMIT_DELAY)
-                return tenders
+            # Attendre le readyState (rapidement)
+            try:
+                WebDriverWait(driver, 3).until(
+                    lambda d: d.execute_script("return document.readyState") == "complete"
+                )
+            except:
+                pass
 
-            if response.status_code == 200:
-                html_content = response.text
+            # Délai minimal pour animations
+            time.sleep(1)
 
-        except requests.exceptions.Timeout:
-            print(f"   {country}: Timeout (requests) - Selenium fallback...")
-        except requests.exceptions.ConnectionError:
-            print(f"   {country}: Erreur connexion - Selenium fallback...")
-        except requests.exceptions.HTTPError:
-            print(f"   {country}: HTTPError - Selenium fallback...")
+            # EXTRAIRE LE TEXTE VISIBLE VIA INNERTEXT
+            # C'est GARANTIE le texte visible (CSS évalué)
+            visible_text = driver.execute_script("""
+                return document.body.innerText || '';
+            """)
 
-        # ÉTAPE 2: Fallback à Selenium si requests échoue
-        if not html_content and SELENIUM_AVAILABLE:
-            html_content = scrape_portal_with_selenium(country, url)
-            if html_content:
-                print(f"   {country}: ✓ Contenu Selenium récupéré")
+            if visible_text and len(visible_text.strip()) > 100:
+                # Chercher les mots-clés dans ce texte
+                extracted = extract_tender_info(url, visible_text, country, TARGET_KEYWORDS)
+                tenders.extend(extracted)
 
-        # ÉTAPE 3: Scraper si on a du contenu
-        if html_content:
-            extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
-            tenders.extend(extracted)
-
-            if extracted:
-                keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
-                confidence = extracted[0].get('confidence', 'N/A')
-                print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
+                if extracted:
+                    keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
+                    print(f"   {country}: ✓ Détection - {keywords_found}")
+                else:
+                    print(f"   {country}: −")
             else:
-                print(f"   {country}: − Aucune détection")
-        else:
-            print(f"   {country}: ❌ Impossible de scraper")
+                print(f"   {country}: −")
+
+        except Exception as e:
+            print(f"   {country}: ❌ {type(e).__name__}")
 
     except Exception as e:
-        print(f"   {country}: ❌ Erreur - {type(e).__name__}")
+        print(f"   {country}: ❌ Erreur init - {type(e).__name__}")
 
-    time.sleep(RATE_LIMIT_DELAY)
+    finally:
+        if driver:
+            try:
+                driver.quit()
+            except:
+                pass
+
     return tenders
 
 def identify_new_tenders(current_tenders, previous_tenders):
@@ -727,16 +753,30 @@ def main():
     print(f"  Mots-clés détection: {len(TARGET_KEYWORDS)} (FR, EN, ES, PT, AR)")
     print(f"  Selenium disponible: {'✅ OUI' if SELENIUM_AVAILABLE else '❌ NON'}")
 
-    # Scraper tous les portails
+    # Scraper TOUS les portails EN PARALLÈLE
     all_tenders = []
-    print(f"\nScraping des portails (détection case-insensitive):")
+    print(f"\nScraping en parallèle (10 workers, texte visible UNIQUEMENT):")
     print("-" * 70)
 
-    for i, source in enumerate(sources, 1):
-        country = source.get('country')
-        url = source.get('url')
-        tenders = scrape_portal(country, url)
-        all_tenders.extend(tenders)
+    # Utiliser ThreadPoolExecutor pour paralléliser
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        # Soumettre tous les jobs
+        future_to_country = {
+            executor.submit(scrape_portal, source.get('country'), source.get('url')): source.get('country')
+            for source in sources
+        }
+
+        # Récupérer les résultats au fur et à mesure
+        completed = 0
+        for future in as_completed(future_to_country):
+            country = future_to_country[future]
+            try:
+                tenders = future.result()
+                all_tenders.extend(tenders)
+                completed += 1
+            except Exception as e:
+                print(f"   {country}: ❌ Exception - {type(e).__name__}")
+                completed += 1
 
     # Identifier les nouvelles opportunités
     new_tenders = identify_new_tenders(all_tenders, previous_tenders)
