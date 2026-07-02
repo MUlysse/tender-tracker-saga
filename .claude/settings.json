@@ -52,7 +52,8 @@
       "Bash(python -m py_compile scripts/scraper.py)",
       "Bash(git commit -m ' *)",
       "Bash(git commit -m '🎯 FINAL: Noir/Blanc/Gris SEULEMENT + Alignement colonnes PARFAIT *)",
-      "Bash(git init *)"
+      "Bash(git init *)",
+      "Bash(python3 -m py_compile scraper.py)"
     ]
   }
 }
