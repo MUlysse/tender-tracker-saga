@@ -1404,40 +1404,18 @@
             'Danida - Denmark': 'dk', 'SIDA - Sweden': 'se', 'JICA - Japan': 'jp'
         };
 
-        // Drapeaux SVG simples (remplace par tes images JPG/PNG dans docs/flags/)
-        const FLAG_COLORS = {
-            'je': ['#0066cc', '#ffcc00'], 'ky': ['#003478', '#ffffff', '#ffcc00'],
-            'bs': ['#003478', '#ffcc00', '#003478'], 'bm': ['#00a86b', '#ffffff', '#003478'],
-            'do': ['#0066cc', '#ffffff', '#ee1c25'], 'za': ['#000000', '#ffcc00', '#009543'],
-            'ke': ['#000000', '#ffffff', '#ff0000'], 'za': ['#000000', '#ffcc00', '#009543'],
-            'ng': ['#008751', '#ffffff'], 'gh': ['#ff0000', '#ffcc00'], 'eg': ['#ff0000', '#ffffff', '#000000'],
-            'ma': ['#cc0000', '#00cc00'], 'tn': ['#cc0000', '#ffffff'], 'dz': ['#00cc00', '#ffffff', '#cc0000'],
-            'fr': ['#0055b8', '#ffffff', '#ef4135'], 'de': ['#000000', '#cc0000', '#ffcc00'],
-            'za': ['#000000', '#ffcc00', '#009543'], 'ng': ['#008751', '#ffffff'],
-        };
-
-        function getSvgFlag(country) {
-            const code = COUNTRY_CODES[country];
-            if (!code) return null;
-
-            // Chercher d'abord l'image locale (docs/flags/code.png ou .jpg)
-            return `<img src="flags/${code}.png" alt="${country}" class="country-flag" onerror="this.outerHTML='<img src=\\'flags/${code}.jpg\\' alt=\\'${country}\\' class=\\'country-flag\\' onerror=\\'this.outerHTML=\\\"<div style=\\\\\\'width:100%;height:100%;background:linear-gradient(135deg,#0066cc,#003478);\\\\\\' style=\\\\\\'display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:bold;\\\\\\' title=\\\\\\'Ajoute ${code}.png ou .jpg dans docs/flags/\\\\\\'>?</div>\\\">\\'">`;
-        }
-
         function getCountryDisplay(country) {
             let flagImg = '';
 
             if (COUNTRY_CODES[country]) {
-                flagImg = getSvgFlag(country);
-            } else if (country === 'World Bank') {
-                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1f4788 0%, #2e5c8a 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px;">WB</div>`;
-            } else if (country === 'AfDB') {
-                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #003d7a 0%, #005ba1 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">AfDB</div>`;
-            } else if (country === 'Onoris Journal') {
-                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #666 0%, #333 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; line-height: 1;">📰</div>`;
-            } else if (country.includes('Tender') || country.includes('Global') || country.includes('Africa') || country.includes('SIDA') || country.includes('Development')) {
-                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #0066cc 0%, #004499 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 16px;">🌐</div>`;
+                // Pays avec code ISO
+                const code = COUNTRY_CODES[country];
+                flagImg = `<img src="flags/${code}.png" alt="${country}" class="country-flag" style="object-fit: contain;">`;
+            } else if (['World Bank', 'AfDB', 'Onoris Journal', 'Global Tenders', 'Africa Tenders', 'Tender Soko', 'Development Aid'].includes(country)) {
+                // Organisations avec logo personnalisé
+                flagImg = `<img src="flags/${country}.png" alt="${country}" class="country-flag" style="object-fit: contain;">`;
             } else {
+                // Fallback
                 flagImg = `<div style="width: 100%; height: 100%; background: #ddd; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px;">?</div>`;
             }
 
