@@ -218,7 +218,8 @@
             gap: 24px;
             margin-bottom: 24px;
             border-bottom: 1px solid #dadce0;
-            padding-bottom: 0;
+            padding-bottom: 12px;
+            align-items: center;
         }
 
         .tab-button {
@@ -452,27 +453,38 @@
         .country-cell {
             font-weight: 700;
             color: #0a0a0a;
-            width: 150px;
-            min-width: 150px;
-            max-width: 150px;
+            width: 160px;
+            min-width: 160px;
+            max-width: 160px;
+            padding: 0 !important;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+        }
+
+        .country-flag-container {
+            width: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border-right: 1px solid #cccccc;
         }
 
         .country-flag {
-            width: 24px;
-            height: 18px;
-            object-fit: cover;
-            border-radius: 2px;
-            flex-shrink: 0;
+            width: 90%;
+            height: 90%;
+            max-width: 70px;
+            max-height: 52px;
+            object-fit: contain;
         }
 
-        .country-logo {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-            flex-shrink: 0;
+        .country-name {
+            width: 50%;
+            padding: 15.4px 12px;
+            display: flex;
+            align-items: center;
+            font-size: 14.3px;
         }
 
         .url-cell {
@@ -944,6 +956,10 @@
             <div class="tabs-container">
                 <button class="tab-button active" onclick="switchTab('alerts')">Dernières Alertes</button>
                 <button class="tab-button" onclick="switchTab('keywords')">Mots-clés</button>
+                <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 12.1px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #5f6368;">Prochain Scan Dans</span>
+                    <span id="nextScanCountdown" style="font-size: 14.3px; font-weight: 600; color: #000000;">--:--</span>
+                </div>
             </div>
 
             <!-- Alertes Tab -->
@@ -1214,7 +1230,7 @@
             const diff = nextScanTime - now;
 
             if (diff <= 0) {
-                document.getElementById('nextScanTime').textContent = 'En cours...';
+                document.getElementById('nextScanCountdown').textContent = 'En cours...';
                 return;
             }
 
@@ -1229,7 +1245,7 @@
                 timeStr = `${minutes}m ${seconds}s`;
             }
 
-            document.getElementById('nextScanTime').textContent = timeStr;
+            document.getElementById('nextScanCountdown').textContent = timeStr;
         }
 
 // ===== CHARGEMENT DES DONNÉES =====
@@ -1255,6 +1271,7 @@
 
                 renderKeywords();
                 renderTable();
+                startCountdown(data.last_updated);
 
             } catch (error) {
                 console.error('Erreur:', error);
@@ -1387,28 +1404,32 @@
             'Danida - Denmark': 'dk', 'SIDA - Sweden': 'se', 'JICA - Japan': 'jp'
         };
 
-        function getCountryDisplay(country) {
-            let imageHtml = '';
+        function getFlagImageUrl(country) {
+            const code = COUNTRY_CODES[country];
+            if (!code) return null;
+            // Chercher d'abord en local (docs/flags/), puis fallback flagcdn
+            return `flags/${code}.jpg`;
+        }
 
-            if (COUNTRY_CODES[country]) {
-                // Drapeau pays
-                const code = COUNTRY_CODES[country];
-                imageHtml = `<img src="https://flagcdn.com/w24/${code}.svg" alt="${country}" class="country-flag">`;
+        function getCountryDisplay(country) {
+            let flagImg = '';
+            const flagUrl = getFlagImageUrl(country);
+
+            if (flagUrl) {
+                flagImg = `<img src="${flagUrl}" alt="${country}" class="country-flag" onerror="this.src='https://flagcdn.com/w120/${COUNTRY_CODES['${country}']}.svg'">`;
             } else if (country === 'World Bank') {
-                imageHtml = `<img src="https://www.worldbank.org/content/dam/sites/corporate/img/logo.svg" alt="World Bank" class="country-logo">`;
+                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1f4788 0%, #2e5c8a 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px;">WB</div>`;
             } else if (country === 'AfDB') {
-                imageHtml = `<img src="https://www.afdb.org/sites/default/files/styles/logo/public/logo-afdb-en-2.png" alt="AfDB" class="country-logo">`;
+                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #003d7a 0%, #005ba1 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">AfDB</div>`;
             } else if (country === 'Onoris Journal') {
-                imageHtml = `<img src="https://www.onoris.com/favicon.ico" alt="Onoris" class="country-logo">`;
+                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #666 0%, #333 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">📰</div>`;
             } else if (country.includes('Tender') || country.includes('Global') || country.includes('Africa')) {
-                // Icône générique pour les portails
-                imageHtml = `<div style="width: 24px; height: 24px; background: #333; border-radius: 2px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">🌐</div>`;
+                flagImg = `<div style="width: 100%; height: 100%; background: linear-gradient(135deg, #0066cc 0%, #004499 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">🌐</div>`;
             } else {
-                // Fallback drapeau
-                imageHtml = `<div style="width: 24px; height: 18px; background: #ddd; border-radius: 2px;"></div>`;
+                flagImg = `<div style="width: 100%; height: 100%; background: #ddd;"></div>`;
             }
 
-            return `<div style="display: flex; align-items: center; gap: 8px;">${imageHtml}<span>${country}</span></div>`;
+            return `<div class="country-flag-container">${flagImg}</div><div class="country-name">${country}</div>`;
         }
 
         // ===== RENDU DU TABLEAU =====
