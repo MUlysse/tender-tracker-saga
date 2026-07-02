@@ -53,7 +53,9 @@
       "Bash(git commit -m ' *)",
       "Bash(git commit -m '🎯 FINAL: Noir/Blanc/Gris SEULEMENT + Alignement colonnes PARFAIT *)",
       "Bash(git init *)",
-      "Bash(python3 -m py_compile scraper.py)"
+      "Bash(python3 -m py_compile scraper.py)",
+      "PowerShell(grep -i tender)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000\" -Directory | Where-Object {$_.Name -match \"tender\"})"
     ]
   }
 }

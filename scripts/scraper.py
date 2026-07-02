@@ -12,6 +12,18 @@ from datetime import datetime
 import time
 from urllib.parse import urljoin
 import hashlib
+import re
+try:
+    from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from webdriver_manager.chrome import ChromeDriverManager
+    from selenium.webdriver.chrome.service import Service
+    SELENIUM_AVAILABLE = True
+except ImportError:
+    SELENIUM_AVAILABLE = False
 
 # ==================== CONFIGURATION ====================
 # Liste multilingue de mots-clés étendue (FR, EN, ES, PT, AR)
@@ -210,7 +222,12 @@ def is_element_visible(tag):
     # ===== EXCLUSIONS ABSOLUES =====
     # Balises de structure/métadonnées
     if tag.name in ['script', 'style', 'noscript', 'meta', 'link', 'nav',
-                     'footer', 'svg', 'canvas', 'iframe', 'embed', 'object']:
+                     'footer', 'svg', 'canvas', 'iframe', 'embed', 'object',
+                     'head', 'table', 'tbody', 'thead', 'tr', 'td', 'th']:
+        return False
+
+    # Balises de tableau (données structurées non-visibles)
+    if tag.name in ['table', 'tbody', 'thead', 'tr', 'td', 'th', 'col', 'colgroup']:
         return False
 
     # Attributs de dissimulation
@@ -281,6 +298,84 @@ def is_element_visible(tag):
         depth += 1
 
     return True
+
+def is_text_truly_visible(text, soup):
+    """
+    Equivalent d'une 'Ctrl+F': vérifie que le texte est VRAIMENT sur la page.
+    Retourne False si le texte ne se trouve que dans du contenu caché (tables, code, etc.).
+    """
+    if not text or len(text) < 5:
+        return True
+
+    # Chercher le texte dans le contenu visible uniquement
+    # Enlever les balises de contenu invisible
+    soup_copy = BeautifulSoup(str(soup), 'html.parser')
+    for invisible_tag in soup_copy(['script', 'style', 'noscript', 'table', 'nav', 'footer']):
+        invisible_tag.decompose()
+
+    # Chercher le texte dans ce qui reste
+    visible_text = soup_copy.get_text(strip=True)
+
+    # Normaliser pour la comparaison (case-insensitive, espaces simplifiés)
+    text_normalized = ' '.join(text.split()).lower()
+    visible_text_normalized = ' '.join(visible_text.split()).lower()
+
+    # Vérifier si au moins le début du texte est présent
+    text_length = len(text_normalized)
+    if text_length == 0:
+        return False
+
+    # Chercher une partie significative du texte (au moins 20 chars)
+    if text_length > 20:
+        return text_normalized[:20] in visible_text_normalized
+    else:
+        return text_normalized in visible_text_normalized
+
+def scrape_portal_with_selenium(country, url):
+    """
+    Scrape un portail avec Selenium pour exécuter le JavaScript.
+    Utilisé pour les sites dynamiques (comme Onoris).
+    """
+    try:
+        if not SELENIUM_AVAILABLE:
+            return None
+
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        options.add_argument(f'user-agent={REQUEST_HEADERS["User-Agent"]}')
+
+        try:
+            service = Service(ChromeDriverManager().install())
+            driver = webdriver.Chrome(service=service, options=options)
+        except Exception:
+            # Fallback si webdriver-manager échoue
+            driver = webdriver.Chrome(options=options)
+
+        driver.set_page_load_timeout(15)
+
+        try:
+            driver.get(url)
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_all_elements_located((By.TAG_NAME, "body"))
+            )
+            time.sleep(2)  # Attendre le rendu JS complet
+
+            html_content = driver.page_source
+            driver.quit()
+            return html_content
+
+        except Exception as e:
+            try:
+                driver.quit()
+            except:
+                pass
+            return None
+
+    except Exception as e:
+        return None
 
 def calculate_confidence_score(text, matched_keywords, element_type, keyword_count):
     """
@@ -497,10 +592,14 @@ def extract_tender_info(url, html_content, country, source_keywords):
 def scrape_portal(country, url):
     """
     Scrape un portail individuel avec détection multilingue et gestion d'erreur 404.
+    Utilise Selenium si disponible pour les sites avec JavaScript.
     Retourne une liste de tenders trouvés (une ligne = une détection).
     """
     tenders = []
+    html_content = None
+
     try:
+        # Essayer d'abord avec requests (rapide)
         response = requests.get(
             url,
             headers=REQUEST_HEADERS,
@@ -518,8 +617,20 @@ def scrape_portal(country, url):
         response.raise_for_status()
 
         if response.status_code == 200:
-            # Scraper le contenu (pas de détection 404)
-            extracted = extract_tender_info(url, response.text, country, TARGET_KEYWORDS)
+            html_content = response.text
+
+            # Vérifier si c'est une page "vide" ou très minimaliste (peut être du JS)
+            if len(html_content) < 2000 or 'react' in html_content.lower() or 'angular' in html_content.lower():
+                # Essayer avec Selenium si disponible
+                if SELENIUM_AVAILABLE:
+                    print(f"   {country}: Tentative Selenium (contenu JS détecté)...")
+                    selenium_html = scrape_portal_with_selenium(country, url)
+                    if selenium_html and len(selenium_html) > len(html_content):
+                        html_content = selenium_html
+                        print(f"   {country}: Contenu Selenium récupéré")
+
+            # Scraper le contenu
+            extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
             tenders.extend(extracted)
 
             if extracted:
