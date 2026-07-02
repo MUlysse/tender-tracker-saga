@@ -1437,9 +1437,18 @@
         };
 
         function getCountryDisplay(country) {
-            // Carrés colorés SEULEMENT (efficace et rapide)
-            const bgColor = COUNTRY_COLORS[country] || '#999999';
-            const flagHtml = '<div class="country-flag" style="background-color:' + bgColor + ';"></div>';
+            let flagHtml = '';
+
+            if (COUNTRY_CODES[country]) {
+                // Pays avec code ISO
+                const code = COUNTRY_CODES[country];
+                flagHtml = '<img src="flags/' + code + '.png?v=4" class="country-flag" alt="' + country + '">';
+            } else {
+                // Organisations: remplacer espaces par underscores
+                const cleanName = country.replace(/ /g, '_');
+                flagHtml = '<img src="flags/' + cleanName + '.png?v=4" class="country-flag" alt="' + country + '">';
+            }
+
             const nameHtml = '<div class="country-name">' + country + '</div>';
             return '<div class="country-flag-container">' + flagHtml + '</div>' + nameHtml;
         }
