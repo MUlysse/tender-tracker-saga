@@ -121,7 +121,6 @@ TARGET_KEYWORDS = [
     'gestão das finanças públicas',
     'dívida soberana',
     'reestruturação da dívida',
-    'contratação pública',
     'administração tributária',
     'mobilização de recursos',
     'modernização tributária',
