@@ -894,22 +894,11 @@
   ],
   "tenders": [
     {
-      "id": "e150aa8403cf2130d425c2c281ce3a20",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-07-02T14:19:11.688874",
-      "matched_keywords": [
-        "drm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "bb96ef8dbf1a3d973f2d20ed8d0837f0",
+      "id": "88868a6e93c1a2701461ba2ce1c874f6",
       "country": "Congo-Brazzaville",
       "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-02T14:19:25.641246",
+      "detected_at": "2026-07-02T19:42:17.545707",
       "matched_keywords": [
         "finances publiques",
         "gestion des finances publiques"
@@ -917,72 +906,72 @@
       "confidence": 85.0
     },
     {
-      "id": "cec5ee7b223ef725bdb91656e8e98f9b",
+      "id": "41c395fe10d0f0b57c6ff44155cced3c",
       "country": "Guinée équatoriale",
       "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
       "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-02T14:19:30.882227",
+      "detected_at": "2026-07-02T19:42:22.584866",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "db35c9d6184d1d9a1ad4185f18244419",
+      "id": "e634146383beaf59b8b665038db9b1da",
       "country": "Malawi",
       "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-02T14:19:42.291622",
+      "detected_at": "2026-07-02T19:42:34.681525",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "90f5d188591abd33b8422ba15c22fda5",
+      "id": "4493b68b1ca2166202602d5c785a57ed",
       "country": "Sierra Leone",
       "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
       "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-02T14:19:42.607556",
+      "detected_at": "2026-07-02T19:42:35.532591",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "f960b62a9d2e419dc4b5fbb198de814f",
+      "id": "71607361da3874490008f7063a3ef1ad",
       "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 02-Jul-2026 4:19:45 PM Electronic Government Procurement Sys",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 02-Jul-2026 9:42:40 PM Electronic Government Procurement Sys",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-02T14:19:47.101301",
+      "detected_at": "2026-07-02T19:42:41.952709",
       "matched_keywords": [
         "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "ecd606a51b4a1e02d31e0e3a901d6e7d",
+      "id": "8a26c7731b6c6f004a1e93e26eb16937",
       "country": "World Bank",
       "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
       "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-07-02T14:20:12.731275",
+      "detected_at": "2026-07-02T19:43:03.473620",
       "matched_keywords": [
         "public financial management"
       ],
       "confidence": 85.0
     },
     {
-      "id": "6d3f432122f577334e777be5e0a79221",
+      "id": "79c818c26af90ee45aa730da7aaee0b6",
       "country": "Onoris Journal",
       "title": "Accueil Qui sommes nous ? Nous contacter Devenez rédacteur Direct Interviews Podcast Finance Emerging Market Géopolitique Biographies Connexion NOTRE ",
       "url": "https://onoris-journal.com/",
-      "detected_at": "2026-07-02T14:20:22.846671",
+      "detected_at": "2026-07-02T19:43:11.371716",
       "matched_keywords": [
         "dette souveraine"
       ],
       "confidence": 85.0
     }
   ],
-  "last_updated": "2026-07-02T14:20:23.478709",
-  "new_tenders_count": 8
+  "last_updated": "2026-07-02T19:43:11.900589",
+  "new_tenders_count": 7
 }
