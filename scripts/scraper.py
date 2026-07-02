@@ -594,31 +594,15 @@ def extract_tender_info(url, html_or_text, country, source_keywords):
 
 def scrape_portal(country, url):
     """
-    Scrape un portail avec Selenium TOUJOURS pour avoir le texte VRAIMENT visible.
-    Fallback à requests si Selenium échoue.
+    Approche pragmatique:
+    1. Requests d'abord (RAPIDE)
+    2. Selenium SEULEMENT en fallback (si requests échoue)
     """
     tenders = []
+    html_content = None
 
     try:
-        # TOUJOURS essayer Selenium en premier (texte VRAIMENT visible)
-        if SELENIUM_AVAILABLE:
-            html_content = scrape_portal_with_selenium(country, url)
-            if html_content:
-                print(f"   {country}: ✓ Contenu Selenium récupéré ({len(html_content)} bytes)")
-                extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
-                tenders.extend(extracted)
-
-                if extracted:
-                    keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
-                    confidence = extracted[0].get('confidence', 'N/A')
-                    print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
-                else:
-                    print(f"   {country}: − Aucune détection")
-
-                time.sleep(RATE_LIMIT_DELAY)
-                return tenders
-
-        # Fallback à requests si Selenium échoue
+        # ÉTAPE 1: Essayer requests (rapide)
         try:
             response = requests.get(
                 url,
@@ -636,22 +620,33 @@ def scrape_portal(country, url):
 
             if response.status_code == 200:
                 html_content = response.text
-                extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
-                tenders.extend(extracted)
-
-                if extracted:
-                    keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
-                    confidence = extracted[0].get('confidence', 'N/A')
-                    print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
-                else:
-                    print(f"   {country}: − Aucune détection")
 
         except requests.exceptions.Timeout:
-            print(f"   {country}: Timeout")
+            print(f"   {country}: Timeout (requests) - Selenium fallback...")
         except requests.exceptions.ConnectionError:
-            print(f"   {country}: Erreur connexion")
+            print(f"   {country}: Erreur connexion - Selenium fallback...")
         except requests.exceptions.HTTPError:
-            print(f"   {country}: HTTPError")
+            print(f"   {country}: HTTPError - Selenium fallback...")
+
+        # ÉTAPE 2: Fallback à Selenium si requests échoue
+        if not html_content and SELENIUM_AVAILABLE:
+            html_content = scrape_portal_with_selenium(country, url)
+            if html_content:
+                print(f"   {country}: ✓ Contenu Selenium récupéré")
+
+        # ÉTAPE 3: Scraper si on a du contenu
+        if html_content:
+            extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
+            tenders.extend(extracted)
+
+            if extracted:
+                keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
+                confidence = extracted[0].get('confidence', 'N/A')
+                print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
+            else:
+                print(f"   {country}: − Aucune détection")
+        else:
+            print(f"   {country}: ❌ Impossible de scraper")
 
     except Exception as e:
         print(f"   {country}: ❌ Erreur - {type(e).__name__}")
