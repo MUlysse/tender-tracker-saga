@@ -400,23 +400,35 @@ def scrape_portal_with_selenium(country, url):
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
 
-            # Attendre que le jQuery soit prêt si disponible
+            # Attendre que le document soit complètement chargé
             try:
-                driver.execute_script("return document.readyState")
                 WebDriverWait(driver, 10).until(
                     lambda d: d.execute_script("return document.readyState") == "complete"
                 )
             except:
                 pass
 
-            # Attendre un peu plus pour que les animations JS se terminent
+            # Attendre les animations
             time.sleep(3)
 
-            html_content = driver.page_source
+            # EXTRAIRE LE TEXTE VISIBLE VIA JAVASCRIPT
+            # C'est le texte que l'utilisateur voit RÉELLEMENT
+            visible_text = driver.execute_script("""
+                // Enlever les éléments cachés
+                const hidden = document.querySelectorAll('script, style, noscript, meta, link, head');
+                hidden.forEach(el => el.remove());
 
-            # Vérifier qu'on a du contenu valide
-            if html_content and len(html_content) > 500:
-                return html_content
+                // Obtenir le texte du BODY seulement
+                const body = document.body;
+                if (!body) return '';
+
+                // Extraire le texte visible (innerText évalue le CSS)
+                return body.innerText || body.textContent || '';
+            """)
+
+            if visible_text and len(visible_text.strip()) > 100:
+                # Retourner le texte directement (pas l'HTML)
+                return visible_text
             else:
                 return None
 
@@ -520,54 +532,49 @@ def calculate_confidence_score(text, matched_keywords, element_type, keyword_cou
     final_score = max(0, min(score, 100))
     return final_score
 
-def extract_tender_info(url, html_content, country, source_keywords):
+def extract_tender_info(url, html_or_text, country, source_keywords):
     """
-    APPROCHE STRICTE - Pas de faux positifs:
-    1. Enlever HEAD complètement (métadonnées)
-    2. Enlever scripts, styles, etc.
-    3. Extraire SEULEMENT le BODY visible
-    4. Chercher les mots-clés
-    5. Valider que c'est du vrai contenu
+    ULTRA-SIMPLE ET FIABLE:
+    1. Si c'est du HTML (requests), parser avec BeautifulSoup
+    2. Si c'est du texte brut (Selenium), utiliser directement
+    3. Chercher les mots-clés
+    4. Créer la détection si trouvés
     """
     tenders = []
 
     try:
-        soup = BeautifulSoup(html_content, 'html.parser')
+        # Déterminer si c'est du HTML ou du texte brut
+        is_html = '<' in html_or_text and '>' in html_or_text
 
-        # ÉTAPE 1: Enlever la HEAD complètement (métadonnées = faux positifs)
-        for tag in soup(['head', 'script', 'style', 'noscript', 'meta', 'link']):
-            tag.decompose()
+        if is_html:
+            # C'est du HTML (de requests)
+            soup = BeautifulSoup(html_or_text, 'html.parser')
 
-        # ÉTAPE 2: Extraire le BODY uniquement (contenu réel)
-        body = soup.find('body')
-        if not body:
-            body = soup  # Fallback si pas de body tag
+            # Enlever HEAD et autres éléments invisibles
+            for tag in soup(['head', 'script', 'style', 'noscript', 'meta', 'link']):
+                tag.decompose()
 
-        # ÉTAPE 3: Extraire le texte visible
-        visible_text = body.get_text(separator=' ', strip=True)
+            # Extraire le texte du BODY
+            body = soup.find('body') or soup
+            visible_text = body.get_text(separator=' ', strip=True)
+        else:
+            # C'est du texte brut (de Selenium JavaScript)
+            visible_text = html_or_text
+
+        # Normaliser les espaces
         visible_text = ' '.join(visible_text.split())
 
+        # Validation minimale
         if not visible_text or len(visible_text) < 100:
-            # Pas assez de contenu (métadonnées seulement)
             return tenders
 
-        # ÉTAPE 4: Chercher les mots-clés DANS LE BODY UNIQUEMENT
+        # Chercher les mots-clés
         matched_keywords = contains_target_keywords(visible_text)
 
         if not matched_keywords:
             return tenders
 
-        # ÉTAPE 5: Validation - S'assurer que c'est du contenu valide
-        # (pas juste des fragments de métadonnées)
-        # Vérifier que le texte a des mots longs (vrais contenus, pas juste "en", "de", etc.)
-        words = visible_text.split()
-        long_words = [w for w in words if len(w) > 4]
-
-        if len(long_words) < 5:
-            # Trop peu de contenu valide = probablement métadonnées
-            return tenders
-
-        # ÉTAPE 6: Créer la détection
+        # Créer la détection
         tender_hash = hashlib.md5(f"{url}{datetime.utcnow().isoformat()}".encode()).hexdigest()
 
         tenders.append({
@@ -587,15 +594,31 @@ def extract_tender_info(url, html_content, country, source_keywords):
 
 def scrape_portal(country, url):
     """
-    Scrape un portail individuel avec détection multilingue.
-    Utilise Selenium si requests échoue ou si pas de détection.
-    Retourne une liste de tenders trouvés (une ligne = une détection).
+    Scrape un portail avec Selenium TOUJOURS pour avoir le texte VRAIMENT visible.
+    Fallback à requests si Selenium échoue.
     """
     tenders = []
-    html_content = None
 
     try:
-        # Essayer avec requests (rapide)
+        # TOUJOURS essayer Selenium en premier (texte VRAIMENT visible)
+        if SELENIUM_AVAILABLE:
+            html_content = scrape_portal_with_selenium(country, url)
+            if html_content:
+                print(f"   {country}: ✓ Contenu Selenium récupéré ({len(html_content)} bytes)")
+                extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
+                tenders.extend(extracted)
+
+                if extracted:
+                    keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
+                    confidence = extracted[0].get('confidence', 'N/A')
+                    print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
+                else:
+                    print(f"   {country}: − Aucune détection")
+
+                time.sleep(RATE_LIMIT_DELAY)
+                return tenders
+
+        # Fallback à requests si Selenium échoue
         try:
             response = requests.get(
                 url,
@@ -606,7 +629,6 @@ def scrape_portal(country, url):
             )
             response.encoding = 'utf-8'
 
-            # Pages 404 = ne pas inclure
             if response.status_code == 404:
                 print(f"   {country}: 404 - ignoré")
                 time.sleep(RATE_LIMIT_DELAY)
@@ -614,41 +636,25 @@ def scrape_portal(country, url):
 
             if response.status_code == 200:
                 html_content = response.text
+                extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
+                tenders.extend(extracted)
+
+                if extracted:
+                    keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
+                    confidence = extracted[0].get('confidence', 'N/A')
+                    print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
+                else:
+                    print(f"   {country}: − Aucune détection")
 
         except requests.exceptions.Timeout:
-            print(f"   {country}: Timeout (requests) - tentative Selenium...")
-            html_content = None
-        except requests.exceptions.HTTPError as e:
-            print(f"   {country}: HTTPError {e.response.status_code} - tentative Selenium...")
-            html_content = None
+            print(f"   {country}: Timeout")
         except requests.exceptions.ConnectionError:
-            print(f"   {country}: Erreur connexion (requests) - tentative Selenium...")
-            html_content = None
-
-        # Si requests a échoué OU si c'est une page JS, essayer Selenium
-        if not html_content or len(html_content) < 1000:
-            if SELENIUM_AVAILABLE:
-                print(f"   {country}: Tentative Selenium...")
-                html_content = scrape_portal_with_selenium(country, url)
-                if html_content:
-                    print(f"   {country}: ✓ Contenu Selenium récupéré ({len(html_content)} bytes)")
-
-        # Si on a du contenu, scraper
-        if html_content:
-            extracted = extract_tender_info(url, html_content, country, TARGET_KEYWORDS)
-            tenders.extend(extracted)
-
-            if extracted:
-                keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
-                confidence = extracted[0].get('confidence', 'N/A')
-                print(f"   {country}: ✓ {len(extracted)} détection(s) - Score: {confidence}% - Mots-clés: {keywords_found}")
-            else:
-                print(f"   {country}: − Aucune détection")
-        else:
-            print(f"   {country}: ❌ Impossible de scraper (requests ET Selenium échoués)")
+            print(f"   {country}: Erreur connexion")
+        except requests.exceptions.HTTPError:
+            print(f"   {country}: HTTPError")
 
     except Exception as e:
-        print(f"   {country}: ❌ Erreur inattendue - {type(e).__name__}: {str(e)[:50]}")
+        print(f"   {country}: ❌ Erreur - {type(e).__name__}")
 
     time.sleep(RATE_LIMIT_DELAY)
     return tenders
