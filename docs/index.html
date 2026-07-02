@@ -1437,23 +1437,9 @@
         };
 
         function getCountryDisplay(country) {
-            let flagHtml = '';
-            const noImageCountries = ['Onoris Journal', 'Global Tenders', 'Cayman Islands'];
-
-            if (noImageCountries.includes(country)) {
-                // Carrés colorés pour les gros fichiers supprimés
-                const bgColor = COUNTRY_COLORS[country] || '#999999';
-                flagHtml = '<div class="country-flag" style="background-color:' + bgColor + ';"></div>';
-            } else if (COUNTRY_CODES[country]) {
-                // Pays avec code ISO
-                const code = COUNTRY_CODES[country];
-                flagHtml = '<img src="flags/' + code + '.png?v=3" class="country-flag" alt="' + country + '">';
-            } else {
-                // Organisations: remplacer espaces par underscores
-                const cleanName = country.replace(/ /g, '_');
-                flagHtml = '<img src="flags/' + cleanName + '.png?v=3" class="country-flag" alt="' + country + '">';
-            }
-
+            // Carrés colorés SEULEMENT (efficace et rapide)
+            const bgColor = COUNTRY_COLORS[country] || '#999999';
+            const flagHtml = '<div class="country-flag" style="background-color:' + bgColor + ';"></div>';
             const nameHtml = '<div class="country-name">' + country + '</div>';
             return '<div class="country-flag-container">' + flagHtml + '</div>' + nameHtml;
         }
