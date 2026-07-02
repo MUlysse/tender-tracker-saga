@@ -892,21 +892,7 @@
       ]
     }
   ],
-  "tenders": [
-    {
-      "id": "33474e929e24223f0118c404bc20b79e",
-      "country": "Mali",
-      "title": "Nom Autorité ContractanteNom serviceLibellé du DossierDate du dossierDossierMINISTERE DE L'AGRICULTUREDIRECTION NATIONALE DU GENIE RURALTravaux d'amén",
-      "url": "https://dgmp.gouv.ml/",
-      "detected_at": "2026-07-02T08:35:08.718162",
-      "matched_keywords": [
-        "impôts",
-        "drm",
-        "finances publiques"
-      ],
-      "confidence": 91
-    }
-  ],
-  "last_updated": "2026-07-02T08:40:15.921159",
-  "new_tenders_count": 1
+  "tenders": [],
+  "last_updated": "2026-07-02T09:32:20.586326",
+  "new_tenders_count": 0
 }
