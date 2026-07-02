@@ -806,6 +806,7 @@ def main():
     print(f"  Sources: {len(sources)}")
     print(f"  Tenders antérieurs: {len(previous_tenders)}")
     print(f"  Mots-clés détection: {len(TARGET_KEYWORDS)} (FR, EN, ES, PT, AR)")
+    print(f"  Selenium disponible: {'✅ OUI' if SELENIUM_AVAILABLE else '❌ NON'}")
 
     # Scraper tous les portails
     all_tenders = []
