@@ -452,9 +452,27 @@
         .country-cell {
             font-weight: 700;
             color: #0a0a0a;
-            width: 120px;
-            min-width: 120px;
-            max-width: 120px;
+            width: 150px;
+            min-width: 150px;
+            max-width: 150px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .country-flag {
+            width: 24px;
+            height: 18px;
+            object-fit: cover;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .country-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            flex-shrink: 0;
         }
 
         .url-cell {
@@ -1350,30 +1368,47 @@
             keywordsList.innerHTML = html;
         }
 
-        // ===== DRAPEAUX PAYS =====
-        const COUNTRY_FLAGS = {
-            'Jersey': '🇯🇪', 'Cayman Islands': '🇰🇾', 'Bermuda': '🇧🇲', 'Liechtenstein': '🇱🇮', 'Panama': '🇵🇦',
-            'Gibraltar': '🇬🇮', 'St Kitts and Nevis': '🇰🇳', 'Dominican Republic': '🇩🇴', 'Bahamas': '🇧🇸',
-            'British Virgin Islands': '🇻🇬', 'Bénin': '🇧🇯', 'Burkina Faso': '🇧🇫', 'Sénégal': '🇸🇳',
-            'Côte d\'Ivoire': '🇨🇮', 'Togo': '🇹🇬', 'Niger': '🇳🇪', 'Mauritanie': '🇲🇷', 'Tchad': '🇹🇩',
-            'Gabon': '🇬🇦', 'Congo-Brazzaville': '🇨🇬', 'RDC': '🇨🇩', 'Mali': '🇲🇱', 'Djibouti': '🇩🇯',
-            'Guinée': '🇬🇳', 'Guinée équatoriale': '🇬🇶', 'Nigeria': '🇳🇬', 'Kenya': '🇰🇪', 'Cameroun': '🇨🇲',
-            'South Africa': '🇿🇦', 'Ethiopia': '🇪🇹', 'Zambia': '🇿🇲', 'Uganda': '🇺🇬', 'Malawi': '🇲🇼',
-            'Botswana': '🇧🇼', 'Tanzania': '🇹🇿', 'Sierra Leone': '🇸🇱', 'Gambia': '🇬🇲', 'Liberia': '🇱🇷',
-            'Rwanda': '🇷🇼', 'Mozambique': '🇲🇿', 'Maroc': '🇲🇦', 'Angola': '🇦🇴', 'Tunisie': '🇹🇳',
-            'Ghana': '🇬🇭', 'Égypte': '🇪🇬', 'Zimbabwe': '🇿🇼', 'Cap Vert': '🇨🇻', 'Lesotho': '🇱🇸',
-            'UAE': '🇦🇪', 'Île Maurice': '🇲🇺', 'Oman': '🇴🇲', 'Seychelles': '🇸🇨', 'Qatar': '🇶🇦',
-            'Bahreïn': '🇧🇭', 'Algérie': '🇩🇿', 'Indonésie': '🇮🇩', 'Arabie Saoudite': '🇸🇦',
-            'Madagascar': '🇲🇬', 'Singapour': '🇸🇬', 'Thaïlande': '🇹🇭', 'Comores': '🇰🇲',
-            'World Bank': '🏦', 'AfDB': '🏦', 'AFD - France': '🇫🇷', 'GIZ - Germany': '🇩🇪',
-            'Norad - Norway': '🇳🇴', 'Danida - Denmark': '🇩🇰', 'SIDA - Sweden': '🇸🇪',
-            'JICA - Japan': '🇯🇵', 'Onoris Journal': '📰', 'Global Tenders': '🌍', 'Africa Tenders': '🌍', 'Tender Soko': '🌍',
-            'Development Aid': '🤝'
+        // ===== DRAPEAUX ET LOGOS =====
+        const COUNTRY_CODES = {
+            'Jersey': 'je', 'Cayman Islands': 'ky', 'Bermuda': 'bm', 'Liechtenstein': 'li', 'Panama': 'pa',
+            'Gibraltar': 'gi', 'St Kitts and Nevis': 'kn', 'Dominican Republic': 'do', 'Bahamas': 'bs',
+            'British Virgin Islands': 'vg', 'Bénin': 'bj', 'Burkina Faso': 'bf', 'Sénégal': 'sn',
+            'Côte d\'Ivoire': 'ci', 'Togo': 'tg', 'Niger': 'ne', 'Mauritanie': 'mr', 'Tchad': 'td',
+            'Gabon': 'ga', 'Congo-Brazzaville': 'cg', 'RDC': 'cd', 'Mali': 'ml', 'Djibouti': 'dj',
+            'Guinée': 'gn', 'Guinée équatoriale': 'gq', 'Nigeria': 'ng', 'Kenya': 'ke', 'Cameroun': 'cm',
+            'South Africa': 'za', 'Ethiopia': 'et', 'Zambia': 'zm', 'Uganda': 'ug', 'Malawi': 'mw',
+            'Botswana': 'bw', 'Tanzania': 'tz', 'Sierra Leone': 'sl', 'Gambia': 'gm', 'Liberia': 'lr',
+            'Rwanda': 'rw', 'Mozambique': 'mz', 'Maroc': 'ma', 'Angola': 'ao', 'Tunisie': 'tn',
+            'Ghana': 'gh', 'Égypte': 'eg', 'Zimbabwe': 'zw', 'Cap Vert': 'cv', 'Lesotho': 'ls',
+            'UAE': 'ae', 'Île Maurice': 'mu', 'Oman': 'om', 'Seychelles': 'sc', 'Qatar': 'qa',
+            'Bahreïn': 'bh', 'Algérie': 'dz', 'Indonésie': 'id', 'Arabie Saoudite': 'sa',
+            'Madagascar': 'mg', 'Singapour': 'sg', 'Thaïlande': 'th', 'Comores': 'km',
+            'AFD - France': 'fr', 'GIZ - Germany': 'de', 'Norad - Norway': 'no',
+            'Danida - Denmark': 'dk', 'SIDA - Sweden': 'se', 'JICA - Japan': 'jp'
         };
 
         function getCountryDisplay(country) {
-            const flag = COUNTRY_FLAGS[country] || '🌍';
-            return `${flag} ${country}`;
+            let imageHtml = '';
+
+            if (COUNTRY_CODES[country]) {
+                // Drapeau pays
+                const code = COUNTRY_CODES[country];
+                imageHtml = `<img src="https://flagcdn.com/w24/${code}.svg" alt="${country}" class="country-flag">`;
+            } else if (country === 'World Bank') {
+                imageHtml = `<img src="https://www.worldbank.org/content/dam/sites/corporate/img/logo.svg" alt="World Bank" class="country-logo">`;
+            } else if (country === 'AfDB') {
+                imageHtml = `<img src="https://www.afdb.org/sites/default/files/styles/logo/public/logo-afdb-en-2.png" alt="AfDB" class="country-logo">`;
+            } else if (country === 'Onoris Journal') {
+                imageHtml = `<img src="https://www.onoris.com/favicon.ico" alt="Onoris" class="country-logo">`;
+            } else if (country.includes('Tender') || country.includes('Global') || country.includes('Africa')) {
+                // Icône générique pour les portails
+                imageHtml = `<div style="width: 24px; height: 24px; background: #333; border-radius: 2px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">🌐</div>`;
+            } else {
+                // Fallback drapeau
+                imageHtml = `<div style="width: 24px; height: 18px; background: #ddd; border-radius: 2px;"></div>`;
+            }
+
+            return `<div style="display: flex; align-items: center; gap: 8px;">${imageHtml}<span>${country}</span></div>`;
         }
 
         // ===== RENDU DU TABLEAU =====
