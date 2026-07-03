@@ -161,12 +161,11 @@
 
         .logo-saga {
             position: absolute;
-            top: 5px;
+            top: 0;
             right: 0;
-            width: 35px;
-            height: 35px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            opacity: 0.8;
         }
 
         .scan-info {
@@ -494,8 +493,9 @@
         }
 
         .country-flag-container {
-            width: 40%;
-            min-width: 80px;
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
             padding: 8px;
             padding-right: 12px;
             display: flex;
@@ -1517,6 +1517,12 @@
                     <div class="region-section">
                         <div class="region-title">${region}</div>
                         <table>
+                            <colgroup>
+                                <col style="width: 350px;">
+                                <col style="width: 420px;">
+                                <col style="width: 60px;">
+                                <col style="width: 150px;">
+                            </colgroup>
                             <thead>
                                 <tr>
                                     <th>Pays</th>
