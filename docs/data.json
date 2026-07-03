@@ -879,81 +879,115 @@
   ],
   "tenders": [
     {
-      "id": "3b1912b4937dda50baf6a772d0c9b8d6",
+      "id": "8bdb7a9f7083f0874abeb13e5842f85d",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-07-03T03:53:01.646119",
+      "detected_at": "2026-07-03T12:26:19.613013",
       "matched_keywords": [
         "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "bda244ef4c6e7e9718b26d142b063051",
+      "id": "44b79cc90347fde6a8a22a1204f5f928",
+      "country": "Congo-Brazzaville",
+      "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
+      "url": "https://armp.cg/services-portal.php",
+      "detected_at": "2026-07-03T12:26:33.692168",
+      "matched_keywords": [
+        "finances publiques",
+        "gestion des finances publiques"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "187b3e67c40bcf1a799029431366228a",
       "country": "Guinée équatoriale",
       "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
       "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-03T03:53:17.800783",
+      "detected_at": "2026-07-03T12:26:36.935067",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "a37360d490eb9684c08734e636848c56",
-      "country": "Malawi",
-      "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
-      "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-03T03:53:29.991791",
+      "id": "39d6189d527d772c19def2904cf85e3b",
+      "country": "Zambia",
+      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 147,342 results in total. Page 1 # Tender Title Reference number PE B",
+      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
+      "detected_at": "2026-07-03T12:26:46.903154",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "6d40da7a234acea9cbfde49507ca5f24",
+      "id": "6cdc6c00021bba8e0327c9a1ffc2e37a",
       "country": "Sierra Leone",
       "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
       "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-03T03:53:33.283104",
+      "detected_at": "2026-07-03T12:26:49.488735",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "94f3523fe71b6017da1d4d852c192ef2",
+      "id": "e9f9bb726b7f757495c955f5202a3fd5",
+      "country": "Malawi",
+      "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
+      "url": "https://www.ppda.mw/tenders",
+      "detected_at": "2026-07-03T12:26:50.674443",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "a09cda5dcbb806e21d35a8e3dd0c37a2",
+      "country": "Zimbabwe",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 03-Jul-2026 2:26:50 PM Electronic Government Procurement Sys",
+      "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
+      "detected_at": "2026-07-03T12:26:51.944608",
+      "matched_keywords": [
+        "debt restructuring"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "e89020a68525c3f80484b328bf58de81",
       "country": "World Bank",
       "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
       "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-07-03T03:53:53.772408",
+      "detected_at": "2026-07-03T12:27:16.018487",
       "matched_keywords": [
         "public financial management"
       ],
       "confidence": 85.0
     },
     {
-      "id": "5e4509b17cde60efc2cdd09102a993ba",
-      "country": "Onoris Journal",
-      "title": "Accueil Qui sommes nous ? Nous contacter Devenez rédacteur Direct Interviews Podcast Finance Emerging Market Géopolitique Biographies Connexion NOTRE ",
-      "url": "https://onoris-journal.com/",
-      "detected_at": "2026-07-03T03:54:04.454167",
+      "id": "cc0c5a4e181eb26c8d08fb810ac1bfb1",
+      "country": "Africa Tenders",
+      "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
+      "url": "https://africatenders.net/",
+      "detected_at": "2026-07-03T12:27:23.399536",
       "matched_keywords": [
-        "dette souveraine"
+        "finances publiques"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {
     "Congo-Brazzaville": {
-      "finances publiques": 1,
-      "gestion des finances publiques": 1
+      "finances publiques": 2,
+      "gestion des finances publiques": 2
     },
     "Zimbabwe": {
-      "debt restructuring": 1
+      "debt restructuring": 2
     }
   },
-  "last_updated": "2026-07-03T03:54:15.270841",
-  "new_tenders_count": 6
+  "last_updated": "2026-07-03T12:27:25.958042",
+  "new_tenders_count": 9
 }
