@@ -149,6 +149,7 @@
             margin-bottom: 28px;
             border-bottom: 2px solid #333333;
             padding-bottom: 20px;
+            position: relative;
         }
 
         h1 {
@@ -156,6 +157,15 @@
             font-weight: 700;
             color: #0a0a0a;
             letter-spacing: -0.5px;
+        }
+
+        .logo-saga {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
         }
 
         .scan-info {
@@ -243,6 +253,25 @@
         .tab-button.active {
             color: #000000;
             border-bottom-color: #000000;
+        }
+
+        .scan-timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .scan-timer-label {
+            color: #5f6368;
+        }
+
+        .scan-timer-value {
+            color: #000000;
         }
 
         .tab-content {
@@ -454,9 +483,9 @@
         .country-cell {
             font-weight: 700;
             color: #0a0a0a;
-            width: 240px;
-            min-width: 240px;
-            max-width: 240px;
+            width: 300px;
+            min-width: 300px;
+            max-width: 300px;
             padding: 0 !important;
             display: flex;
             align-items: stretch;
@@ -497,7 +526,7 @@
             color: #000000;
             font-size: 13.2px;
             word-break: break-all;
-            min-width: 300px;
+            min-width: 350px;
         }
 
         .url-cell a {
@@ -520,9 +549,9 @@
 
         .status-cell {
             text-align: center;
-            width: 110px;
-            min-width: 110px;
-            max-width: 110px;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
         }
 
         .status-cell .status-alert {
@@ -554,7 +583,7 @@
         .keywords-cell {
             padding: 15.4px 17.6px;
             font-size: 12.1px;
-            max-width: 300px;
+            max-width: 220px;
         }
 
         .keywords-display {
@@ -956,15 +985,16 @@
         <div class="main-container">
             <div class="header-top">
                 <h1><span class="title-tender">TENDER-TRACKER</span> <span class="title-saga">SAGA</span></h1>
+                <img src="./flags/LogoSAGA.png" alt="SAGA Logo" class="logo-saga">
             </div>
 
             <!-- Tabs -->
             <div class="tabs-container">
                 <button class="tab-button active" onclick="switchTab('alerts')">Dernières Alertes</button>
                 <button class="tab-button" onclick="switchTab('keywords')">Mots-clés</button>
-                <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size: 12.1px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: #5f6368;">Prochain Scan Dans</span>
-                    <span id="nextScanCountdown" style="font-size: 14.3px; font-weight: 600; color: #000000;">--:--</span>
+                <div class="scan-timer" style="margin-left: auto;">
+                    <span class="scan-timer-label">Prochain Scan Dans</span>
+                    <span id="nextScanCountdown" class="scan-timer-value">--:--</span>
                 </div>
             </div>
 
