@@ -879,100 +879,78 @@
   ],
   "tenders": [
     {
-      "id": "8bdb7a9f7083f0874abeb13e5842f85d",
+      "id": "883aabe4d82a1fa09ac7f41594d0bf66",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-07-03T12:26:19.613013",
+      "detected_at": "2026-07-03T18:59:59.271779",
       "matched_keywords": [
         "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "44b79cc90347fde6a8a22a1204f5f928",
+      "id": "baacced8f0f74fad2f63a3040111e182",
       "country": "Congo-Brazzaville",
       "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-03T12:26:33.692168",
+      "detected_at": "2026-07-03T19:00:12.164811",
       "matched_keywords": [
-        "finances publiques",
-        "gestion des finances publiques"
+        "gestion des finances publiques",
+        "finances publiques"
       ],
       "confidence": 85.0
     },
     {
-      "id": "187b3e67c40bcf1a799029431366228a",
-      "country": "Guinée équatoriale",
-      "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
-      "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-03T12:26:36.935067",
-      "matched_keywords": [
-        "impôts"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "39d6189d527d772c19def2904cf85e3b",
-      "country": "Zambia",
-      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 147,342 results in total. Page 1 # Tender Title Reference number PE B",
-      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
-      "detected_at": "2026-07-03T12:26:46.903154",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "6cdc6c00021bba8e0327c9a1ffc2e37a",
-      "country": "Sierra Leone",
-      "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
-      "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-03T12:26:49.488735",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "e9f9bb726b7f757495c955f5202a3fd5",
+      "id": "70c440dd49cf49adda23fe5093fb9b07",
       "country": "Malawi",
       "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-03T12:26:50.674443",
+      "detected_at": "2026-07-03T19:00:28.885369",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "a09cda5dcbb806e21d35a8e3dd0c37a2",
+      "id": "2a16b3d98c71743b0d73fbc629e7a935",
+      "country": "Sierra Leone",
+      "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
+      "url": "https://nppa.gov.sl/bid/",
+      "detected_at": "2026-07-03T19:00:30.050874",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "cdeae1e3af4f84df5989c9ccf2d1613d",
       "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 03-Jul-2026 2:26:50 PM Electronic Government Procurement Sys",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 03-Jul-2026 9:00:33 PM Electronic Government Procurement Sys",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-03T12:26:51.944608",
+      "detected_at": "2026-07-03T19:00:35.455799",
       "matched_keywords": [
         "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "e89020a68525c3f80484b328bf58de81",
+      "id": "f40e00ead435a3347afba955d50faed1",
       "country": "World Bank",
       "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
       "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-07-03T12:27:16.018487",
+      "detected_at": "2026-07-03T19:00:54.132191",
       "matched_keywords": [
         "public financial management"
       ],
       "confidence": 85.0
     },
     {
-      "id": "cc0c5a4e181eb26c8d08fb810ac1bfb1",
+      "id": "c7539bcb317342933b53abe3237176c5",
       "country": "Africa Tenders",
       "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
       "url": "https://africatenders.net/",
-      "detected_at": "2026-07-03T12:27:23.399536",
+      "detected_at": "2026-07-03T19:01:01.251402",
       "matched_keywords": [
         "finances publiques"
       ],
@@ -981,13 +959,13 @@
   ],
   "baseline_detections": {
     "Congo-Brazzaville": {
-      "finances publiques": 2,
-      "gestion des finances publiques": 2
+      "finances publiques": 3,
+      "gestion des finances publiques": 3
     },
     "Zimbabwe": {
-      "debt restructuring": 2
+      "debt restructuring": 3
     }
   },
-  "last_updated": "2026-07-03T12:27:25.958042",
-  "new_tenders_count": 9
+  "last_updated": "2026-07-03T19:01:14.425646",
+  "new_tenders_count": 7
 }
