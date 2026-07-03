@@ -292,13 +292,13 @@
         }
 
         @keyframes counterFlip {
-            0% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 0.7; transform: translateY(-2px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 1; }
         }
 
         .scan-timer-value.updating {
-            animation: counterFlip 0.4s ease-out;
+            animation: counterFlip 0.3s ease-in-out;
         }
 
         .tab-content {
@@ -470,13 +470,14 @@
             text-transform: uppercase;
             letter-spacing: 0.4px;
             color: #ffffff;
-            padding: 13.2px 10px;
+            padding: 13.2px 8px;
             text-align: center;
             background-color: #333333;
             border-bottom: 2px solid #000000;
             font-weight: 700;
-            word-wrap: break-word;
-            word-break: break-word;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         tbody tr {
