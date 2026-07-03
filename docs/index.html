@@ -37,7 +37,7 @@
 
         .login-box {
             width: 100%;
-            max-width: 360px;
+            max-width: 420px;
             padding: 48px 40px;
             text-align: center;
             border: 1px solid #dadce0;
@@ -45,11 +45,12 @@
         }
 
         .login-title {
-            font-size: 30.8px;
+            font-size: 26px;
             font-weight: 600;
             color: #202124;
             margin-bottom: 8px;
             letter-spacing: -0.3px;
+            white-space: nowrap;
         }
 
         .login-subtitle {
@@ -285,12 +286,19 @@
         .scan-timer-value {
             color: #000000;
             font-weight: 700;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 2px;
-            font-family: 'Courier New', monospace;
             display: inline-block;
-            min-width: 60px;
-            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            min-width: 70px;
+        }
+
+        @keyframes counterFlip {
+            0% { opacity: 1; transform: translateY(0); }
+            50% { opacity: 0.7; transform: translateY(-2px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .scan-timer-value.updating {
+            animation: counterFlip 0.4s ease-out;
         }
 
         .tab-content {
@@ -462,11 +470,13 @@
             text-transform: uppercase;
             letter-spacing: 0.4px;
             color: #ffffff;
-            padding: 13.2px 17.6px;
+            padding: 13.2px 10px;
             text-align: center;
             background-color: #333333;
             border-bottom: 2px solid #000000;
             font-weight: 700;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
         tbody tr {
@@ -1299,14 +1309,21 @@
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
 
+            const element = document.getElementById('nextScanCountdown');
             let timeStr;
             if (hours > 0) {
-                timeStr = `${hours}h ${minutes}m`;
+                timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             } else {
-                timeStr = `${minutes}m ${seconds}s`;
+                timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             }
 
-            document.getElementById('nextScanCountdown').textContent = timeStr;
+            if (element.textContent !== timeStr) {
+                element.classList.remove('updating');
+                void element.offsetWidth; // Trigger reflow
+                element.classList.add('updating');
+            }
+
+            element.textContent = timeStr;
         }
 
 // ===== CHARGEMENT DES DONNÉES =====
