@@ -166,6 +166,14 @@ TARGET_KEYWORDS = [
     'إعادة تخصيص الأرباح'
 ]
 
+# Mots-clés "baseline" (structurels/headers) par pays
+# Si UNIQUEMENT un baseline keyword est trouvé la première fois, l'ignorer
+# Si le même baseline keyword est trouvé une 2e fois, créer une offre
+BASELINE_KEYWORDS_BY_COUNTRY = {
+    'Congo-Brazzaville': ['finances publiques', 'gestion des finances publiques'],
+    'Zimbabwe': ['debt restructuring']
+}
+
 # Configuration réseau
 REQUEST_TIMEOUT = 30  # Augmenté pour les sites lents
 REQUEST_HEADERS = {
@@ -729,6 +737,64 @@ def send_webhook_notification(new_tenders):
     except Exception as e:
         print(f"❌ Erreur Webhook: {e}")
 
+def filter_baseline_keywords(tenders, previous_data):
+    """
+    Filtre les tenders pour ignorer les baseline keywords la première fois
+    qu'ils sont vus. La 2e+ occurrence est considérée comme une offre.
+    """
+    # Charger les baseline detections vues précédemment
+    baseline_detections = previous_data.get('baseline_detections', {})
+
+    filtered_tenders = []
+    updated_baseline_detections = dict(baseline_detections)
+
+    for tender in tenders:
+        country = tender.get('country')
+        keywords = tender.get('matched_keywords', [])
+
+        # Vérifier si le pays a des baseline keywords
+        if country not in BASELINE_KEYWORDS_BY_COUNTRY:
+            # Pas de baseline config pour ce pays, garder le tender
+            filtered_tenders.append(tender)
+            continue
+
+        baseline_kws = BASELINE_KEYWORDS_BY_COUNTRY[country]
+        tender_kws_normalized = [kw.lower() for kw in keywords]
+        baseline_kws_normalized = [kw.lower() for kw in baseline_kws]
+
+        # Vérifier si TOUS les keywords du tender sont des baseline keywords
+        all_baseline = all(kw in baseline_kws_normalized for kw in tender_kws_normalized)
+
+        if not all_baseline:
+            # Le tender contient d'autres keywords, le garder
+            filtered_tenders.append(tender)
+            continue
+
+        # Le tender ne contient QUE des baseline keywords
+        # Vérifier combien de fois on a vu ce combo (pays, keyword)
+        if country not in updated_baseline_detections:
+            updated_baseline_detections[country] = {}
+
+        # Pour chaque keyword, incrémenter le compteur
+        all_keywords_second_or_more = True
+        for kw in keywords:
+            kw_lower = kw.lower()
+            count = updated_baseline_detections[country].get(kw_lower, 0)
+
+            if count == 0:
+                # Première occurrence: ignorer et incrémenter
+                all_keywords_second_or_more = False
+                updated_baseline_detections[country][kw_lower] = 1
+            else:
+                # 2e+ occurrence: incrémenter
+                updated_baseline_detections[country][kw_lower] = count + 1
+
+        # Si AU MOINS un keyword est en 2e+ occurrence, garder le tender
+        if all_keywords_second_or_more and all(updated_baseline_detections[country].get(kw.lower(), 0) >= 2 for kw in keywords):
+            filtered_tenders.append(tender)
+
+    return filtered_tenders, updated_baseline_detections
+
 def save_data(data):
     """Sauvegarde les données dans docs/data.json en conservant les sources"""
     os.makedirs('docs', exist_ok=True)
@@ -779,14 +845,18 @@ def main():
                 print(f"   {country}: ❌ Exception - {type(e).__name__}")
                 completed += 1
 
+    # Filtrer les baseline keywords
+    filtered_tenders, updated_baseline_detections = filter_baseline_keywords(all_tenders, data)
+
     # Identifier les nouvelles opportunités
-    new_tenders = identify_new_tenders(all_tenders, previous_tenders)
+    new_tenders = identify_new_tenders(filtered_tenders, previous_tenders)
 
     print("-" * 70)
     print(f"\nRÉSULTATS:")
-    print(f"  Total détections: {len(all_tenders)}")
+    print(f"  Total détections (avant filtre): {len(all_tenders)}")
+    print(f"  Après filtre baseline: {len(filtered_tenders)}")
     print(f"  Nouvelles opportunités: {len(new_tenders)}")
-    print(f"  Portails avec détections: {len(set(t['country'] for t in all_tenders))}")
+    print(f"  Portails avec détections: {len(set(t['country'] for t in filtered_tenders))}")
 
     # Envoyer notifications
     if new_tenders:
@@ -796,7 +866,8 @@ def main():
     # Sauvegarder les données (conserver sources + ajouter tenders)
     updated_data = {
         'sources': sources,
-        'tenders': all_tenders,
+        'tenders': filtered_tenders,
+        'baseline_detections': updated_baseline_detections,
         'last_updated': datetime.utcnow().isoformat(),
         'new_tenders_count': len(new_tenders)
     }

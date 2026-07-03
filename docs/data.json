@@ -905,18 +905,6 @@
       "confidence": 85.0
     },
     {
-      "id": "bb96ef8dbf1a3d973f2d20ed8d0837f0",
-      "country": "Congo-Brazzaville",
-      "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
-      "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-02T14:19:25.641246",
-      "matched_keywords": [
-        "finances publiques",
-        "gestion des finances publiques"
-      ],
-      "confidence": 85.0
-    },
-    {
       "id": "cec5ee7b223ef725bdb91656e8e98f9b",
       "country": "Guinée équatoriale",
       "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
@@ -950,17 +938,6 @@
       "confidence": 85.0
     },
     {
-      "id": "f960b62a9d2e419dc4b5fbb198de814f",
-      "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 02-Jul-2026 4:19:45 PM Electronic Government Procurement Sys",
-      "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-02T14:19:47.101301",
-      "matched_keywords": [
-        "debt restructuring"
-      ],
-      "confidence": 85.0
-    },
-    {
       "id": "ecd606a51b4a1e02d31e0e3a901d6e7d",
       "country": "World Bank",
       "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
@@ -983,6 +960,15 @@
       "confidence": 85.0
     }
   ],
-  "last_updated": "2026-07-02T14:20:23.478709",
-  "new_tenders_count": 8
+  "baseline_detections": {
+    "Congo-Brazzaville": {
+      "finances publiques": 1,
+      "gestion des finances publiques": 1
+    },
+    "Zimbabwe": {
+      "debt restructuring": 1
+    }
+  },
+  "last_updated": "2026-07-03T00:00:00.000000",
+  "new_tenders_count": 6
 }
