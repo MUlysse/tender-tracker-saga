@@ -2,9 +2,8 @@ name: Tender-Tracker SAGA - Scraper
 
 on:
   schedule:
-    # Exécution toutes les 6 heures (plus efficace pour l'API quota)
-    # 4 scans/jour × ~4 min = 16 min/jour = 480 min/mois << 2000 (quota gratuit)
-    - cron: '0 */6 * * *'
+    # Exécution à 8h UTC chaque jour
+    - cron: '0 8 * * *'
   workflow_dispatch: # Permet un lancement manuel depuis GitHub UI
   repository_dispatch:
     types: [run-scraper]  # Permet de déclencher via webhook
