@@ -82,7 +82,8 @@
       "Bash(curl -s -A \"Mozilla/5.0\" -o \"bs_test.png\" \"https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/bs.png\")",
       "Bash(curl -s -A \"Mozilla/5.0\" -o \"bs_wiki.png\" \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Flag_of_the_Bahamas.svg/320px-Flag_of_the_Bahamas.svg.png\")",
       "Bash(python3)",
-      "Bash(python3 -m pip install Pillow --quiet)"
+      "Bash(python3 -m pip install Pillow --quiet)",
+      "PowerShell(git checkout main)"
     ]
   }
 }
