@@ -59,7 +59,30 @@
       "Bash(gh run *)",
       "PowerShell(cd C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000; \\(Get-Content docs/data.json | ConvertFrom-Json\\).sources | Select-Object -ExpandProperty country | Sort-Object -Unique)",
       "PowerShell(cd C:\\\\Users\\\\louis\\\\Desktop\\\\HALL9000; \\(git ls-files docs/flags/\\).Count)",
-      "Bash(pip install *)"
+      "Bash(pip install *)",
+      "Bash(curl -s \"https://api.github.com/repos/MUlysse/tender-tracker-saga/contents/docs/flags?ref=main\")",
+      "Bash(curl -sI \"https://cdn.jsdelivr.net/gh/MUlysse/tender-tracker-saga@main/docs/flags/ae.png\")",
+      "Bash(python -m http.server 8000)",
+      "Bash(curl -s \"http://localhost:8000/docs/index.html\")",
+      "Bash(curl -sI \"http://localhost:8000/docs/flags/ae.png\")",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/gh/MUlysse/tender-tracker-saga@main/docs/flags/ae.png\" -o /tmp/test_ae.png)",
+      "Bash(curl -s \"http://localhost:8000/docs/data.json\")",
+      "Bash(curl -s \"http://localhost:8000/docs/test-flags.html\")",
+      "Bash(xargs -I {} basename {})",
+      "Bash(curl -s \"https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==\")",
+      "Bash(curl -s \"https://armp.cg/services-portal.php\")",
+      "Bash(git commit -m 'Amélioration: Filtrer les baseline keywords par pays *)",
+      "Bash(git checkout *)",
+      "Bash(awk '/^  \"tenders\": \\\\[/,/^  \\\\]/' docs/data.json)",
+      "Bash(python3 -c \"import json; json.load\\(open\\('docs/data.json'\\)\\)\")",
+      "Bash(git commit -m 'Fix: Supprimer les fausses détections pour Congo et Zimbabwe *)",
+      "Bash(git reset *)",
+      "Bash(curl -s -I \"https://countryflagsapi.com/png/bs\")",
+      "Bash(curl -s -m 5 \"https://www.google.com\")",
+      "Bash(curl -s -A \"Mozilla/5.0\" -o \"bs_test.png\" \"https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/bs.png\")",
+      "Bash(curl -s -A \"Mozilla/5.0\" -o \"bs_wiki.png\" \"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Flag_of_the_Bahamas.svg/320px-Flag_of_the_Bahamas.svg.png\")",
+      "Bash(python3)",
+      "Bash(python3 -m pip install Pillow --quiet)"
     ]
   }
 }
