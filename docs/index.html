@@ -161,11 +161,13 @@
 
         .logo-saga {
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 50px;
-            height: 50px;
+            top: 10px;
+            right: 10px;
+            width: 55px;
+            height: 55px;
             object-fit: contain;
+            display: block !important;
+            visibility: visible !important;
         }
 
         .scan-info {
@@ -256,22 +258,29 @@
         }
 
         .scan-timer {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             padding: 12px 0;
             font-size: 14px;
             font-weight: 600;
+            color: #5f6368;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .scan-timer-label {
-            color: #5f6368;
+            color: inherit;
         }
 
         .scan-timer-value {
             color: #000000;
+            font-weight: 700;
         }
 
         .tab-content {
