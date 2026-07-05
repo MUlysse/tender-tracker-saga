@@ -879,67 +879,67 @@
   ],
   "tenders": [
     {
-      "id": "96e420ed671a5e469e4fedbeb4e789ee",
+      "id": "852267ee472644e35e572846e3dbe11c",
       "country": "Congo-Brazzaville",
       "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-04T10:20:12.667434",
+      "detected_at": "2026-07-05T10:24:59.808447",
       "matched_keywords": [
-        "finances publiques",
-        "gestion des finances publiques"
+        "gestion des finances publiques",
+        "finances publiques"
       ],
       "confidence": 85.0
     },
     {
-      "id": "4a1a75e11b3305ff6cc88664e8fe4e37",
+      "id": "b77dc7f5513954243838abb22fa79678",
       "country": "Guinée équatoriale",
       "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
       "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-04T10:20:15.867992",
+      "detected_at": "2026-07-05T10:25:03.122899",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "87067afccc1295570ac26ef6faee227c",
-      "country": "Malawi",
-      "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
-      "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-04T10:20:29.606374",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "765220fcb32826b5466c818b56ebbef2",
+      "id": "3c9ee37cae9dce07e122f5a01d5561b8",
       "country": "Sierra Leone",
       "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
       "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-04T10:20:31.504474",
+      "detected_at": "2026-07-05T10:25:16.180784",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "83ef585d19a4ebcc3a2da781540f4c14",
+      "id": "2e3c30ad72f042fb09e771db73d95581",
+      "country": "Malawi",
+      "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
+      "url": "https://www.ppda.mw/tenders",
+      "detected_at": "2026-07-05T10:25:17.992992",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "4bdb5404c6bc65144759043ef9bbddf3",
       "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 04-Jul-2026 12:20:35 PM Electronic Government Procurement Sy",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 05-Jul-2026 12:25:20 PM Electronic Government Procurement Sy",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-04T10:20:37.445849",
+      "detected_at": "2026-07-05T10:25:21.990638",
       "matched_keywords": [
         "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "348440238087d4e363d3caa0c364b004",
+      "id": "b0ec9838d3102605ef45464b24c356e6",
       "country": "World Bank",
       "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
       "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-07-04T10:21:00.276498",
+      "detected_at": "2026-07-05T10:25:43.746740",
       "matched_keywords": [
         "public financial management"
       ],
@@ -948,13 +948,13 @@
   ],
   "baseline_detections": {
     "Congo-Brazzaville": {
-      "finances publiques": 4,
-      "gestion des finances publiques": 4
+      "finances publiques": 5,
+      "gestion des finances publiques": 5
     },
     "Zimbabwe": {
-      "debt restructuring": 4
+      "debt restructuring": 5
     }
   },
-  "last_updated": "2026-07-04T10:21:22.179898",
+  "last_updated": "2026-07-05T10:26:07.974040",
   "new_tenders_count": 6
 }
