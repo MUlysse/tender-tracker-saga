@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "852267ee472644e35e572846e3dbe11c",
+      "id": "390ed1b5afa8a941a1a4f0109a68c27f",
       "country": "Congo-Brazzaville",
       "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-05T10:24:59.808447",
+      "detected_at": "2026-07-06T08:01:19.485294",
       "matched_keywords": [
         "gestion des finances publiques",
         "finances publiques"
@@ -891,70 +891,81 @@
       "confidence": 85.0
     },
     {
-      "id": "b77dc7f5513954243838abb22fa79678",
+      "id": "170d45c2124f3915af21c6579ae4d40c",
       "country": "Guinée équatoriale",
       "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
       "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-05T10:25:03.122899",
+      "detected_at": "2026-07-06T08:01:23.039748",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "3c9ee37cae9dce07e122f5a01d5561b8",
-      "country": "Sierra Leone",
-      "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
-      "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-05T10:25:16.180784",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "2e3c30ad72f042fb09e771db73d95581",
+      "id": "256daa7fb8344147400538f2e5ea9b06",
       "country": "Malawi",
       "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-05T10:25:17.992992",
+      "detected_at": "2026-07-06T08:01:35.087422",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "4bdb5404c6bc65144759043ef9bbddf3",
+      "id": "8168ca34ec2505431a067456a0d932f5",
+      "country": "Sierra Leone",
+      "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
+      "url": "https://nppa.gov.sl/bid/",
+      "detected_at": "2026-07-06T08:01:36.195699",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "3a2e05cb4ec72cc26bf75203bf91f2d8",
       "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 05-Jul-2026 12:25:20 PM Electronic Government Procurement Sy",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 06-Jul-2026 10:01:34 AM Electronic Government Procurement Sy",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-05T10:25:21.990638",
+      "detected_at": "2026-07-06T08:01:38.075846",
       "matched_keywords": [
         "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "b0ec9838d3102605ef45464b24c356e6",
+      "id": "54c5787c0aacf47770ff59e428e64e21",
       "country": "World Bank",
       "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
       "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-07-05T10:25:43.746740",
+      "detected_at": "2026-07-06T08:02:07.066372",
       "matched_keywords": [
         "public financial management"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "c0c4a4d6869573d339ba02da469287bb",
+      "country": "Africa Tenders",
+      "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
+      "url": "https://africatenders.net/",
+      "detected_at": "2026-07-06T08:02:13.885913",
+      "matched_keywords": [
+        "finances publiques"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {
     "Congo-Brazzaville": {
-      "finances publiques": 5,
-      "gestion des finances publiques": 5
+      "finances publiques": 6,
+      "gestion des finances publiques": 6
     },
     "Zimbabwe": {
-      "debt restructuring": 5
+      "debt restructuring": 6
     }
   },
-  "last_updated": "2026-07-05T10:26:07.974040",
-  "new_tenders_count": 6
+  "last_updated": "2026-07-06T08:02:27.290921",
+  "new_tenders_count": 7
 }
