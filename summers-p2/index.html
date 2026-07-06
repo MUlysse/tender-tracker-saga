@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summers & P2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #031525;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 1000;
+            gap: 32px;
+            border-bottom: 1px solid #81FFD9;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #81FFD9;
+            min-width: 120px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 24px;
+            flex: 1;
+        }
+
+        .tab-btn {
+            padding: 8px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #b0d0e0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn:hover {
+            color: #81FFD9;
+        }
+
+        .tab-btn.active {
+            color: #81FFD9;
+            border-bottom-color: #81FFD9;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            background: #81FFD9;
+            color: #031525;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 11px;
+            font-family: inherit;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .btn:hover {
+            background-color: #5ff0d0;
+        }
+
+        .btn.hidden {
+            display: none;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .content {
+            margin-top: 60px;
+            height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== RECHERCHES TAB ===== */
+        .recherches-container {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .table-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #031525;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-bar {
+            padding: 8px 12px;
+            border: 1px solid #CAD6DD;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 12px;
+            width: 200px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            border: 1px solid #CAD6DD;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: #031525;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        thead th {
+            padding: 12px 8px;
+            text-align: left;
+            color: #81FFD9;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-right: 1px solid #1a3a52;
+        }
+
+        thead th:last-child {
+            border-right: none;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #CAD6DD;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #F3F4F6;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        tbody tr.dragging {
+            opacity: 0.5;
+            background-color: #e0e0e0 !important;
+        }
+
+        tbody td {
+            padding: 10px 8px;
+            border-right: 1px solid #CAD6DD;
+            height: 44px;
+            vertical-align: middle;
+        }
+
+        tbody td:last-child {
+            border-right: none;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        select {
+            width: 100%;
+            padding: 6px 4px;
+            border: 1px solid #CAD6DD;
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 11px;
+            background-color: transparent;
+            color: #031525;
+        }
+
+        input[type="text"]:focus,
+        input[type="url"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #81FFD9;
+            box-shadow: 0 0 0 2px rgba(129, 255, 217, 0.1);
+        }
+
+        /* ===== STATUS COLORS ===== */
+        .status-not-applied { color: #dc2626; font-weight: 600; }
+        .status-applied { color: #ea580c; font-weight: 600; }
+        .status-hirevue { color: #ca8a04; font-weight: 600; }
+        .status-interview { color: #16a34a; font-weight: 600; }
+        .status-accepted { color: #2563eb; font-weight: 600; }
+        .status-rejected { color: #7c2d12; font-weight: 600; }
+
+        /* ===== LOCATION COLORS ===== */
+        .location-france { color: #2563eb; font-weight: 600; }
+        .location-europe { color: #0891b2; font-weight: 600; }
+        .location-asia { color: #d97706; font-weight: 600; }
+        .location-americas { color: #c2410c; font-weight: 600; }
+        .location-africa { color: #16a34a; font-weight: 600; }
+
+        /* ===== COMPANY & PROGRAM ===== */
+        .company-text, .program-text {
+            color: #7364D2;
+            font-weight: 500;
+        }
+
+        /* ===== LINK CELL ===== */
+        .link-cell {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .link-cell a {
+            color: #2563eb;
+            text-decoration: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+            font-size: 11px;
+        }
+
+        .link-cell a:hover {
+            color: #81FFD9;
+            text-decoration: underline;
+        }
+
+        /* ===== DELETE BUTTON ===== */
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            color: #991b1b;
+        }
+
+        .add-btn {
+            align-self: flex-start;
+            margin-top: 8px;
+        }
+
+        /* ===== IFRAME ===== */
+        .iframe-container {
+            flex: 1;
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ===== FILE INPUT ===== */
+        #importFile {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-title">Summers & P2</div>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="recherches">Recherches</button>
+            <button class="tab-btn" data-tab="summer-paris">Summer Paris</button>
+            <button class="tab-btn" data-tab="summer-eu">Summer EU</button>
+            <button class="tab-btn" data-tab="offcycle-paris">Off-Cycle Paris</button>
+            <button class="tab-btn" data-tab="offcycle-eu">Off-Cycle EU</button>
+        </div>
+        <div class="controls">
+            <button class="btn hidden" id="refreshBtn" onclick="refreshIframe()">Refresh</button>
+            <button class="btn" onclick="exportData()">Export</button>
+            <button class="btn" onclick="importData()">Import</button>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- RECHERCHES -->
+        <div class="tab-content active" data-tab="recherches">
+            <div class="recherches-container">
+                <!-- OFF-CYCLE TABLE -->
+                <div class="table-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Off-Cycle</h2>
+                        <input type="text" class="search-bar" placeholder="Rechercher..." id="searchOffcycle" onkeyup="filterTable('offcycle')">
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">Status</th>
+                                    <th style="width: 120px;">Company</th>
+                                    <th style="width: 100px;">Localization</th>
+                                    <th style="width: 120px;">Program</th>
+                                    <th style="width: 180px;">Links</th>
+                                    <th style="width: 30px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="offcycleBody"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn add-btn" onclick="addRow('offcycle')">+ Ajouter</button>
+                </div>
+
+                <!-- SUMMER TABLE -->
+                <div class="table-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Summer</h2>
+                        <input type="text" class="search-bar" placeholder="Rechercher..." id="searchSummer" onkeyup="filterTable('summer')">
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 100px;">Status</th>
+                                    <th style="width: 120px;">Company</th>
+                                    <th style="width: 100px;">Localization</th>
+                                    <th style="width: 120px;">Program</th>
+                                    <th style="width: 180px;">Links</th>
+                                    <th style="width: 30px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="summerBody"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn add-btn" onclick="addRow('summer')">+ Ajouter</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMER PARIS -->
+        <div class="tab-content" data-tab="summer-paris">
+            <div class="iframe-container">
+                <iframe id="iframe-summer-paris" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+            </div>
+        </div>
+
+        <!-- SUMMER EU -->
+        <div class="tab-content" data-tab="summer-eu">
+            <div class="iframe-container">
+                <iframe id="iframe-summer-eu" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+            </div>
+        </div>
+
+        <!-- OFF-CYCLE PARIS -->
+        <div class="tab-content" data-tab="offcycle-paris">
+            <div class="iframe-container">
+                <iframe id="iframe-offcycle-paris" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+            </div>
+        </div>
+
+        <!-- OFF-CYCLE EU -->
+        <div class="tab-content" data-tab="offcycle-eu">
+            <div class="iframe-container">
+                <iframe id="iframe-offcycle-eu" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="importFile" accept=".json">
+
+    <script>
+        const STORAGE_KEY_OFFCYCLE = 'summers_offcycle';
+        const STORAGE_KEY_SUMMER = 'summers_summer';
+        const STATUS_OPTIONS = ['', 'not applied', 'applied', 'HireVue', 'Interview', 'accepted', 'rejected'];
+
+        const CONTINENT_MAP = {
+            'paris': 'france', 'lyon': 'france', 'marseille': 'france', 'toulouse': 'france',
+            'nice': 'france', 'bordeaux': 'france', 'strasbourg': 'france', 'nantes': 'france',
+            'lille': 'france', 'reims': 'france', 'le havre': 'france', 'saint-étienne': 'france',
+            'rennes': 'france', 'montpellier': 'france', 'rouen': 'france', 'grenoble': 'france',
+            'berlin': 'europe', 'munich': 'europe', 'hambourg': 'europe', 'cologne': 'europe',
+            'francfort': 'europe', 'amsterdam': 'europe', 'rotterdam': 'europe',
+            'madrid': 'europe', 'barcelone': 'europe', 'valence': 'europe', 'séville': 'europe',
+            'lisbonne': 'europe', 'porto': 'europe', 'rome': 'europe', 'milan': 'europe',
+            'turin': 'europe', 'venise': 'europe', 'florence': 'europe', 'naples': 'europe',
+            'athènes': 'europe', 'varsovie': 'europe', 'kraków': 'europe', 'budapest': 'europe',
+            'prague': 'europe', 'vienne': 'europe', 'zurich': 'europe', 'berne': 'europe',
+            'genève': 'europe', 'stockholm': 'europe', 'copenhague': 'europe', 'oslo': 'europe',
+            'helsinki': 'europe', 'dublin': 'europe', 'édimbourg': 'europe', 'londres': 'europe',
+            'manchester': 'europe', 'bruxelles': 'europe',
+            'tokyo': 'asia', 'osaka': 'asia', 'kyoto': 'asia', 'hong kong': 'asia',
+            'shanghai': 'asia', 'pékin': 'asia', 'singapour': 'asia', 'bangkok': 'asia',
+            'delhi': 'asia', 'mumbai': 'asia', 'bangalore': 'asia', 'istanbul': 'asia',
+            'dubaï': 'asia',
+            'new york': 'americas', 'los angeles': 'americas', 'chicago': 'americas',
+            'toronto': 'americas', 'vancouver': 'americas', 'méxico': 'americas',
+            'são paulo': 'americas', 'rio de janeiro': 'americas', 'buenos aires': 'americas',
+            'san francisco': 'americas', 'seattle': 'americas', 'boston': 'americas',
+            'le caire': 'africa', 'casablanca': 'africa', 'johannesburg': 'africa'
+        };
+
+        // TAB NAVIGATION
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabName = this.dataset.tab;
+                switchTab(tabName);
+            });
+        });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.querySelector(`[data-tab="${tabName}"].tab-content`).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"].tab-btn`).classList.add('active');
+
+            const refreshBtn = document.getElementById('refreshBtn');
+            if (['summer-paris', 'summer-eu', 'offcycle-paris', 'offcycle-eu'].includes(tabName)) {
+                refreshBtn.classList.remove('hidden');
+            } else {
+                refreshBtn.classList.add('hidden');
+            }
+
+            if (tabName === 'recherches') {
+                renderTable('offcycle');
+                renderTable('summer');
+            }
+        }
+
+        // REFRESH IFRAME
+        function refreshIframe() {
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.src = iframe.src;
+            });
+        }
+
+        // STORAGE
+        function loadData(type) {
+            const key = type === 'summer' ? STORAGE_KEY_SUMMER : STORAGE_KEY_OFFCYCLE;
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveData(data, type) {
+            const key = type === 'summer' ? STORAGE_KEY_SUMMER : STORAGE_KEY_OFFCYCLE;
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        // STATUS & LOCATION CLASSES
+        function getStatusClass(status) {
+            const map = {
+                'not applied': 'status-not-applied', 'applied': 'status-applied',
+                'HireVue': 'status-hirevue', 'Interview': 'status-interview',
+                'accepted': 'status-accepted', 'rejected': 'status-rejected'
+            };
+            return map[status] || '';
+        }
+
+        function getLocationClass(location) {
+            if (!location) return '';
+            const normalized = location.toLowerCase().trim();
+            const continent = CONTINENT_MAP[normalized];
+            return continent ? `location-${continent}` : '';
+        }
+
+        // RENDER TABLE
+        function renderTable(type) {
+            const data = loadData(type);
+            const tbody = document.getElementById(type === 'summer' ? 'summerBody' : 'offcycleBody');
+            tbody.innerHTML = '';
+
+            data.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                tr.draggable = true;
+                tr.dataset.index = index;
+                tr.dataset.type = type;
+
+                const statusClass = getStatusClass(row.status);
+                const locationClass = getLocationClass(row.location);
+
+                tr.innerHTML = `
+                    <td><select class="${statusClass}" onchange="updateCell(${index}, 'status', this.value, '${type}')">
+                        ${STATUS_OPTIONS.map(opt => `<option value="${opt}" ${row.status === opt ? 'selected' : ''}>${opt || '-'}</option>`).join('')}
+                    </select></td>
+                    <td><input type="text" class="company-text" value="${row.company || ''}" onchange="updateCell(${index}, 'company', this.value, '${type}')" placeholder="Company"></td>
+                    <td><input type="text" class="${locationClass}" value="${row.location || ''}" onchange="updateCell(${index}, 'location', this.value, '${type}')" placeholder="City"></td>
+                    <td><input type="text" class="program-text" value="${row.program || ''}" onchange="updateCell(${index}, 'program', this.value, '${type}')" placeholder="Program"></td>
+                    <td class="link-cell">${row.links ? `<a href="${row.links}" target="_blank" rel="noopener">${row.links}</a>` : `<input type="url" value="" onchange="updateCell(${index}, 'links', this.value, '${type}')" placeholder="https://...">`}</td>
+                    <td><button class="delete-btn" onclick="deleteRow(${index}, '${type}')">×</button></td>
+                `;
+
+                tr.addEventListener('dragstart', handleDragStart);
+                tr.addEventListener('dragover', handleDragOver);
+                tr.addEventListener('drop', handleDrop);
+                tr.addEventListener('dragend', handleDragEnd);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // UPDATE/ADD/DELETE
+        function updateCell(index, field, value, type) {
+            const data = loadData(type);
+            if (index < data.length) {
+                data[index][field] = value;
+                saveData(data, type);
+                renderTable(type);
+            }
+        }
+
+        function addRow(type) {
+            const data = loadData(type);
+            data.push({ status: '', company: '', location: '', program: '', links: '' });
+            saveData(data, type);
+            renderTable(type);
+        }
+
+        function deleteRow(index, type) {
+            if (confirm('Supprimer cette ligne ?')) {
+                const data = loadData(type);
+                data.splice(index, 1);
+                saveData(data, type);
+                renderTable(type);
+            }
+        }
+
+        // FILTER
+        function filterTable(type) {
+            const searchInput = document.getElementById(type === 'summer' ? 'searchSummer' : 'searchOffcycle').value.toLowerCase();
+            const tbody = document.getElementById(type === 'summer' ? 'summerBody' : 'offcycleBody');
+            tbody.querySelectorAll('tr').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(searchInput) ? '' : 'none';
+            });
+        }
+
+        // DRAG & DROP
+        let draggedElement = null;
+        let draggedStartIndex = null;
+
+        function handleDragStart(e) {
+            draggedElement = this;
+            draggedStartIndex = parseInt(this.dataset.index);
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            const currentY = e.clientY;
+            const scrollThreshold = 100;
+            const scrollContainer = document.querySelector('.tab-content.active');
+            if (currentY < scrollThreshold && scrollContainer.scrollTop > 0) {
+                scrollContainer.scrollTop -= 5;
+            } else if (currentY > window.innerHeight - scrollThreshold) {
+                scrollContainer.scrollTop += 5;
+            }
+            return false;
+        }
+
+        function handleDrop(e) {
+            e.stopPropagation();
+            if (draggedElement && draggedElement !== this) {
+                const type = draggedElement.dataset.type;
+                const targetIndex = parseInt(this.dataset.index);
+                if (draggedStartIndex !== targetIndex) {
+                    const data = loadData(type);
+                    const draggedRow = data[draggedStartIndex];
+                    data.splice(draggedStartIndex, 1);
+                    const newIndex = draggedStartIndex < targetIndex ? targetIndex - 1 : targetIndex;
+                    data.splice(newIndex, 0, draggedRow);
+                    saveData(data, type);
+                    renderTable(type);
+                }
+            }
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            if (draggedElement) {
+                draggedElement.classList.remove('dragging');
+                draggedElement = null;
+                draggedStartIndex = null;
+            }
+        }
+
+        // EXPORT
+        function exportData() {
+            const offcycleData = loadData('offcycle');
+            const summerData = loadData('summer');
+            const allData = { offcycle: offcycleData, summer: summerData };
+            const now = new Date();
+            const dateStr = now.toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const filename = `summers-export-${dateStr}.json`;
+            const blob = new Blob([JSON.stringify(allData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // IMPORT
+        function importData() {
+            document.getElementById('importFile').click();
+        }
+
+        document.getElementById('importFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const data = JSON.parse(event.target.result);
+                    if (data.offcycle && Array.isArray(data.offcycle)) saveData(data.offcycle, 'offcycle');
+                    if (data.summer && Array.isArray(data.summer)) saveData(data.summer, 'summer');
+                    renderTable('offcycle');
+                    renderTable('summer');
+                    alert('Données importées avec succès !');
+                } catch (err) {
+                    alert('Erreur : ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            this.value = '';
+        });
+
+        // TRACKR IFRAMES - FETCH WITH CREDENTIALS
+        const TRACKR_URLS = {
+            'summer-paris': 'https://app.the-trackr.com/france-finance/summer-internships',
+            'summer-eu': 'https://app.the-trackr.com/eu-finance/summer-internships',
+            'offcycle-paris': 'https://app.the-trackr.com/france-finance/off-cycle-internships',
+            'offcycle-eu': 'https://app.the-trackr.com/eu-finance/off-cycle-internships'
+        };
+
+        function loadTrackrIframe(tabName) {
+            const url = TRACKR_URLS[tabName];
+            const iframeId = `iframe-${tabName}`;
+            const iframe = document.getElementById(iframeId);
+
+            if (!iframe || iframe.dataset.loaded) return;
+
+            iframe.dataset.loaded = 'true';
+            iframe.src = url;
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTable('offcycle');
+            renderTable('summer');
+        });
+
+        // Modify switchTab to load Trackr iframes on demand
+        const originalSwitchTab = switchTab;
+        switchTab = function(tabName) {
+            originalSwitchTab(tabName);
+            if (TRACKR_URLS[tabName]) {
+                loadTrackrIframe(tabName);
+            }
+        };
+    </script>
+</body>
+</html>

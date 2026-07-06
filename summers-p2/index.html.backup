@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summers & P2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #1a1a1a;
+            font-size: 14px;
+        }
+
+        /* ===== PERSISTENT HEADER ===== */
+        .persistent-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #ffffff;
+            border-bottom: 2px solid #333333;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 0 48px;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a0a0a;
+            min-width: 150px;
+        }
+
+        .header-tabs {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .header-tab {
+            padding: 8px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #9cd4ff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .header-tab:hover {
+            color: #5ff8ff;
+        }
+
+        .header-tab.active {
+            color: #5ff8ff;
+            border-bottom-color: #5ff8ff;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .header-controls button {
+            padding: 6px 12px;
+            background: #5ff8ff;
+            color: #001a33;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            font-family: inherit;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .header-controls button:hover {
+            background: #4ffbf5;
+        }
+
+        .web-catalog-btn {
+            background: #1a73e8 !important;
+            font-size: 0.7rem !important;
+        }
+
+        .web-catalog-btn:hover {
+            background: #1557b0 !important;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 24px;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .modal-input-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .modal-input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        .modal-input-group button {
+            padding: 10px 16px;
+            background: #333333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
+        }
+
+        .modal-input-group button:hover {
+            background: #000000;
+        }
+
+        .modal-close {
+            text-align: right;
+            margin-top: 16px;
+        }
+
+        .modal-close button {
+            padding: 8px 16px;
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            border-radius: 3px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .modal-close button:hover {
+            background: #eee;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-container {
+            margin-top: 60px;
+            min-height: calc(100vh - 60px);
+            background-color: #001a33;
+        }
+
+        .content-wrapper {
+            display: none;
+            padding: 28px 48px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .content-wrapper.active {
+            display: block;
+        }
+
+        /* ===== IFRAME WRAPPER ===== */
+        .iframe-wrapper {
+            width: 100%;
+            height: calc(100vh - 80px);
+            border: none;
+            display: none;
+        }
+
+        .iframe-wrapper.active {
+            display: block;
+        }
+
+        /* ===== TABLE SECTION ===== */
+        .p2-section {
+            background-color: #0f2a47;
+            border: 2px solid #5ff8ff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .p2-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #0a1f33;
+            border-bottom: 1px solid #5ff8ff;
+        }
+
+        .p2-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #5ff8ff;
+        }
+
+        .add-row-button {
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #001a33;
+            background-color: #5ff8ff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-family: inherit;
+            border-radius: 2px;
+        }
+
+        .add-row-button:hover {
+            background-color: #4ffbf5;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #0f2a47;
+            table-layout: fixed;
+        }
+
+        thead th {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #ffffff;
+            padding: 12px 10px;
+            background-color: #0a1f33;
+            border-bottom: 2px solid #5ff8ff;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #1a3d5c;
+            height: 70px;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #0f2a47;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #1a3d5c;
+        }
+
+        tbody td {
+            padding: 10px 8px;
+            font-size: 13px;
+            color: #ffffff;
+            border-right: 1px solid #1a3d5c;
+            vertical-align: middle;
+        }
+
+        tbody td:last-child {
+            border-right: none;
+        }
+
+        /* ===== STATUS BADGES ===== */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .status-badge.pending { background-color: #fff3cd; color: #856404; }
+        .status-badge.accepted { background-color: #d4edda; color: #155724; }
+        .status-badge.rejected { background-color: #f8d7da; color: #721c24; }
+        .status-badge.interview { background-color: #d1ecf1; color: #0c5460; }
+        .status-badge.offer { background-color: #d4edda; color: #155724; font-weight: 700; }
+        .status-badge.empty { color: #999; }
+
+        /* ===== LOCATION COLORS ===== */
+        .location-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 11px;
+            color: #ffffff;
+            white-space: nowrap;
+            margin-right: 6px;
+        }
+
+
+        .location-badge.fr { background-color: #003d7a; }
+        .location-badge.eu { background-color: #0055a4; }
+        .location-badge.asia { background-color: #e67e22; }
+        .location-badge.americas { background-color: #c0392b; }
+        .location-badge.africa { background-color: #16a085; }
+        .location-badge.unknown { background-color: #95a5a6; }
+
+        /* ===== INPUTS & SELECTS ===== */
+        select, input[type="text"], input[type="url"] {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 12px;
+            border: 1px solid #5ff8ff;
+            background-color: #0a1f33;
+            color: #ffffff;
+            transition: border-color 0.2s ease;
+            font-family: inherit;
+            border-radius: 0px;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #5ff8ff;
+            box-shadow: 0 0 0 3px rgba(95, 248, 255, 0.2);
+        }
+
+        /* Status select coloring */
+        select.status-pending { background-color: #fff3cd; color: #856404; }
+        select.status-interview { background-color: #d1ecf1; color: #0c5460; }
+        select.status-accepted { background-color: #d4edda; color: #155724; }
+        select.status-rejected { background-color: #f8d7da; color: #721c24; }
+        select.status-offer { background-color: #d4edda; color: #155724; }
+
+        /* Location input coloring */
+        input.location-fr { background-color: #e8eff9; color: #003d7a; font-weight: 600; }
+        input.location-eu { background-color: #e8f4ff; color: #0055a4; font-weight: 600; }
+        input.location-asia { background-color: #fef3e8; color: #e67e22; font-weight: 600; }
+        input.location-americas { background-color: #fde8e8; color: #c0392b; font-weight: 600; }
+        input.location-africa { background-color: #e8f5f0; color: #16a085; font-weight: 600; }
+        input.location-unknown { background-color: #f0f0f0; color: #666; }
+
+        /* ===== ROW ACTIONS ===== */
+        .row-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .delete-btn {
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #d32f2f;
+            background: none;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-btn:hover {
+            color: #b71c1c;
+        }
+
+        /* ===== FOOTER STATS ===== */
+        .p2-footer {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            padding: 16px 20px;
+            background-color: #0a1f33;
+            border-top: 2px solid #5ff8ff;
+            font-size: 12px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: #9cd4ff;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #5ff8ff;
+        }
+
+        /* ===== EXPORT IMPORT ===== */
+        .export-import {
+            padding: 12px 20px;
+            background: #fff;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .export-import button {
+            padding: 6px 12px;
+            background: #333333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            font-family: inherit;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .export-import button:hover {
+            background: #000000;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 20px 48px;
+            text-align: center;
+            font-size: 11px;
+            color: #9cd4ff;
+            border-top: 1px solid #5ff8ff;
+            margin-top: 32px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .persistent-header {
+                padding: 0 24px;
+                gap: 16px;
+            }
+
+            .content-wrapper {
+                padding: 20px 24px;
+            }
+
+            .p2-footer {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .persistent-header {
+                padding: 0 16px;
+                height: 50px;
+                flex-wrap: wrap;
+            }
+
+            .header-title {
+                font-size: 14px;
+            }
+
+            .header-tabs {
+                gap: 12px;
+            }
+
+            .header-tab {
+                font-size: 10px;
+            }
+
+            .content-wrapper {
+                padding: 16px 12px;
+            }
+
+            .p2-footer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 12px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            table {
+                font-size: 11px;
+            }
+
+            thead th {
+                padding: 8px 4px;
+                font-size: 9px;
+            }
+
+            tbody td {
+                padding: 8px 4px;
+                font-size: 11px;
+            }
+
+            select, input[type="text"], input[type="url"] {
+                font-size: 11px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Persistent Header -->
+    <div class="persistent-header">
+        <div class="header-title">Summers & P2</div>
+        <div class="header-tabs">
+            <button class="header-tab active" onclick="switchTab('p2-search')">Recherche P2</button>
+            <button class="header-tab" onclick="switchTab('summers-paris')">Summers Paris</button>
+            <button class="header-tab" onclick="switchTab('summers-eu')">Summer EU</button>
+        </div>
+        <div class="header-controls">
+            <button id="refreshBtn" style="display: none;">Refresh</button>
+            <button id="exportBtn">Exporter</button>
+            <button id="importBtn">Importer</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Tab 1: Recherche P2 -->
+        <div id="p2-search-tab" class="content-wrapper active">
+            <div class="p2-section">
+                <div class="p2-header">
+                    <span class="p2-title">Suivi des candidatures</span>
+                    <button class="add-row-button" onclick="addRow()">+ Ajouter</button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="p2Table">
+                        <thead>
+                            <tr>
+                                <th style="width: 100px;">Status</th>
+                                <th style="width: 180px;">Entreprise</th>
+                                <th style="width: 120px;">Localisation</th>
+                                <th style="width: 120px;">Programme</th>
+                                <th style="width: 240px;">Lien</th>
+                                <th style="width: 60px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="p2TableBody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p2-footer">
+                    <div class="stat-item">
+                        <div class="stat-label">Total</div>
+                        <div class="stat-value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Pending</div>
+                        <div class="stat-value" id="stat-pending">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Interview</div>
+                        <div class="stat-value" id="stat-interview">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Accepted</div>
+                        <div class="stat-value" id="stat-accepted">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Offered</div>
+                        <div class="stat-value" id="stat-offer">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Rejected</div>
+                        <div class="stat-value" id="stat-rejected">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Summers Paris -->
+        <div id="summers-paris-tab" class="content-wrapper">
+            <iframe id="iframe-paris" class="iframe-wrapper active" src="https://app.the-trackr.com/france-finance/summer-internships"></iframe>
+        </div>
+
+        <!-- Tab 3: Summer EU -->
+        <div id="summers-eu-tab" class="content-wrapper">
+            <iframe id="iframe-eu" class="iframe-wrapper active" src="https://app.the-trackr.com/eu-finance/summer-internships"></iframe>
+        </div>
+    </div>
+
+
+    <script>
+        const STATUS_OPTIONS = ['', 'Pending', 'Interview', 'Accepted', 'Rejected', 'Offer'];
+        const TABLE_DATA_KEY = 'summers_p2_table_data';
+
+        const CONTINENT_MAP = {
+            'paris': 'fr', 'france': 'fr', 'london': 'eu', 'uk': 'eu', 'amsterdam': 'eu', 'belgium': 'eu',
+            'berlin': 'eu', 'germany': 'eu', 'zurich': 'eu', 'switzerland': 'eu', 'dubai': 'asia',
+            'singapore': 'asia', 'hong kong': 'asia', 'tokyo': 'asia', 'japan': 'asia', 'new york': 'americas',
+            'toronto': 'americas', 'mexico': 'americas', 'sao paulo': 'americas', 'lagos': 'africa',
+            'johannesburg': 'africa', 'cairo': 'africa', 'nairobi': 'africa'
+        };
+
+        function getLocationContinent(location) {
+            if (!location) return 'unknown';
+            const lower = location.toLowerCase();
+            for (const [city, continent] of Object.entries(CONTINENT_MAP)) {
+                if (lower.includes(city)) return continent;
+            }
+            return 'unknown';
+        }
+
+        function getStatusClass(status) {
+            return status.toLowerCase().replace(' ', '-') || 'empty';
+        }
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName) {
+            document.querySelectorAll('.content-wrapper').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.header-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+
+            // Show/hide refresh button
+            const refreshBtn = document.getElementById('refreshBtn');
+            if (tabName === 'summers-paris' || tabName === 'summers-eu') {
+                refreshBtn.style.display = 'inline-block';
+                refreshBtn.onclick = () => refreshIframe(tabName);
+            } else {
+                refreshBtn.style.display = 'none';
+            }
+        }
+
+        function refreshIframe(tabName) {
+            if (tabName === 'summers-paris') {
+                const iframe = document.getElementById('iframe-paris');
+                iframe.src = iframe.src;
+            } else if (tabName === 'summers-eu') {
+                const iframe = document.getElementById('iframe-eu');
+                iframe.src = iframe.src;
+            }
+        }
+
+        // ===== TABLE DATA MANAGEMENT =====
+        function loadTableData() {
+            const stored = localStorage.getItem(TABLE_DATA_KEY);
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    console.error('Error parsing stored data:', e);
+                }
+            }
+            return [{ status: '', company: '', location: '', program: '', links: '' }];
+        }
+
+        function saveTableData(data) {
+            localStorage.setItem(TABLE_DATA_KEY, JSON.stringify(data));
+        }
+
+        function renderTable() {
+            const data = loadTableData();
+            const tbody = document.getElementById('p2TableBody');
+            tbody.innerHTML = '';
+
+            data.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                const locationContinent = getLocationContinent(row.location);
+                const statusClass = getStatusClass(row.status);
+                const locationClass = `location-${locationContinent}`;
+
+                tr.innerHTML = `
+                    <td>
+                        <select onchange="updateCellAndRender(${index}, 'status', this.value)" class="status-${statusClass}" style="font-size: 11px;">
+                            ${STATUS_OPTIONS.map(opt => `<option value="${opt}" ${row.status === opt ? 'selected' : ''}>${opt || '-'}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" value="${(row.company || '').replace(/"/g, '&quot;')}" onchange="updateCellAndRender(${index}, 'company', this.value)" placeholder="Ex: Google">
+                    </td>
+                    <td>
+                        <input type="text" class="${locationClass}" value="${(row.location || '').replace(/"/g, '&quot;')}" onchange="updateCellAndRender(${index}, 'location', this.value)" placeholder="Paris...">
+                    </td>
+                    <td>
+                        <input type="text" value="${(row.program || '').replace(/"/g, '&quot;')}" onchange="updateCellAndRender(${index}, 'program', this.value)" placeholder="Ex: Summer">
+                    </td>
+                    <td>
+                        <input type="url" value="${(row.links || '').replace(/"/g, '&quot;')}" onchange="updateCellAndRender(${index}, 'links', this.value)" placeholder="https://...">
+                    </td>
+                    <td>
+                        <div class="row-actions">
+                            <button class="delete-btn" onclick="deleteRow(${index})">×</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const data = loadTableData();
+            const stats = {
+                total: data.length,
+                pending: 0,
+                interview: 0,
+                accepted: 0,
+                offer: 0,
+                rejected: 0
+            };
+
+            data.forEach(row => {
+                if (row.status === 'Pending') stats.pending++;
+                else if (row.status === 'Interview') stats.interview++;
+                else if (row.status === 'Accepted') stats.accepted++;
+                else if (row.status === 'Offer') stats.offer++;
+                else if (row.status === 'Rejected') stats.rejected++;
+            });
+
+            document.getElementById('stat-total').textContent = stats.total;
+            document.getElementById('stat-pending').textContent = stats.pending;
+            document.getElementById('stat-interview').textContent = stats.interview;
+            document.getElementById('stat-accepted').textContent = stats.accepted;
+            document.getElementById('stat-offer').textContent = stats.offer;
+            document.getElementById('stat-rejected').textContent = stats.rejected;
+        }
+
+        function addRow() {
+            const data = loadTableData();
+            data.push({ status: '', company: '', location: '', program: '', links: '' });
+            saveTableData(data);
+            renderTable();
+        }
+
+        function updateCellAndRender(index, field, value) {
+            const data = loadTableData();
+            if (field === 'status') data[index].status = value;
+            else if (field === 'company') data[index].company = value;
+            else if (field === 'location') data[index].location = value;
+            else if (field === 'program') data[index].program = value;
+            else if (field === 'links') data[index].links = value;
+
+            saveTableData(data);
+            renderTable();
+        }
+
+        function deleteRow(index) {
+            if (confirm('Supprimer cette ligne ?')) {
+                const data = loadTableData();
+                data.splice(index, 1);
+                if (data.length === 0) {
+                    data.push({ status: '', company: '', location: '', program: '', links: '' });
+                }
+                saveTableData(data);
+                renderTable();
+            }
+        }
+
+        // ===== IMPORT/EXPORT =====
+        function exportData() {
+            const data = loadTableData();
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `summers-p2_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const imported = JSON.parse(event.target.result);
+                        localStorage.setItem(TABLE_DATA_KEY, JSON.stringify(imported));
+                        renderTable();
+                        alert('Donnees importees avec succes !');
+                    } catch (err) {
+                        alert('Erreur : Fichier JSON invalide');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTable();
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+            document.getElementById('importBtn').addEventListener('click', importData);
+            document.getElementById('exportBtn2').addEventListener('click', exportData);
+            document.getElementById('importBtn2').addEventListener('click', importData);
+        });
+    </script>
+</body>
+</html>
