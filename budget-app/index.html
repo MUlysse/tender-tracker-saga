@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes finances</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px 20px;
+            color: #333333;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: none;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            background: #ffffff;
+            border: 2px solid #333333;
+        }
+
+        .section-title {
+            color: #ffffff;
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            border-bottom: 3px solid #333;
+        }
+
+        .section-title.sorties-title {
+            background: #d32f2f;
+        }
+
+        .section-title.entrees-title {
+            background: #1b5e20;
+        }
+
+        .section-body {
+            padding: 0;
+        }
+
+        .category {
+            margin-bottom: 12px;
+            padding-bottom: 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+        }
+
+        .category:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .category-header {
+            background: #f9f9f9;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #1a1a4d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1.5px solid #999;
+        }
+
+        .items-container {
+            padding: 0;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .item:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-label {
+            color: #333333;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 2px;
+            transition: background 0.2s;
+            min-width: 100px;
+            flex: 1;
+            display: block;
+        }
+
+        .item-label:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .item-input {
+            width: 100px;
+            padding: 6px 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 0px;
+            font-size: 0.85rem;
+            text-align: right;
+            font-weight: 700;
+            color: #0a0e27;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            font-family: 'Courier New', monospace;
+            flex-shrink: 0;
+        }
+
+        .item-input:focus {
+            outline: none;
+            border-color: #b8860b;
+            background: #fffef5;
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.08);
+        }
+
+        .item-calc {
+            width: 28px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid #ddd;
+            border-radius: 0px;
+            background: #f5f5f5;
+            cursor: pointer;
+            font-weight: 700;
+            color: #333;
+            font-size: 0.9rem;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+
+        .item-calc:hover {
+            background: #e8e8e8;
+        }
+
+        .item-calc:active {
+            transform: scale(0.92);
+        }
+
+        .item-delete {
+            width: 20px;
+            height: 20px;
+            border: none;
+            background: none;
+            color: #cccccc;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.2s;
+            padding: 0;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .item-delete:hover {
+            color: #c1121f;
+        }
+
+        .add-button {
+            display: block;
+            width: calc(100% - 24px);
+            padding: 6px 12px;
+            margin: 6px 12px;
+            background: #e8e8e8;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #666666;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .add-button:hover {
+            background: #ddd;
+            border-color: #999;
+        }
+
+        .category-total {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 12px;
+            background: #f0f0f0;
+            border-top: 2px solid #333;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #333333;
+        }
+
+        .total-value {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            color: #1a1a4d;
+            font-size: 1.25rem;
+            font-weight: 900;
+        }
+
+        .total-value.positive {
+            color: #00a652;
+        }
+
+        .total-value.negative {
+            color: #d32f2f;
+        }
+
+        .export-import {
+            padding: 10px 20px;
+            background: #fff;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .export-import button {
+            padding: 6px 12px;
+            margin-right: 8px;
+            background: #1a1a4d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .export-import button:last-child {
+            margin-right: 0;
+        }
+
+        @keyframes buttonPress {
+            0% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: scale(0.88) translateY(4px);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        .export-import button:active {
+            animation: buttonPress 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .footer {
+            background: #1a1a4d;
+            color: #ffffff;
+            padding: 0;
+            border: 2px solid #333333;
+        }
+
+        .footer-header {
+            background: #1a1a4d;
+            padding: 12px 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-collapse: collapse;
+        }
+
+        .footer-item {
+            padding: 15px 12px;
+            border-right: 2px solid #444;
+            border-bottom: 2px solid #444;
+            text-align: center;
+        }
+
+        .footer-item:last-child {
+            border-right: none;
+        }
+
+        .footer-item h3 {
+            font-size: 0.85rem;
+            color: #aaaaaa;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+
+        .footer-value {
+            font-size: 1.9rem;
+            font-weight: 900;
+            font-family: 'Courier New', monospace;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .footer-value.positive {
+            color: #00d964;
+        }
+
+        .footer-value.negative {
+            color: #ff3b30;
+        }
+
+        .footer-note {
+            font-size: 0.7rem;
+            color: #888888;
+            margin-top: 6px;
+            letter-spacing: 0.1px;
+            font-weight: 500;
+        }
+
+        .simulation-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .simulation-input {
+            width: 70px;
+            padding: 4px 6px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .simulation-result {
+            font-weight: 700;
+            color: #d32f2f;
+            text-align: right;
+            min-width: 80px;
+            padding: 4px 6px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            min-width: 300px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            font-family: inherit;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #1a1a4d;
+            box-shadow: 0 0 0 3px rgba(26, 26, 77, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.ok {
+            background: #1a1a4d;
+            color: white;
+            border-color: #1a1a4d;
+        }
+
+        .modal-btn.ok:hover {
+            background: #2d2d6f;
+        }
+
+        .modal-btn.cancel {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #eee;
+        }
+
+        @media (max-width: 1000px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title" id="modal-title">Modifier</div>
+            <input type="text" id="modal-input" class="modal-input" />
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" id="modal-cancel">Annuler</button>
+                <button class="modal-btn ok" id="modal-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Mes finances</h1>
+        </div>
+
+        <div class="export-import">
+            <button id="refreshBtn">Refresh</button>
+            <button id="exportBtn">Exporter</button>
+            <button id="importBtn">Importer</button>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <div class="section-title sorties-title">Sorties</div>
+                <div class="section-body" id="sorties-section"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-title entrees-title">Entrées</div>
+                <div class="section-body" id="entrees-section"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-header">Synthèse Financière</div>
+            <div class="footer-grid">
+                <div class="footer-item">
+                    <h3>Reste Mensuel</h3>
+                    <div class="footer-value" id="reste-mensuel">0,00 €</div>
+                </div>
+                <div class="footer-item">
+                    <h3>À Payer Avant Maman</h3>
+                    <div class="footer-value" id="disponible-total">0,00 €</div>
+                </div>
+                <div class="footer-item">
+                    <h3>Maman 2028</h3>
+                    <div class="footer-value" id="maman-2028">0,00 €</div>
+                </div>
+                <div class="footer-item">
+                    <h3>Reste à Payer 2028</h3>
+                    <div class="footer-value" id="reste-payer-2028">0,00 €</div>
+                    <div class="footer-note">Total épargne + Maman 2028</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const defaultData = {
+            'depenses-mensuelles': [
+                { label: 'Loyer Nice', value: 650 },
+                { label: 'Claude', value: 21.49 },
+                { label: 'MGCN', value: 25 },
+                { label: 'Assurance', value: 26.20 }
+            ],
+            'autres-sorties': [
+                { label: 'Fortuneo', value: 100 },
+                { label: 'Livret A', value: 85.20 }
+            ],
+            'depenses-avenir': [
+                { label: 'Prêt to', value: 40000 }
+            ],
+            'ressources-mensuelles': [
+                { label: 'Papa', value: 450 },
+                { label: 'Maman', value: 400 },
+                { label: 'CAF', value: 100 }
+            ],
+            'comptes-courants': [
+                { label: 'Fortuneo', value: 2.53 },
+                { label: 'Crédit Mutuel', value: 174.69 }
+            ],
+            'epargne': [
+                { label: 'Livret A', value: 30 },
+                { label: 'Livret Jeune', value: 1689.15 },
+                { label: "Livret d'épargne populaire", value: 6101.71 }
+            ]
+        };
+
+        let data = loadData();
+        let modalCallback = null;
+
+        function showModal(title, defaultValue) {
+            return new Promise((resolve) => {
+                modalCallback = resolve;
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-input').value = defaultValue;
+                document.getElementById('modal').classList.add('active');
+                document.getElementById('modal-input').focus();
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        document.getElementById('modal-ok').addEventListener('click', function() {
+            const value = document.getElementById('modal-input').value.trim();
+            closeModal();
+            if (modalCallback) modalCallback(value || null);
+        });
+
+        document.getElementById('modal-cancel').addEventListener('click', function() {
+            closeModal();
+            if (modalCallback) modalCallback(null);
+        });
+
+        document.getElementById('modal-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('modal-ok').click();
+            }
+        });
+
+        function loadData() {
+            const saved = localStorage.getItem('budgetData');
+            const data = saved ? JSON.parse(saved) : defaultData;
+            // Ensure all values are numbers
+            for (let category in data) {
+                if (Array.isArray(data[category])) {
+                    data[category].forEach(item => {
+                        if (typeof item.value === 'string') {
+                            item.value = parseFloat(item.value.replace(/,/g, '.')) || 0;
+                        }
+                    });
+                }
+            }
+            return data;
+        }
+
+        function saveData() {
+            localStorage.setItem('budgetData', JSON.stringify(data));
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        function getCategoryTotal(category) {
+            return data[category].reduce((sum, item) => sum + (item.value || 0), 0);
+        }
+
+        function renderCategory(category, title) {
+            let html = `
+                <div class="category">
+                    <div class="category-header">${title}</div>
+                    <div class="items-container">
+            `;
+
+            data[category].forEach((item, idx) => {
+                let itemHtml = `
+                    <div class="item">
+                        <span class="item-label" data-category="${category}" data-index="${idx}">${item.label}</span>
+                        <div class="input-group">
+                            <input type="text" value="${item.value}" class="item-input" data-category="${category}" data-index="${idx}" />
+                            <button class="item-calc" data-category="${category}" data-index="${idx}">=</button>
+                        </div>
+                        <button class="item-delete" data-category="${category}" data-index="${idx}">×</button>
+                    </div>
+                `;
+
+                // Add simulation box next to Livret A
+                if (category === 'autres-sorties' && item.label === 'Livret A') {
+                    itemHtml = `
+                        <div class="item">
+                            <span class="item-label" data-category="${category}" data-index="${idx}">${item.label}</span>
+                            <div class="simulation-box">
+                                <span>Mois</span>
+                                <input type="number" id="simul-livret-y" class="simulation-input" placeholder="mois" value="" />
+                            </div>
+                            <input type="number" step="0.01" value="${item.value}" class="item-input" data-category="${category}" data-index="${idx}" />
+                            <button class="item-delete" data-category="${category}" data-index="${idx}">×</button>
+                        </div>
+                    `;
+                }
+
+                html += itemHtml;
+            });
+
+            const total = getCategoryTotal(category);
+            const isPositive = category.includes('ressources') || category.includes('comptes') || category.includes('epargne');
+            const totalClass = isPositive ? 'positive' : 'negative';
+
+            html += `
+                    </div>
+                    <button class="add-button" data-category="${category}">Ajouter</button>`;
+
+            // Add simulation result under Épargne
+            if (category === 'epargne') {
+                html += `
+                    <div class="item" style="margin-top: 0; padding: 8px 12px; border-bottom: 1px solid #ddd;">
+                        <span class="item-label" style="cursor: default;">Prévision épargne <span id="simul-epargne-result">0,00 €</span> <span id="simul-epargne-mois" style="font-weight: 400; color: #999;"></span></span>
+                    </div>
+                `;
+            }
+
+            html += `
+                    <div class="category-total">
+                        <span>Total</span>
+                        <span class="total-value ${totalClass}" id="total-${category}">${formatCurrency(total)}</span>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        }
+
+        function render() {
+            let sortiesHtml = '';
+            sortiesHtml += renderCategory('depenses-mensuelles', 'Dépenses mensuelles');
+            sortiesHtml += renderCategory('autres-sorties', 'Autres sorties');
+            sortiesHtml += renderCategory('depenses-avenir', 'Dépenses à venir');
+
+            let entreesHtml = '';
+            entreesHtml += renderCategory('ressources-mensuelles', 'Ressources mensuelles');
+            entreesHtml += renderCategory('comptes-courants', 'Comptes courants');
+            entreesHtml += renderCategory('epargne', 'Épargne');
+
+            document.getElementById('sorties-section').innerHTML = sortiesHtml;
+            document.getElementById('entrees-section').innerHTML = entreesHtml;
+
+            updateTotals();
+            attachEventListeners();
+        }
+
+        function updateSimulResult() {
+            const livretAValue = data['autres-sorties'].find(item => item.label === 'Livret A')?.value || 0;
+            const y = parseFloat(document.getElementById('simul-livret-y')?.value) || 0;
+            const previsionEpargne = livretAValue * y;
+            const simulEpargneResult = document.getElementById('simul-epargne-result');
+            const simulMois = document.getElementById('simul-epargne-mois');
+            if (simulEpargneResult) {
+                simulEpargneResult.textContent = formatCurrency(previsionEpargne);
+                if (simulMois) simulMois.textContent = y > 0 ? ` (${y} mois)` : '';
+            }
+        }
+
+        function updateEpargneTotal() {
+            const livretAValue = data['autres-sorties'].find(item => item.label === 'Livret A')?.value || 0;
+            const y = parseFloat(document.getElementById('simul-livret-y')?.value) || 0;
+            const previsionEpargne = livretAValue * y;
+            const totalEpargneWithPrevision = getCategoryTotal('epargne') + previsionEpargne;
+            const totalEl = document.getElementById('total-epargne');
+            if (totalEl) {
+                totalEl.textContent = formatCurrency(totalEpargneWithPrevision);
+            }
+            updateSimulResult();
+        }
+
+        function attachEventListeners() {
+            // Simulation Livret A
+            const simulLivretY = document.getElementById('simul-livret-y');
+            const simulEpargneResult = document.getElementById('simul-epargne-result');
+            const simulMois = document.getElementById('simul-epargne-mois');
+
+            if (simulLivretY && simulEpargneResult) {
+                // Restore saved value
+                const savedY = localStorage.getItem('simulLivretY');
+                if (savedY) {
+                    simulLivretY.value = savedY;
+                }
+
+                const updateSimul = () => {
+                    const y = parseFloat(simulLivretY.value) || 0;
+                    localStorage.setItem('simulLivretY', y);
+                    updateTotals();
+                    updateEpargneTotal();
+                };
+                simulLivretY.addEventListener('input', updateSimul);
+                updateSimul();
+            }
+
+            // Input listeners - real-time updates
+            document.querySelectorAll('.item-input').forEach(input => {
+                input.addEventListener('input', function() {
+                    const cat = this.getAttribute('data-category');
+                    const idx = parseInt(this.getAttribute('data-index'));
+                    const rawVal = this.value.trim();
+                    const numVal = parseFloat(rawVal.replace(/,/g, '.')) || 0;
+
+                    data[cat][idx].value = numVal;
+                    saveData();
+                    updateTotals();
+                    updateEpargneTotal();
+                });
+            });
+
+            // Calculate button listeners
+            document.querySelectorAll('.item-calc').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const cat = this.getAttribute('data-category');
+                    const idx = parseInt(this.getAttribute('data-index'));
+                    const input = document.querySelector(`input[data-category="${cat}"][data-index="${idx}"]`);
+
+                    if (!input) return;
+
+                    const expr = input.value.trim();
+                    let result = 0;
+
+                    if (expr) {
+                        try {
+                            const normalizedExpr = expr.replace(/,/g, '.');
+                            console.log('Original:', expr, 'Normalized:', normalizedExpr, 'Eval result:', eval(normalizedExpr));
+                            result = eval(normalizedExpr);
+                            if (isNaN(result)) result = 0;
+                        } catch (err) {
+                            console.log('Error:', err);
+                            result = parseFloat(expr.replace(/,/g, '.')) || 0;
+                        }
+                    }
+
+                    input.value = result;
+                    data[cat][idx].value = result;
+                    saveData();
+                    updateTotals();
+                    updateEpargneTotal();
+                });
+            });
+
+            // Item container delegation
+            document.querySelectorAll('.item').forEach(item => {
+                item.addEventListener('click', async function(e) {
+                    const deleteBtn = e.target.closest('.item-delete');
+                    const labelEl = e.target.closest('.item-label');
+                    const inputEl = e.target.closest('.item-input');
+
+                    if (deleteBtn) {
+                        e.stopPropagation();
+                        const cat = deleteBtn.getAttribute('data-category');
+                        const idx = parseInt(deleteBtn.getAttribute('data-index'));
+                        const confirm_delete = await showModal('Supprimer cet élément ?', '');
+                        if (confirm_delete !== null) {
+                            data[cat].splice(idx, 1);
+                            saveData();
+                            render();
+                        }
+                    } else if (labelEl && !inputEl) {
+                        e.stopPropagation();
+                        const cat = labelEl.getAttribute('data-category');
+                        const idx = parseInt(labelEl.getAttribute('data-index'));
+                        const newLabel = await showModal('Modifier le nom:', data[cat][idx].label);
+                        if (newLabel) {
+                            data[cat][idx].label = newLabel;
+                            saveData();
+                            render();
+                        }
+                    }
+                });
+            });
+
+            // Add button
+            document.querySelectorAll('.add-button').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const cat = this.getAttribute('data-category');
+                    const label = await showModal('Nom de l\'élément :', '');
+                    if (label) {
+                        data[cat].push({ label: label, value: 0 });
+                        saveData();
+                        render();
+                    }
+                });
+            });
+        }
+
+        function updateTotals() {
+            // Update all category totals first
+            ['depenses-mensuelles', 'autres-sorties', 'depenses-avenir', 'ressources-mensuelles', 'comptes-courants'].forEach(cat => {
+                const totalEl = document.getElementById(`total-${cat}`);
+                if (totalEl) {
+                    const total = getCategoryTotal(cat);
+                    const isPositive = cat.includes('ressources') || cat.includes('comptes');
+                    totalEl.textContent = formatCurrency(total);
+                    totalEl.className = 'total-value ' + (isPositive ? 'positive' : 'negative');
+                }
+            });
+
+            const resteMensuel = getCategoryTotal('ressources-mensuelles') - getCategoryTotal('depenses-mensuelles') - getCategoryTotal('autres-sorties');
+            const livretAValue = data['autres-sorties'].find(item => item.label === 'Livret A')?.value || 0;
+            const previsionEpargne = livretAValue * (parseFloat(document.getElementById('simul-livret-y')?.value) || 0);
+            const disponibleTotal = getCategoryTotal('epargne') + previsionEpargne - getCategoryTotal('depenses-avenir');
+            const maman2028 = 15000;
+            const restePayer = disponibleTotal + maman2028;
+
+            const el1 = document.getElementById('reste-mensuel');
+            el1.textContent = formatCurrency(resteMensuel);
+            el1.className = 'footer-value ' + (resteMensuel >= 0 ? 'positive' : 'negative');
+
+            const el2 = document.getElementById('disponible-total');
+            el2.textContent = formatCurrency(disponibleTotal);
+            el2.className = 'footer-value ' + (disponibleTotal >= 0 ? 'positive' : 'negative');
+
+            const el3 = document.getElementById('maman-2028');
+            el3.textContent = formatCurrency(maman2028);
+            el3.className = 'footer-value ' + (maman2028 >= 0 ? 'positive' : 'negative');
+
+            const el4 = document.getElementById('reste-payer-2028');
+            el4.textContent = formatCurrency(restePayer);
+            el4.className = 'footer-value ' + (restePayer >= 0 ? 'positive' : 'negative');
+        }
+
+        function exportData() {
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'budget_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const imported = JSON.parse(event.target.result);
+                        data = imported;
+                        saveData();
+                        render();
+                    } catch (err) {
+                        showModal('Erreur', 'Fichier JSON invalide');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            window.location.reload();
+        });
+        document.getElementById('exportBtn').addEventListener('click', exportData);
+        document.getElementById('importBtn').addEventListener('click', importData);
+
+        render();
+    </script>
+</body>
+</html>
