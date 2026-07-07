@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "6fd1bbc2d549307704d2048d10f649fe",
+      "id": "8cf610345a2451c9e0428a2938946f2b",
       "country": "Congo-Brazzaville",
       "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
       "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-06T12:12:15.010026",
+      "detected_at": "2026-07-07T11:16:48.213038",
       "matched_keywords": [
         "gestion des finances publiques",
         "finances publiques"
@@ -891,59 +891,70 @@
       "confidence": 85.0
     },
     {
-      "id": "d5bdc2b24b84befe2947a10fce084c98",
+      "id": "9489decfe79ec937cfc5fddece2a097e",
+      "country": "Guinée équatoriale",
+      "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
+      "url": "https://armpguinee.org/appels-doffres/",
+      "detected_at": "2026-07-07T11:16:53.551491",
+      "matched_keywords": [
+        "impôts"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "d35c4489a576c0c04c1fb2a4971d2748",
       "country": "Malawi",
       "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
       "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-06T12:12:36.037763",
+      "detected_at": "2026-07-07T11:17:04.486717",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "4e45916975c76cb3db3802e1a9b36707",
+      "id": "88ec201a142aff2344c87206e899afe5",
       "country": "Sierra Leone",
       "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
       "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-06T12:12:38.944237",
+      "detected_at": "2026-07-07T11:17:04.871902",
       "matched_keywords": [
         "revenue authority"
       ],
       "confidence": 85.0
     },
     {
-      "id": "303ca7ace8ff9fe8e32802e3214b9502",
+      "id": "45ac738cef895d88c6cd39b4bc40072e",
       "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 06-Jul-2026 2:12:38 PM Electronic Government Procurement Sys",
+      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 07-Jul-2026 1:17:09 PM Electronic Government Procurement Sys",
       "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-06T12:12:42.500697",
+      "detected_at": "2026-07-07T11:17:11.033474",
       "matched_keywords": [
         "debt restructuring"
       ],
       "confidence": 85.0
     },
     {
-      "id": "ebabc4596beb010fa7b0b4103cfe063b",
-      "country": "World Bank",
-      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-07-06T12:13:07.592855",
+      "id": "a901bb5a5924929a99fe0c5559db4111",
+      "country": "Africa Tenders",
+      "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
+      "url": "https://africatenders.net/",
+      "detected_at": "2026-07-07T11:17:39.257833",
       "matched_keywords": [
-        "public financial management"
+        "finances publiques"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {
     "Congo-Brazzaville": {
-      "finances publiques": 7,
-      "gestion des finances publiques": 7
+      "finances publiques": 8,
+      "gestion des finances publiques": 8
     },
     "Zimbabwe": {
-      "debt restructuring": 7
+      "debt restructuring": 8
     }
   },
-  "last_updated": "2026-07-06T12:13:28.945611",
-  "new_tenders_count": 5
+  "last_updated": "2026-07-07T11:17:51.692965",
+  "new_tenders_count": 6
 }
