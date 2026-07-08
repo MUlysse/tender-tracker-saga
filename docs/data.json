@@ -890,28 +890,6 @@
       "confidence": 85.0
     },
     {
-      "id": "d35c4489a576c0c04c1fb2a4971d2748",
-      "country": "Malawi",
-      "title": "Procurement Notices Show 10 25 50 100 entries Search: Title Institution Reference No. Publish Date Closing Date Attachment Construction of CDF-funded ",
-      "url": "https://www.ppda.mw/tenders",
-      "detected_at": "2026-07-07T11:17:04.486717",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "88ec201a142aff2344c87206e899afe5",
-      "country": "Sierra Leone",
-      "title": "Home Legal Instruments Bids & Contracts Publications About Us Bid Opportunities The National Public Procurement Authority (NPPA) is committed to promo",
-      "url": "https://nppa.gov.sl/bid/",
-      "detected_at": "2026-07-07T11:17:04.871902",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
       "id": "a901bb5a5924929a99fe0c5559db4111",
       "country": "Africa Tenders",
       "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
@@ -925,5 +903,5 @@
   ],
   "baseline_detections": {},
   "last_updated": "2026-07-07T11:17:51.692965",
-  "new_tenders_count": 4
+  "new_tenders_count": 2
 }

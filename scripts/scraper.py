@@ -167,11 +167,12 @@ TARGET_KEYWORDS = [
 ]
 
 # Mots-clés "baseline" (structurels/headers) par pays
-# Si UNIQUEMENT un baseline keyword est trouvé la première fois, l'ignorer
-# Si le même baseline keyword est trouvé une 2e fois, créer une offre
+# Ignorer complètement ces keywords car ils apparaissent dans le header/footer
 BASELINE_KEYWORDS_BY_COUNTRY = {
     'Congo-Brazzaville': ['finances publiques', 'gestion des finances publiques'],
-    'Zimbabwe': ['debt restructuring']
+    'Zimbabwe': ['debt restructuring'],
+    'Malawi': ['revenue authority'],
+    'Sierra Leone': ['revenue authority']
 }
 
 # Configuration réseau
