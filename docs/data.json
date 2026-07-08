@@ -879,18 +879,6 @@
   ],
   "tenders": [
     {
-      "id": "8cf610345a2451c9e0428a2938946f2b",
-      "country": "Congo-Brazzaville",
-      "title": "contact@armp.cg +242 06 975 81 96 Tour Nabemba, Brazzaville Langue : FR EN BOAMP - Bulletin Officiel des Marchés Publics Consultez les marchés publics",
-      "url": "https://armp.cg/services-portal.php",
-      "detected_at": "2026-07-07T11:16:48.213038",
-      "matched_keywords": [
-        "gestion des finances publiques",
-        "finances publiques"
-      ],
-      "confidence": 85.0
-    },
-    {
       "id": "9489decfe79ec937cfc5fddece2a097e",
       "country": "Guinée équatoriale",
       "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
@@ -924,17 +912,6 @@
       "confidence": 85.0
     },
     {
-      "id": "45ac738cef895d88c6cd39b4bc40072e",
-      "country": "Zimbabwe",
-      "title": "eGP System HOME ABOUT RESOURCES MODULES BULLETIN BOARD PUBLIC REPORTS LOGIN SIGN UP Date: 07-Jul-2026 1:17:09 PM Electronic Government Procurement Sys",
-      "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
-      "detected_at": "2026-07-07T11:17:11.033474",
-      "matched_keywords": [
-        "debt restructuring"
-      ],
-      "confidence": 85.0
-    },
-    {
       "id": "a901bb5a5924929a99fe0c5559db4111",
       "country": "Africa Tenders",
       "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
@@ -946,15 +923,7 @@
       "confidence": 85.0
     }
   ],
-  "baseline_detections": {
-    "Congo-Brazzaville": {
-      "finances publiques": 8,
-      "gestion des finances publiques": 8
-    },
-    "Zimbabwe": {
-      "debt restructuring": 8
-    }
-  },
+  "baseline_detections": {},
   "last_updated": "2026-07-07T11:17:51.692965",
-  "new_tenders_count": 6
+  "new_tenders_count": 4
 }

@@ -739,16 +739,24 @@ def send_webhook_notification(new_tenders):
 
 def filter_baseline_keywords(tenders, previous_data):
     """
-    Filtre les tenders pour ignorer les baseline keywords la première fois
-    qu'ils sont vus. La 2e+ occurrence est considérée comme une offre.
+    Filtre les tenders pour ignorer les baseline keywords si la MÊME URL a déjà été vue.
+    Déduplique par URL: si on revisit la même URL = ignorer même si baseline keyword
     """
-    # Charger les baseline detections vues précédemment
-    baseline_detections = previous_data.get('baseline_detections', {})
+    previous_tenders = previous_data.get('tenders', [])
+
+    # Construire un set des URLs déjà vues avec leurs keywords
+    seen_urls = {}  # {url: set(keywords)}
+    for prev_tender in previous_tenders:
+        url = prev_tender.get('url')
+        keywords = tuple(sorted([kw.lower() for kw in prev_tender.get('matched_keywords', [])]))
+        if url not in seen_urls:
+            seen_urls[url] = set()
+        seen_urls[url].add(keywords)
 
     filtered_tenders = []
-    updated_baseline_detections = dict(baseline_detections)
 
     for tender in tenders:
+        url = tender.get('url')
         country = tender.get('country')
         keywords = tender.get('matched_keywords', [])
 
@@ -771,29 +779,23 @@ def filter_baseline_keywords(tenders, previous_data):
             continue
 
         # Le tender ne contient QUE des baseline keywords
-        # Vérifier combien de fois on a vu ce combo (pays, keyword)
-        if country not in updated_baseline_detections:
-            updated_baseline_detections[country] = {}
+        # Vérifier si cette URL+keywords exacte a déjà été vue
+        keywords_tuple = tuple(sorted(tender_kws_normalized))
+        if url in seen_urls and keywords_tuple in seen_urls[url]:
+            # Même URL avec mêmes keywords = ignore, c'est un duplicate
+            continue
 
-        # Pour chaque keyword, incrémenter le compteur
-        all_keywords_second_or_more = True
-        for kw in keywords:
-            kw_lower = kw.lower()
-            count = updated_baseline_detections[country].get(kw_lower, 0)
+        # C'est une URL nouvelle avec baseline keywords
+        # Enregistrer cette URL+keywords pour le futur
+        if url not in seen_urls:
+            seen_urls[url] = set()
+        seen_urls[url].add(keywords_tuple)
 
-            if count == 0:
-                # Première occurrence: ignorer et incrémenter
-                all_keywords_second_or_more = False
-                updated_baseline_detections[country][kw_lower] = 1
-            else:
-                # 2e+ occurrence: incrémenter
-                updated_baseline_detections[country][kw_lower] = count + 1
+        # Ignorer les baseline keywords d'une URL nouvelle
+        # (on attend de voir le keyword dans une AUTRE URL avant de créer une alerte)
+        # Pour l'instant, on ignore simplement
 
-        # Si AU MOINS un keyword est en 2e+ occurrence, garder le tender
-        if all_keywords_second_or_more and all(updated_baseline_detections[country].get(kw.lower(), 0) >= 2 for kw in keywords):
-            filtered_tenders.append(tender)
-
-    return filtered_tenders, updated_baseline_detections
+    return filtered_tenders, {}
 
 def save_data(data):
     """Sauvegarde les données dans docs/data.json en conservant les sources"""

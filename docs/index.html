@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tender Tracker SAGA</title>
+    <link rel="icon" href="./flags/ICONESAGA.png?v=2" type="image/png">
+    <link rel="shortcut icon" href="./flags/ICONESAGA.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -482,7 +484,7 @@
 
         thead th:nth-child(4) {
             padding: 13.2px 16px 13.2px 120px !important;
-            text-align: center !important;
+            text-align: left !important;
         }
 
         tbody tr {
@@ -608,15 +610,15 @@
         }
 
         .status-cell .status-empty {
-            color: #dadce0;
-            font-weight: 400;
-            font-size: 13.2px;
+            color: #333333;
+            font-weight: 700;
+            font-size: 20px;
         }
 
         .keywords-cell {
             padding: 12px 10px;
             font-size: 12.1px;
-            text-align: center;
+            text-align: left;
         }
 
         .keywords-display {
@@ -624,8 +626,7 @@
             flex-wrap: wrap;
             gap: 3px 5px;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto;
+            justify-content: flex-start;
         }
 
         .keyword-badge {
@@ -654,8 +655,10 @@
         }
 
         .keywords-empty {
-            color: #dadce0;
-            font-weight: 400;
+            color: #333333;
+            font-weight: 700;
+            font-size: 20px;
+            margin-left: 140px;
         }
 
         .reset-cell {
@@ -1265,31 +1268,22 @@
                 clearInterval(countdownInterval);
             }
 
-            // Scans à: 0h, 6h, 12h, 18h UTC
-            const SCAN_HOURS = [0, 6, 12, 18];
             const now = new Date();
             const currentHourUTC = now.getUTCHours();
-            const currentMinUTC = now.getUTCMinutes();
-            const currentSecUTC = now.getUTCSeconds();
 
-            // Trouver le PROCHAIN scan (strict >)
-            let nextHour = SCAN_HOURS.find(h => h > currentHourUTC);
-
-            // Si aucun scan après l'heure actuelle aujourd'hui, prendre le 0h de demain
-            if (nextHour === undefined) {
-                nextHour = 0; // 0h demain
+            // Prochain scan à 8h UTC
+            if (currentHourUTC < 8) {
+                // Avant 8h - scan à 8h aujourd'hui
+                nextScanTime = new Date(now);
+                nextScanTime.setUTCHours(8, 0, 0, 0);
+            } else {
+                // Après 8h - scan à 8h demain
                 nextScanTime = new Date(now);
                 nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
-                nextScanTime.setUTCHours(0, 0, 0, 0);
-            } else {
-                nextScanTime = new Date(now);
-                nextScanTime.setUTCHours(nextHour, 0, 0, 0);
+                nextScanTime.setUTCHours(8, 0, 0, 0);
             }
 
-            // Mettre à jour immédiatement
             updateCountdown();
-
-            // Mettre à jour toutes les secondes
             countdownInterval = setInterval(updateCountdown, 1000);
         }
 
