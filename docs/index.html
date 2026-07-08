@@ -267,45 +267,6 @@
             border-bottom-color: #000000;
         }
 
-        .scan-timer {
-            padding: 12px 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: #5f6368;
-            background: none;
-            border: none;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .scan-timer-label {
-            color: inherit;
-        }
-
-        .scan-timer-value {
-            color: #000000;
-            font-weight: 700;
-            display: inline-block;
-            font-family: 'Courier New', monospace;
-            min-width: 70px;
-        }
-
-        @keyframes counterFlip {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 1; }
-        }
-
-        .scan-timer-value.updating {
-            animation: counterFlip 0.3s ease-in-out;
-        }
-
         .tab-content {
             display: none;
         }
@@ -1032,10 +993,6 @@
             <div class="tabs-container">
                 <button class="tab-button active" onclick="switchTab('alerts')">Dernières Alertes</button>
                 <button class="tab-button" onclick="switchTab('keywords')">Mots-clés</button>
-                <div class="scan-timer" style="margin-left: auto;">
-                    <span class="scan-timer-label">Prochain Scan Dans</span>
-                    <span id="nextScanCountdown" class="scan-timer-value">--:--</span>
-                </div>
             </div>
 
             <!-- Alertes Tab -->
@@ -1066,8 +1023,6 @@
         let sourcesData = [];
         let detectionsMap = {};
         let keywordsList = [];
-        let nextScanTime = null;
-        let countdownInterval = null;
 
         // Mots-clés multilingues
         const ALL_KEYWORDS = {
@@ -1262,69 +1217,6 @@
         function showDashboard() {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('dashboard').classList.add('active');
-            // Initialiser le countdown immédiatement
-            startCountdown();
-        }
-
-        // ===== DÉCOMPTE DU PROCHAIN SCAN =====
-        function startCountdown(lastUpdatedTime) {
-            // Arrêter l'ancien interval s'il existe
-            if (countdownInterval) {
-                clearInterval(countdownInterval);
-            }
-
-            const now = new Date();
-            const currentHourUTC = now.getUTCHours();
-            const currentMinUTC = now.getUTCMinutes();
-            const currentSecUTC = now.getUTCSeconds();
-
-            // Prochain scan à 8h UTC (chaque jour)
-            if (currentHourUTC < 8) {
-                // Avant 8h - scan à 8h aujourd'hui
-                nextScanTime = new Date();
-                nextScanTime.setUTCHours(8, 0, 0, 0);
-            } else if (currentHourUTC > 8) {
-                // Après 8h - scan à 8h demain
-                nextScanTime = new Date();
-                nextScanTime.setUTCHours(8, 0, 0, 0);
-                nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
-            } else {
-                // Exactement à 8h - scan demain à 8h
-                nextScanTime = new Date();
-                nextScanTime.setUTCHours(8, 0, 0, 0);
-                nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
-            }
-
-            updateCountdown();
-            countdownInterval = setInterval(updateCountdown, 1000);
-        }
-
-        function updateCountdown() {
-            if (!nextScanTime) return;
-
-            const now = new Date();
-            const diff = nextScanTime - now;
-
-            const element = document.getElementById('nextScanCountdown');
-            if (!element) return;
-
-            if (diff <= 0) {
-                element.textContent = 'En cours...';
-                return;
-            }
-
-            const hours = Math.floor(diff / 3600000);
-            const minutes = Math.floor((diff % 3600000) / 60000);
-            const seconds = Math.floor((diff % 60000) / 1000);
-
-            let timeStr;
-            if (hours > 0) {
-                timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            } else {
-                timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-
-            element.textContent = timeStr;
         }
 
 // ===== CHARGEMENT DES DONNÉES =====
@@ -1350,7 +1242,6 @@
 
                 renderKeywords();
                 renderTable();
-                startCountdown(data.last_updated);
 
             } catch (error) {
                 console.error('Erreur:', error);
@@ -1619,11 +1510,6 @@
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('passwordInput').focus();
-            // Initialiser le countdown même si pas encore authentifié
-            // (il deviendra visible après l'authentification)
-            if (!nextScanTime) {
-                startCountdown();
-            }
         });
 
         // Auto-refresh toutes les 5 minutes
