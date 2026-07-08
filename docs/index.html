@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Tender Tracker SAGA</title>
+    <link rel="icon" href="./flags/ICONESAGA.png?v=2" type="image/png" sizes="any">
     <link rel="icon" href="./flags/ICONESAGA.png?v=2" type="image/png">
-    <link rel="shortcut icon" href="./flags/ICONESAGA.png?v=2">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -1259,6 +1262,8 @@
         function showDashboard() {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('dashboard').classList.add('active');
+            // Initialiser le countdown immédiatement
+            startCountdown();
         }
 
         // ===== DÉCOMPTE DU PROCHAIN SCAN =====
@@ -1270,17 +1275,24 @@
 
             const now = new Date();
             const currentHourUTC = now.getUTCHours();
+            const currentMinUTC = now.getUTCMinutes();
+            const currentSecUTC = now.getUTCSeconds();
 
-            // Prochain scan à 8h UTC
+            // Prochain scan à 8h UTC (chaque jour)
             if (currentHourUTC < 8) {
                 // Avant 8h - scan à 8h aujourd'hui
-                nextScanTime = new Date(now);
+                nextScanTime = new Date();
                 nextScanTime.setUTCHours(8, 0, 0, 0);
-            } else {
+            } else if (currentHourUTC > 8) {
                 // Après 8h - scan à 8h demain
-                nextScanTime = new Date(now);
-                nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
+                nextScanTime = new Date();
                 nextScanTime.setUTCHours(8, 0, 0, 0);
+                nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
+            } else {
+                // Exactement à 8h - scan demain à 8h
+                nextScanTime = new Date();
+                nextScanTime.setUTCHours(8, 0, 0, 0);
+                nextScanTime.setUTCDate(nextScanTime.getUTCDate() + 1);
             }
 
             updateCountdown();
@@ -1293,8 +1305,11 @@
             const now = new Date();
             const diff = nextScanTime - now;
 
+            const element = document.getElementById('nextScanCountdown');
+            if (!element) return;
+
             if (diff <= 0) {
-                document.getElementById('nextScanCountdown').textContent = 'En cours...';
+                element.textContent = 'En cours...';
                 return;
             }
 
@@ -1302,18 +1317,11 @@
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
 
-            const element = document.getElementById('nextScanCountdown');
             let timeStr;
             if (hours > 0) {
                 timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
             } else {
                 timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-
-            if (element.textContent !== timeStr) {
-                element.classList.remove('updating');
-                void element.offsetWidth; // Trigger reflow
-                element.classList.add('updating');
             }
 
             element.textContent = timeStr;
@@ -1611,6 +1619,11 @@
         // Initialisation
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('passwordInput').focus();
+            // Initialiser le countdown même si pas encore authentifié
+            // (il deviendra visible après l'authentification)
+            if (!nextScanTime) {
+                startCountdown();
+            }
         });
 
         // Auto-refresh toutes les 5 minutes
