@@ -172,7 +172,8 @@ BASELINE_KEYWORDS_BY_COUNTRY = {
     'Congo-Brazzaville': ['finances publiques', 'gestion des finances publiques'],
     'Zimbabwe': ['debt restructuring'],
     'Malawi': ['revenue authority'],
-    'Sierra Leone': ['revenue authority']
+    'Sierra Leone': ['revenue authority'],
+    'Guinée équatoriale': ['impôts']
 }
 
 # Configuration réseau

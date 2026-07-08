@@ -879,17 +879,6 @@
   ],
   "tenders": [
     {
-      "id": "9489decfe79ec937cfc5fddece2a097e",
-      "country": "Guinée équatoriale",
-      "title": "Aller au contenu MAIN MENU MENU AccueilAppels d’offres Appels d'offres Recherche Tout télécharger Ministère de l'Elevage 2026 AAIO relatif à la constr",
-      "url": "https://armpguinee.org/appels-doffres/",
-      "detected_at": "2026-07-07T11:16:53.551491",
-      "matched_keywords": [
-        "impôts"
-      ],
-      "confidence": 85.0
-    },
-    {
       "id": "a901bb5a5924929a99fe0c5559db4111",
       "country": "Africa Tenders",
       "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
@@ -903,5 +892,5 @@
   ],
   "baseline_detections": {},
   "last_updated": "2026-07-07T11:17:51.692965",
-  "new_tenders_count": 2
+  "new_tenders_count": 1
 }
