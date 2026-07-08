@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "a901bb5a5924929a99fe0c5559db4111",
+      "id": "bca554338aa8bdf996272460f72b906a",
       "country": "Africa Tenders",
       "title": "Accueil Appels d’offres Tarifs Guides A propos Contact Soumettre une annonce Connexion MARCHÉS PUBLICS AFRICAINS Tous les appels d'offres d'Afrique en",
       "url": "https://africatenders.net/",
-      "detected_at": "2026-07-07T11:17:39.257833",
+      "detected_at": "2026-07-08T08:04:44.125373",
       "matched_keywords": [
         "finances publiques"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-07T11:17:51.692965",
+  "last_updated": "2026-07-08T08:04:45.916532",
   "new_tenders_count": 1
 }
