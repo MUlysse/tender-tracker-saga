@@ -625,6 +625,8 @@ def scrape_portal(country, url):
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_argument(f'user-agent={REQUEST_HEADERS["User-Agent"]}')
         options.add_argument('--disable-gpu')
+        options.add_argument('--start-maximized')
+        options.add_argument('--disable-extensions')
 
         try:
             service = Service(ChromeDriverManager().install())
@@ -632,28 +634,32 @@ def scrape_portal(country, url):
         except:
             driver = webdriver.Chrome(options=options)
 
-        # Timeouts généreux pour capturer tous les contenus (même les chargements tardifs)
-        driver.set_page_load_timeout(20)
-        driver.set_script_timeout(20)
+        # Timeouts plus généreux (certains sites sont vraiment lents)
+        driver.set_page_load_timeout(30)
+        driver.set_script_timeout(30)
 
         try:
             driver.get(url)
 
-            # Attendre le DOM
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.TAG_NAME, "body"))
-            )
-
-            # Attendre le readyState
+            # Attendre le DOM (timeouts progressifs)
             try:
-                WebDriverWait(driver, 8).until(
+                WebDriverWait(driver, 15).until(
+                    EC.presence_of_element_located((By.TAG_NAME, "body"))
+                )
+            except:
+                # Si le body ne charge pas, continuer quand même
+                pass
+
+            # Attendre le readyState (mais pas critique)
+            try:
+                WebDriverWait(driver, 10).until(
                     lambda d: d.execute_script("return document.readyState") == "complete"
                 )
             except:
                 pass
 
             # Délai pour animations et chargements AJAX tardifs
-            time.sleep(3)
+            time.sleep(5)
 
             # EXTRAIRE LE TEXTE VISIBLE VIA INNERTEXT
             visible_text = driver.execute_script("""
@@ -668,19 +674,20 @@ def scrape_portal(country, url):
                 if extracted:
                     keywords_found = ', '.join(extracted[0]['matched_keywords'][:3])
                     print(f"   {country}: ✓ Détection - {keywords_found}")
-                    # DEBUG: Afficher les 300 premiers caractères pour vérifier
-                    preview = visible_text[:300].replace('\n', ' ')
-                    print(f"      Preview: {preview}...")
                 else:
                     print(f"   {country}: −")
             else:
                 print(f"   {country}: −")
 
+        except TimeoutException:
+            print(f"   {country}: ⏱️ Timeout (site trop lent)")
         except Exception as e:
-            print(f"   {country}: ❌ {type(e).__name__}")
+            error_type = type(e).__name__
+            print(f"   {country}: ❌ {error_type}")
 
     except Exception as e:
-        print(f"   {country}: ❌ Erreur init - {type(e).__name__}")
+        error_type = type(e).__name__
+        print(f"   {country}: ❌ Erreur init - {error_type}")
 
     finally:
         if driver:
