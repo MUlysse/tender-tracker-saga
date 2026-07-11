@@ -1,0 +1,896 @@
+{
+  "sources": [
+    {
+      "region": "Caraïbes",
+      "country": "Bahamas",
+      "url": "https://www.bahamas.gov.bs/index.php/tender-and-tender-notices",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Caraïbes",
+      "country": "British Virgin Islands",
+      "url": "https://bvi.gov.vg/tags/tender-notices",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Caraïbes",
+      "country": "Cayman Islands",
+      "url": "https://cayman.bonfirehub.com/portal/?tab=openOpportunities",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Caraïbes",
+      "country": "Panama",
+      "url": "https://www.panamacompra.gob.pa/Inicio/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Caraïbes",
+      "country": "Bermuda",
+      "url": "https://www.gov.bm/procurement-notices",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Caraïbes",
+      "country": "St Kitts and Nevis",
+      "url": "https://www.mof.gov.kn/tender-advertisement/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Caraïbes",
+      "country": "Dominican Republic",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Europe",
+      "country": "Jersey",
+      "url": "https://www.channelislandtenders.com/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Europe",
+      "country": "Gibraltar",
+      "url": "https://www.gibraltar.gov.gi/press/tender-notices?np=1",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Europe",
+      "country": "Liechtenstein",
+      "url": "https://www.liechtenstein.li/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Côte d'Ivoire",
+      "url": "https://www.marchespublics.ci/appel_offre",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Sénégal",
+      "url": "https://www.achatspublics.sn/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Bénin",
+      "url": "https://marches-publics.bj/appels-doffres",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Burkina Faso",
+      "url": "https://www.dgcmef.gov.bf/fr/appels-d-offre",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Mali",
+      "url": "https://dgmp.gouv.ml/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Niger",
+      "url": "https://www.marchespublics.ne/appels-offres",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Togo",
+      "url": "https://marchespublicstogo.com/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Guinée",
+      "url": "https://telemo.gov.gn/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Mauritanie",
+      "url": "https://marchespublics.gov.mr/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Gabon",
+      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Tchad",
+      "url": "https://armp-tchad.com/consultation-des-appels-d-offres",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "RDC",
+      "url": "https://marche.armp-rdc.cd/categorie-poste/avis-dappels-doffre",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Congo-Brazzaville",
+      "url": "https://armp.cg/services-portal.php",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Djibouti",
+      "url": "https://marchespublics.gouv.dj/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Cameroun",
+      "url": "https://marchespublics.cm/index.do",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Francophone",
+      "country": "Guinée équatoriale",
+      "url": "https://armpguinee.org/appels-doffres/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Kenya",
+      "url": "https://www.treasury.go.ke/treasury-tenders?page=0",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Tanzania",
+      "url": "https://nest.go.tz/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Uganda",
+      "url": "https://egpuganda.go.ug/bid-notices",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Rwanda",
+      "url": "https://www.umucyo.gov.rw/eb/bav/selectListAdvertisingListForGU.do?menuId=EB01020100&leftTopFlag=l",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Ethiopia",
+      "url": "https://production.egp.gov.et/egp/bids/all",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "South Africa",
+      "url": "https://www.etenders.gov.za/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Nigeria",
+      "url": "https://etenders.com.ng/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Ghana",
+      "url": "https://www.ghaneps.gov.gh/epps/quickSearchAction.do?searchSelect=1",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Zambia",
+      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Botswana",
+      "url": "https://etender.co.bw/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Malawi",
+      "url": "https://www.ppda.mw/tenders",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Sierra Leone",
+      "url": "https://nppa.gov.sl/bid/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Liberia",
+      "url": "https://eprocurement.ppcc.gov.lr/epps/home.do",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Lesotho",
+      "url": "https://www.gov.ls/documents/tenders/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Zimbabwe",
+      "url": "https://egp.praz.org.zw/egp-SW5kZXhlcy9pbmRleA==",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Anglophone",
+      "country": "Gambia",
+      "url": "https://www.tenders.gm/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Lusophone",
+      "country": "Mozambique",
+      "url": "https://www.ufsa.gov.mz/concursos.php",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Lusophone",
+      "country": "Angola",
+      "url": "https://compraspublicas.minfin.gov.ao/ComprasPublicas/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Afrique Lusophone",
+      "country": "Cap Vert",
+      "url": "https://www.mf.gov.cv/web/ecompras/concursos-abertos",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Maroc",
+      "url": "https://www.marchespublics.gov.ma/pmmp/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Algérie",
+      "url": "https://marches-publics.gov.dz/fr",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Tunisie",
+      "url": "https://www.marchespublics.gov.tn/fr",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Arabie Saoudite",
+      "url": "https://tenders.etimad.sa/Tender/AllTendersForVisitor?PageNumber=1",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Oman",
+      "url": "https://etendering.tenderboard.gov.om/product/publicDash",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Égypte",
+      "url": "https://eps-gags.gov.eg/pt/main.do",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "UAE",
+      "url": "https://procurement.gov.ae/page.aspx/en/buy/homepage",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Qatar",
+      "url": "https://www.ashghal.gov.qa/en/Tenders/pages/ERPTenderDetailes.aspx?Status=Open",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Maghreb & Moyen-Orient",
+      "country": "Bahreïn",
+      "url": "https://www.tenderboard.gov.bh/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Océan Indien",
+      "country": "Île Maurice",
+      "url": "https://eproc.publicprocurement.govmu.org/login",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Océan Indien",
+      "country": "Seychelles",
+      "url": "https://www.ntb.sc/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Océan Indien",
+      "country": "Madagascar",
+      "url": "http://www.armp.mg/marches_publics/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Océan Indien",
+      "country": "Comores",
+      "url": "https://portail.dncmp.km/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Asie",
+      "country": "Thaïlande",
+      "url": "https://www.gprocurement.go.th/new_index.html",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Asie",
+      "country": "Indonésie",
+      "url": "https://inaproc.id/en",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Asie",
+      "country": "Singapour",
+      "url": "https://www.gebiz.gov.sg/ptn/opportunity/opportunityDetails.xhtml",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs IGO",
+      "country": "World Bank",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs IGO",
+      "country": "AfDB",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs IGO",
+      "country": "Development Aid",
+      "url": "https://www.developmentaid.org/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs bilatéraux",
+      "country": "GIZ - Germany",
+      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs bilatéraux",
+      "country": "AFD - France",
+      "url": "https://afd.dgmarket.com/tenders/brandedNoticeList.do",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs bilatéraux",
+      "country": "Norad - Norway",
+      "url": "https://www.norad.no/en/for-partners/guides-and-tools/calls-for-proposals2/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs bilatéraux",
+      "country": "Danida - Denmark",
+      "url": "https://um.dk/en/about-us/procurement/contracts/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs bilatéraux",
+      "country": "SIDA - Sweden",
+      "url": "https://sida.se/en/about-sida/procurements-at-sida",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Bailleurs bilatéraux",
+      "country": "JICA - Japan",
+      "url": "https://www.jica.go.jp/english/activities/schemes/grant_aid/procurement.html",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Agrégateurs",
+      "country": "Global Tenders",
+      "url": "https://www.globaltenders.com/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Agrégateurs",
+      "country": "Tender Soko",
+      "url": "https://tendersoko.com/tenders",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    },
+    {
+      "region": "Agrégateurs",
+      "country": "Africa Tenders",
+      "url": "https://africatenders.net/",
+      "keywords": [
+        "domestic resource mobilization",
+        "tax",
+        "fiscal reform",
+        "public resource management",
+        "beps"
+      ]
+    }
+  ],
+  "tenders": [
+    {
+      "id": "d2b38ea04a656573fd9ac16258095a7b",
+      "country": "GIZ - Germany",
+      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
+      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
+      "detected_at": "2026-07-11T08:34:33.941587",
+      "matched_keywords": [
+        "tax reform"
+      ],
+      "confidence": 85.0
+    }
+  ],
+  "baseline_detections": {},
+  "last_updated": "2026-07-11T08:34:42.506273",
+  "new_tenders_count": 1
+}

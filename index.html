@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Tender Tracker SAGA</title>
+    <link rel="icon" href="./flags/ICONESAGA.png?v=2" type="image/png" sizes="any">
+    <link rel="icon" href="./flags/ICONESAGA.png?v=2" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #1a1a1a;
+            font-size: 15.4px;
+            line-height: 1.5;
+            zoom: 1.1;
+        }
+
+        /* ===== LOGIN SCREEN ===== */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            padding: 48px 40px;
+            text-align: center;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+        }
+
+        .login-title {
+            font-size: 26px;
+            font-weight: 600;
+            color: #202124;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+            white-space: nowrap;
+        }
+
+        .login-subtitle {
+            font-size: 13.2px;
+            color: #80868b;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .input-group {
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12.1px;
+            font-weight: 600;
+            color: #202124;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13.2px 13.2px;
+            font-size: 15.4px;
+            border: 1px solid #dadce0;
+            background-color: #ffffff;
+            color: #202124;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: inherit;
+            border-radius: 2px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #333333;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-button {
+            padding: 13.2px 17.6px;
+            margin-top: 8px;
+            font-size: 15.4px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #333333;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-family: inherit;
+            border-radius: 2px;
+        }
+
+        .login-button:hover {
+            background-color: #000000;
+        }
+
+        .error-message {
+            font-size: 13.2px;
+            color: #d32f2f;
+            text-align: center;
+            display: none;
+            margin-top: 12px;
+        }
+
+        /* ===== MAIN DASHBOARD ===== */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 48px 40px 48px;
+            background-color: #ffffff;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            border-bottom: 2px solid #333333;
+            padding-bottom: 20px;
+            position: relative;
+            min-height: 90px;
+        }
+
+        h1 {
+            font-size: 35.2px;
+            font-weight: 700;
+            color: #0a0a0a;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-saga {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .scan-info {
+            display: flex;
+            gap: 40px;
+            font-size: 12.1px;
+            color: #5f6368;
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .scan-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .scan-label {
+            font-weight: 600;
+            display: block;
+            font-size: 11px;
+        }
+
+        .scan-time {
+            display: block;
+            font-size: 13.2px;
+            color: #202124;
+            font-weight: 500;
+        }
+
+        .scan-button {
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #1a73e8;
+            border: 1px solid #1a73e8;
+            cursor: pointer;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-family: inherit;
+            border-radius: 2px;
+            margin-top: 8px;
+        }
+
+        .scan-button:hover:not(:disabled) {
+            background-color: #555555;
+        }
+
+        .scan-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* ===== TABS ===== */
+        .tabs-container {
+            display: flex;
+            gap: 24px;
+            margin-top: -8px;
+            margin-bottom: 0px;
+            border-bottom: 1px solid #dadce0;
+            padding-bottom: 8px;
+            align-items: center;
+        }
+
+        .tab-button {
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5f6368;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .tab-button:hover {
+            color: #202124;
+        }
+
+        .tab-button.active {
+            color: #000000;
+            border-bottom-color: #000000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* ===== ALERTES SECTION ===== */
+        .alerts-section {
+            background-color: #ffffff;
+            border: 2px solid #333333;
+            border-radius: 0px;
+            padding: 16px;
+            margin-bottom: 32px;
+        }
+
+        .alerts-title {
+            font-size: 13.2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #202124;
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 3px solid #1f2937;
+        }
+
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .alert-item {
+            padding: 13.2px;
+            background-color: #ffffff;
+            border: 1px solid #e8eaed;
+            border-left: 3px solid #1f2937;
+            border-radius: 2px;
+            font-size: 14.3px;
+            transition: background-color 0.15s ease;
+        }
+
+        .alert-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .alert-country {
+            font-weight: 600;
+            color: #202124;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 14.3px;
+        }
+
+        .alert-title {
+            font-size: 13.2px;
+            color: #5f6368;
+            margin-bottom: 4px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .alert-keywords {
+            font-size: 12.1px;
+            color: #80868b;
+            display: block;
+        }
+
+        .alerts-empty {
+            font-size: 14.3px;
+            color: #80868b;
+            padding: 8px 12px;
+        }
+
+        /* ===== KEYWORDS SECTION ===== */
+        .keywords-section {
+            background-color: #ffffff;
+            border: 2px solid #333333;
+            border-radius: 0px;
+            padding: 20px;
+        }
+
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .keywords-category {
+            background-color: #ffffff;
+            border: 1px solid #e8eaed;
+            border-radius: 2px;
+            padding: 16px;
+        }
+
+        .keywords-category-title {
+            font-size: 12.1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #202124;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .keywords-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* ===== BLOC RÉSUMÉ DES OFFRES ===== */
+        .alerts-summary-block {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border: 2px solid #ffb300;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.2);
+        }
+
+        .alerts-summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #cc8800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #ffb300;
+            padding-bottom: 10px;
+        }
+
+        .alerts-summary-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .alert-item {
+            background: white;
+            border-left: 4px solid #ff9800;
+            padding: 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-country {
+            font-weight: 700;
+            color: #0a0a0a;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .alert-keywords {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .alert-keywords span {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+            margin-top: 4px;
+        }
+
+        .keyword-item {
+            font-size: 13.2px;
+            color: #000000 !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            border-radius: 0px !important;
+            border-left: none !important;
+            padding-left: 0px !important;
+        }
+
+        /* ===== TABLE ===== */
+        .regions-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .region-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border: 2px solid #333333;
+            border-radius: 0px;
+            overflow: hidden;
+        }
+
+        .region-title {
+            font-size: 12.1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            background-color: #000000;
+            padding: 13.2px 17.6px;
+            border-bottom: 2px solid #000000;
+            border-left: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            table-layout: fixed;
+        }
+
+        thead th {
+            font-size: 12.1px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.4px !important;
+            color: #ffffff !important;
+            padding: 13.2px 16px !important;
+            background-color: #333333 !important;
+            border-bottom: 2px solid #000000 !important;
+            box-sizing: border-box !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            width: 100% !important;
+            display: table-cell !important;
+        }
+
+        thead th:nth-child(4) {
+            padding: 13.2px 16px 13.2px 120px !important;
+            text-align: left !important;
+        }
+
+        tbody tr {
+            border-bottom: 2px solid #000000;
+            height: 80px;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #eeeeee;
+        }
+
+        tbody tr.unavailable {
+            background-color: #f8f8f8;
+            opacity: 0.8;
+        }
+
+        tbody td {
+            padding: 0 10px;
+            font-size: 14.3px;
+            line-height: 1.5;
+            color: #000000;
+            border-right: 2px solid #000000;
+        }
+
+        tbody td:last-child {
+            border-right: none;
+        }
+
+        .country-cell {
+            font-weight: 700;
+            color: #0a0a0a;
+            padding: 0 !important;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            width: auto;
+        }
+
+        .country-flag-container {
+            width: 95px;
+            min-width: 95px;
+            max-width: 95px;
+            padding: 10px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-right: none;
+            flex-shrink: 0;
+        }
+
+        .country-flag {
+            width: 80px !important;
+            height: 60px !important;
+            object-fit: contain;
+            object-position: center;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        .country-name {
+            width: 60%;
+            padding: 12px 10px;
+            display: flex;
+            align-items: center;
+            font-size: 14.3px;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .url-cell {
+            color: #000000;
+            font-size: 13.2px;
+            word-break: break-all;
+            overflow: hidden;
+            width: auto;
+        }
+
+        .url-cell a {
+            color: #000000;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+            padding: 2px 0;
+            display: inline-block;
+        }
+
+        .url-cell a:hover {
+            color: #1a1a1a;
+            text-decoration: underline;
+        }
+
+        .url-unavailable {
+            color: #80868b;
+            font-size: 13.2px;
+        }
+
+        .status-cell {
+            text-align: center;
+        }
+
+        .status-cell .status-alert {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15.4px;
+            display: inline-block;
+            background-color: #1b5e20;
+            padding: 6px 10px;
+            border-radius: 2px;
+        }
+
+        .status-cell .status-inactive {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15.4px;
+            display: inline-block;
+            background-color: #8b1c1c;
+            padding: 6px 10px;
+            border-radius: 2px;
+        }
+
+        .status-cell .status-empty {
+            color: #333333;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .keywords-cell {
+            padding: 12px 10px;
+            font-size: 12.1px;
+            text-align: left;
+        }
+
+        .keywords-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px 5px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .keyword-badge {
+            background: transparent;
+            border: none;
+            border-radius: 0px;
+            padding: 0px;
+            font-size: 12.1px;
+            font-weight: 400;
+            color: #000000;
+            white-space: nowrap;
+            display: inline;
+            box-shadow: none;
+            text-shadow: none;
+            text-decoration: none;
+            margin: 0px;
+            outline: none;
+        }
+
+        .keyword-badge:after {
+            content: ', ';
+        }
+
+        .keyword-badge:last-child:after {
+            content: '';
+        }
+
+        .keywords-empty {
+            color: #333333;
+            font-weight: 700;
+            font-size: 20px;
+            margin-left: 140px;
+        }
+
+        .reset-cell {
+            text-align: center;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+
+        .reset-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            padding: 6px 10px;
+            font-size: 14px;
+            color: #d32f2f;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .reset-btn:hover {
+            background-color: #ffebee;
+            border-color: #d32f2f;
+            color: #b71c1c;
+        }
+
+        .reset-empty {
+            color: #dadce0;
+        }
+
+        .status-clickable {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        .status-clickable:hover {
+            background-color: rgba(31, 41, 55, 0.1);
+            text-decoration: underline;
+        }
+
+        /* ===== TITLE STYLING ===== */
+        .title-tender {
+            color: #000000;
+        }
+
+        .title-saga {
+            color: #999999;
+        }
+
+        /* ===== MODAL DÉTAILS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #dadce0;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #dadce0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-title {
+            font-size: 18.2px;
+            font-weight: 600;
+            color: #202124;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #5f6368;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #202124;
+        }
+
+        .modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-label {
+            font-size: 12.1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #5f6368;
+        }
+
+        .detail-value {
+            font-size: 14.3px;
+            color: #202124;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #dadce0;
+            border-radius: 2px;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .detail-tag {
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 0px !important;
+            padding: 0px !important;
+            font-size: 12.1px;
+            font-weight: 400;
+            color: #000000;
+            display: inline;
+        }
+
+        .detail-tag:after {
+            content: ', ';
+        }
+
+        .detail-tag:last-of-type:after {
+            content: '';
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            padding: 0 24px 24px 24px;
+            border-top: 1px solid #dadce0;
+            margin-top: 16px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 13.2px;
+            font-weight: 600;
+            border: 1px solid #cccccc;
+            background-color: #ffffff;
+            color: #333333;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: underline;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-btn:hover {
+            background-color: #eeeeee;
+            border-color: #333333;
+        }
+
+        .modal-btn-primary {
+            background-color: #333333;
+            color: #ffffff;
+            border-color: #333333;
+            text-decoration: none;
+        }
+
+        .modal-btn-primary:hover {
+            background-color: #000000;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid #dadce0;
+            text-align: center;
+            font-size: 12.1px;
+            color: #80868b;
+        }
+
+        .footer a {
+            color: #333333;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .main-container {
+                padding: 32px 36px;
+            }
+
+            .url-cell {
+                max-width: 500px;
+                font-size: 13.2px;
+            }
+
+            tbody td {
+                padding: 13.2px 15.4px;
+                font-size: 13.2px;
+            }
+
+            .keywords-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 24px 20px;
+            }
+
+            h1 {
+                font-size: 26.4px;
+            }
+
+            .login-box {
+                padding: 36px 28px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .last-update {
+                text-align: left;
+                margin-top: 8px;
+            }
+
+            tbody td {
+                padding: 11px 13.2px;
+                font-size: 12.1px;
+            }
+
+            .url-cell {
+                max-width: 300px;
+                font-size: 12.1px;
+            }
+
+            .country-cell {
+                width: 120px;
+                min-width: 120px;
+            }
+
+            .status-cell {
+                width: 120px;
+                min-width: 120px;
+                font-size: 12.1px;
+            }
+
+            .regions-wrapper {
+                gap: 28px;
+            }
+
+            .alert-item {
+                padding: 11px;
+                font-size: 13.2px;
+            }
+
+            .alerts-section {
+                padding: 12px;
+                margin-bottom: 24px;
+            }
+
+            .keywords-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs-container {
+                gap: 16px;
+            }
+
+            .tab-button {
+                font-size: 12px;
+                padding: 8px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== LOGIN SCREEN ===== -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="./flags/LogoSAGA.png" alt="SAGA Logo" style="width: 200px; height: 75px; object-fit: contain;">
+            </div>
+            <h2 class="login-title">TENDER-TRACKER</h2>
+            <p class="login-subtitle">Accès Sécurisé</p>
+
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label for="passwordInput">Code d'Accès</label>
+                    <input
+                        type="password"
+                        id="passwordInput"
+                        placeholder="••••••••"
+                        required
+                        autocomplete="off"
+                    />
+                </div>
+                <button type="submit" class="login-button">Connexion</button>
+            </form>
+
+            <div class="error-message" id="errorMessage">Code incorrect. Réessayez.</div>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="dashboard" id="dashboard">
+        <div class="main-container">
+            <div class="header-top">
+                <h1><span class="title-tender">TENDER-TRACKER</span> <span class="title-saga">SAGA</span></h1>
+                <div style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); width: 200px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <img src="./flags/LogoSAGA.png" alt="SAGA Logo" style="max-width: 100%; max-height: 100%; display: block;">
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-container">
+                <button class="tab-button active" onclick="switchTab('alerts')">Dernières Alertes</button>
+                <button class="tab-button" onclick="switchTab('keywords')">Mots-clés</button>
+            </div>
+
+            <!-- Alertes Tab -->
+            <div id="alerts-tab" class="tab-content active"></div>
+
+            <!-- Keywords Tab -->
+            <div id="keywords-tab" class="tab-content">
+                <div class="keywords-section">
+                    <div id="keywordsList"></div>
+                </div>
+            </div>
+
+            <!-- Bloc Récapitulatif des Offres Détectées -->
+            <div id="alertsSummary" class="region-section" style="display: none; margin-bottom: 30px;">
+                <div class="region-title">OFFRES DETECTEES</div>
+                <table>
+                    <colgroup>
+                        <col style="width: 280px;">
+                        <col style="width: 360px;">
+                        <col style="width: 100px;">
+                        <col style="width: 360px;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Pays</th>
+                            <th>Lien</th>
+                            <th>Alerte</th>
+                            <th>Mots-clés</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alertsSummaryContent">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tableau des régions -->
+            <div class="regions-wrapper" id="regionsContainer">
+                <p style="text-align: center; color: #80868b; padding: 40px 0; font-size: 14.3px;">Chargement des données...</p>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>Tender-Tracker SAGA © 2026 | Veille Automatisée 24/7</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PASSWORD_HASH = 'd398b29d3dbbb9bf201d4c7e1c19ff9d43c15fd45a0cec46fbe9885ec3f6e97f';
+
+        let sourcesData = [];
+        let detectionsMap = {};
+        let keywordsList = [];
+
+        // Mots-clés multilingues
+        const ALL_KEYWORDS = {
+            'Français': [
+                'mobilisation des ressources',
+                'fiscalité',
+                'réforme fiscale',
+                'gestion des finances publiques',
+                'dette souveraine',
+                'restructuration de dette',
+                'marchés publics',
+                'finances publiques',
+                'budgétisation',
+                'mobilisation de ressources',
+                'impôts',
+                'collecte des impôts',
+                'ressources fiscales',
+                'administration fiscale',
+                'modernisation fiscale',
+                'expertise fiscale',
+                'gestion des ressources publiques',
+                'pilier 1 ocde',
+                'beps 2.0',
+                'montant a',
+                'montant b',
+                'taxe sur les services numériques',
+                'tsn',
+                'juridiction du marché',
+                'droits d\'imposition',
+                'seuil de chiffre d\'affaires',
+                'chiffre d\'affaires mondial',
+                'règle de lien économique',
+                'nexus'
+            ],
+            'English': [
+                'domestic resource mobilization',
+                'drm',
+                'tax reform',
+                'fiscal policy',
+                'public financial management',
+                'pfm',
+                'sovereign debt',
+                'debt restructuring',
+                'public procurement',
+                'tax administration',
+                'revenue mobilization',
+                'tax expertise',
+                'public resource management',
+                'beps',
+                'customs modernization',
+                'revenue authority',
+                'tax modernisation',
+                'tax modernization',
+                'oecd pillar 1',
+                'beps 2.0',
+                'amount a',
+                'amount b',
+                'digital services tax',
+                'dst',
+                'market jurisdiction',
+                'taxing rights',
+                'revenue threshold',
+                'global turnover',
+                'nexus rules',
+                'profit reallocation'
+            ],
+            'Español': [
+                'movilización de recursos internos',
+                'fiscalidad',
+                'reforma fiscal',
+                'gestión de finanzas públicas',
+                'deuda soberana',
+                'reestructuración de deuda',
+                'contratación pública',
+                'administración tributaria',
+                'movilización de recursos',
+                'modernización tributaria',
+                'experticia fiscal',
+                'gestión de recursos públicos',
+                'pilar 1 ocde',
+                'beps 2.0',
+                'monto a',
+                'monto b',
+                'impuesto sobre los servicios digitales',
+                'isd',
+                'jurisdicción del mercado',
+                'derechos de imposición',
+                'umbral de ingresos',
+                'facturación global',
+                'reglas de nexo',
+                'reasignación de beneficios'
+            ],
+            'Português': [
+                'mobilização de recursos internos',
+                'fiscalidade',
+                'reforma fiscal',
+                'gestão das finanças públicas',
+                'dívida soberana',
+                'reestruturação da dívida',
+                'contratação pública',
+                'administração tributária',
+                'mobilização de recursos',
+                'modernização tributária',
+                'expertise fiscal',
+                'gestão de recursos públicos',
+                'pilar 1 ocde',
+                'beps 2.0',
+                'montante a',
+                'montante b',
+                'imposto sobre os serviços digitais',
+                'isd',
+                'jurisdição de mercado',
+                'direitos de tributação',
+                'limiar de receita',
+                'faturação global',
+                'regras de nexo',
+                'realocação de lucros'
+            ],
+            'العربية': [
+                'تعبئة الموارد',
+                'الضرائب',
+                'الإصلاح الضريبي',
+                'إدارة المالية العامة',
+                'الدين العام',
+                'التعاقدات العمومية',
+                'الموارد المحلية',
+                'الإيرادات الضريبية',
+                'إدارة الضرائب',
+                'تحديث النظام الضريبي',
+                'خبرة ضريبية',
+                'إدارة الموارد العامة',
+                'الركيزة الأولى',
+                'beps 2.0',
+                'المبلغ أ',
+                'المبلغ ب',
+                'ضريبة الخدمات الرقمية',
+                'dst',
+                'الولاية القضائية للسوق',
+                'حقوق فرض الضرائب',
+                'حد الإيرادات',
+                'العائدات العالمية',
+                'قواعس الارتباط',
+                'النيكسوس',
+                'إعادة تخصيص الأرباح'
+            ]
+        };
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ===== AUTHENTIFICATION =====
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const passwordInput = document.getElementById('passwordInput');
+            const errorMessage = document.getElementById('errorMessage');
+
+            const inputHash = await hashPassword(passwordInput.value);
+
+            if (inputHash === PASSWORD_HASH) {
+                showDashboard();
+                loadData();
+            } else {
+                errorMessage.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        function showDashboard() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+        }
+
+// ===== CHARGEMENT DES DONNÉES =====
+        async function loadData() {
+            try {
+                const timestamp = new Date().getTime();
+                const randomId = Math.random().toString(36).substring(2, 15);
+                const url = `data.json?_=${timestamp}&v=${randomId}`;
+                console.log('📥 Chargement du JSON:', url);
+
+                const response = await fetch(url, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log('✅ JSON chargé avec succès:', data.tenders.length, 'tenders');
+
+                sourcesData = data.sources || [];
+
+                // Indexer les détections par pays
+                detectionsMap = {};
+                if (data.tenders && Array.isArray(data.tenders)) {
+                    data.tenders.forEach(tender => {
+                        if (tender.country) {
+                            if (!detectionsMap[tender.country]) {
+                                detectionsMap[tender.country] = [];
+                            }
+                            detectionsMap[tender.country].push(tender);
+                        }
+                    });
+                }
+
+                renderKeywords();
+                renderTable();
+                renderAlertsSummary();
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('regionsContainer').innerHTML =
+                    '<p style="text-align: center; color: #d32f2f; padding: 40px 0; font-size: 14.3px;">Erreur lors du chargement des données</p>';
+            }
+        }
+
+        // ===== SUPPRESSION DES DÉTECTIONS =====
+        async function resetDetection(detectionId, country) {
+            if (!confirm(`Supprimer cette alerte pour ${country} ?`)) {
+                return;
+            }
+
+            try {
+                // Charger data.json
+                const response = await fetch('data.json');
+                const data = await response.json();
+
+                // Supprimer la détection
+                data.tenders = data.tenders.filter(t => t.id !== detectionId);
+
+                // Envoyer à l'API GitHub pour mettre à jour le fichier
+                let githubToken = localStorage.getItem('githubToken');
+                if (!githubToken) {
+                    // Demander le token
+                    const token = prompt('Token GitHub requis pour mettre à jour :\n(Générer sur https://github.com/settings/tokens)');
+                    if (!token) {
+                        alert('Action annulée');
+                        return;
+                    }
+                    localStorage.setItem('githubToken', token);
+                    githubToken = token;
+                }
+
+                // Faire un commit sur GitHub via l'API
+                const result = await updateDataJsonOnGitHub(data, githubToken, `Remove detection for ${country}`);
+
+                if (result.success) {
+                    alert('✅ Alerte supprimée pour tous les utilisateurs !');
+                    location.reload();
+                } else {
+                    alert('❌ Erreur : ' + result.error);
+                }
+            } catch (error) {
+                alert('❌ Erreur : ' + error.message);
+            }
+        }
+
+        async function updateDataJsonOnGitHub(data, token, message) {
+            try {
+                // Récupérer le commit SHA actuel
+                const repoUrl = 'https://api.github.com/repos/MUlysse/tender-tracker-saga/contents/docs/data.json';
+                const getResponse = await fetch(repoUrl, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (!getResponse.ok) {
+                    return { success: false, error: 'Token invalide ou permission refusée' };
+                }
+
+                const fileData = await getResponse.json();
+                const currentSha = fileData.sha;
+
+                // Encoder le nouveau contenu en base64
+                const newContent = JSON.stringify(data, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(newContent)));
+
+                // Mettre à jour le fichier
+                const updateResponse = await fetch(repoUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `🗑️ ${message}`,
+                        content: encodedContent,
+                        sha: currentSha
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    return { success: true };
+                } else {
+                    const error = await updateResponse.json();
+                    return { success: false, error: error.message };
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+// ===== AFFICHAGE DES MOTS-CLÉS =====
+        function renderKeywords() {
+            const keywordsList = document.getElementById('keywordsList');
+            let html = '<div class="keywords-grid">';
+
+            Object.entries(ALL_KEYWORDS).forEach(([lang, keywords]) => {
+                html += `
+                    <div class="keywords-category">
+                        <div class="keywords-category-title">${lang}</div>
+                        <div class="keywords-list">
+                            ${keywords.map(kw => `<div class="keyword-item">${kw}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            keywordsList.innerHTML = html;
+        }
+
+        const COUNTRY_CODES = {
+            'Jersey': 'je', 'Cayman Islands': 'ky', 'Bermuda': 'bm', 'Liechtenstein': 'li', 'Panama': 'pa',
+            'Gibraltar': 'gi', 'St Kitts and Nevis': 'kn', 'Dominican Republic': 'do', 'Bahamas': 'bs',
+            'British Virgin Islands': 'vg', 'Bénin': 'bj', 'Burkina Faso': 'bf', 'Sénégal': 'sn',
+            'Côte d\'Ivoire': 'ci', 'Togo': 'tg', 'Niger': 'ne', 'Mauritanie': 'mr', 'Tchad': 'td',
+            'Gabon': 'ga', 'Congo-Brazzaville': 'cg', 'RDC': 'cd', 'Mali': 'ml', 'Djibouti': 'dj',
+            'Guinée': 'gn', 'Guinée équatoriale': 'gq', 'Nigeria': 'ng', 'Kenya': 'ke', 'Cameroun': 'cm',
+            'South Africa': 'za', 'Ethiopia': 'et', 'Zambia': 'zm', 'Uganda': 'ug', 'Malawi': 'mw',
+            'Botswana': 'bw', 'Tanzania': 'tz', 'Sierra Leone': 'sl', 'Gambia': 'gm', 'Liberia': 'lr',
+            'Rwanda': 'rw', 'Mozambique': 'mz', 'Maroc': 'ma', 'Angola': 'ao', 'Tunisie': 'tn',
+            'Ghana': 'gh', 'Égypte': 'eg', 'Zimbabwe': 'zw', 'Cap Vert': 'cv', 'Lesotho': 'ls',
+            'UAE': 'ae', 'Île Maurice': 'mu', 'Oman': 'om', 'Seychelles': 'sc', 'Qatar': 'qa',
+            'Bahreïn': 'bh', 'Algérie': 'dz', 'Indonésie': 'id', 'Arabie Saoudite': 'sa',
+            'Madagascar': 'mg', 'Singapour': 'sg', 'Thaïlande': 'th', 'Comores': 'km',
+            'AFD - France': 'fr', 'GIZ - Germany': 'de', 'Norad - Norway': 'no',
+            'Danida - Denmark': 'dk', 'SIDA - Sweden': 'se', 'JICA - Japan': 'jp'
+        };
+
+        const COUNTRY_COLORS = {
+            'Bahamas': '#0066cc', 'British Virgin Islands': '#003478', 'Cayman Islands': '#003478',
+            'Panama': '#cc0000', 'Bermuda': '#00a86b', 'St Kitts and Nevis': '#00a041',
+            'Dominican Republic': '#003478', 'Jersey': '#0066cc', 'Liechtenstein': '#003478',
+            'Gibraltar': '#cc0000', 'Bénin': '#ffcc00', 'Burkina Faso': '#009543',
+            'Sénégal': '#ffcc00', 'Côte d\'Ivoire': '#ffcc00', 'Togo': '#ffcc00',
+            'Niger': '#ffcc00', 'Mauritanie': '#cc0000', 'Tchad': '#ffcc00',
+            'Gabon': '#003478', 'Congo-Brazzaville': '#ffcc00', 'RDC': '#003478',
+            'Mali': '#ffcc00', 'Djibouti': '#cc0000', 'Guinée': '#cc0000',
+            'Guinée équatoriale': '#003478', 'Nigeria': '#008751', 'Kenya': '#000000',
+            'Cameroun': '#ffcc00', 'South Africa': '#000000', 'Ethiopia': '#ffcc00',
+            'Zambia': '#008751', 'Uganda': '#000000', 'Malawi': '#000000',
+            'Botswana': '#003478', 'Tanzania': '#000000', 'Sierra Leone': '#008751',
+            'Gambia': '#cc0000', 'Liberia': '#003478', 'Rwanda': '#008751',
+            'Mozambique': '#ffcc00', 'Maroc': '#cc0000', 'Angola': '#000000',
+            'Tunisie': '#cc0000', 'Ghana': '#ffcc00', 'Égypte': '#cc0000',
+            'Zimbabwe': '#008751', 'Cap Vert': '#003478', 'Lesotho': '#009543',
+            'UAE': '#00a041', 'Île Maurice': '#ff0000', 'Oman': '#cc0000',
+            'Seychelles': '#003478', 'Qatar': '#8b1c1c', 'Bahreïn': '#ffffff',
+            'Algérie': '#ffcc00', 'Indonésie': '#cc0000', 'Arabie Saoudite': '#006c35',
+            'Madagascar': '#cc0000', 'Singapour': '#cc0000', 'Thaïlande': '#cc0000',
+            'Comores': '#cc0000', 'AFD - France': '#003478', 'GIZ - Germany': '#000000',
+            'Norad - Norway': '#ba0c2f', 'Danida - Denmark': '#cc0000', 'SIDA - Sweden': '#006aa7',
+            'JICA - Japan': '#bc002d', 'World Bank': '#1f4788', 'AfDB': '#003d7a',
+            'Onoris Journal': '#333333', 'Global Tenders': '#0066cc', 'Africa Tenders': '#009543',
+            'Tender Soko': '#ffcc00', 'Development Aid': '#008751'
+        };
+
+        function getCountryDisplay(country) {
+            let flagHtml = '';
+            const cdnBase = './flags/';
+
+            if (COUNTRY_CODES[country]) {
+                // Pays avec code ISO
+                const code = COUNTRY_CODES[country];
+                flagHtml = '<img src="' + cdnBase + code + '.png" class="country-flag" alt="' + country + '">';
+            } else {
+                // Organisations: remplacer espaces par underscores
+                const cleanName = country.replace(/ /g, '_');
+                flagHtml = '<img src="' + cdnBase + cleanName + '.png" class="country-flag" alt="' + country + '">';
+            }
+
+            const nameHtml = '<div class="country-name">' + country + '</div>';
+            return '<div class="country-flag-container">' + flagHtml + '</div>' + nameHtml;
+        }
+
+        // ===== RENDU DU TABLEAU =====
+        function renderAlertsSummary() {
+            try {
+                const summaryBlock = document.getElementById('alertsSummary');
+                const summaryContent = document.getElementById('alertsSummaryContent');
+
+                // Collecter TOUTES les lignes du tableau qui ont une offre détectée
+                let html = '';
+                let countOffres = 0;
+
+                const allRows = document.querySelectorAll('.regions-wrapper tbody tr');
+                allRows.forEach(row => {
+                    const statusCell = row.querySelector('.status-cell');
+                    // Chercher "Offre" dans la cellule statut
+                    if (statusCell && statusCell.textContent.includes('Offre')) {
+                        // COPIER la ligne EXACTEMENT comme elle est
+                        html += row.outerHTML;
+                        countOffres++;
+                    }
+                });
+
+                if (countOffres === 0) {
+                    summaryBlock.style.display = 'none';
+                    return;
+                }
+
+                // Afficher le bloc
+                summaryBlock.style.display = 'block';
+                summaryContent.innerHTML = html;
+
+                // Ajouter le clic pour scroll
+                const rowsInSummary = summaryContent.querySelectorAll('tr');
+                rowsInSummary.forEach(row => {
+                    row.style.cursor = 'pointer';
+                    row.addEventListener('click', () => {
+                        const country = row.querySelector('.country-cell')?.textContent.trim() || '';
+                        scrollToCountryInTable(country);
+                    });
+                });
+
+            } catch (error) {
+                console.error('Erreur dans renderAlertsSummary:', error);
+            }
+        }
+
+        // Scroller vers le pays dans le tableau principal
+        function scrollToCountryInTable(country) {
+            if (!country) return;
+            const allRows = document.querySelectorAll('.regions-wrapper tbody tr');
+            for (const row of allRows) {
+                if (row.querySelector('.country-cell')?.textContent.includes(country)) {
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    row.style.backgroundColor = '#ffff99';
+                    setTimeout(() => { row.style.backgroundColor = ''; }, 2000);
+                    break;
+                }
+            }
+        }
+
+
+        function renderTable() {
+            const container = document.getElementById('regionsContainer');
+
+            // Grouper par région
+            const grouped = {};
+            sourcesData.forEach(source => {
+                const region = source.region;
+                if (!grouped[region]) {
+                    grouped[region] = [];
+                }
+                grouped[region].push(source);
+            });
+
+            let html = '';
+
+            Object.keys(grouped).forEach(region => {
+                const countries = grouped[region];
+
+                html += `
+                    <div class="region-section">
+                        <div class="region-title">${region}</div>
+                        <table>
+                            <colgroup>
+                                <col style="width: 280px;">
+                                <col style="width: 360px;">
+                                <col style="width: 100px;">
+                                <col style="width: 360px;">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Pays</th>
+                                    <th>Lien</th>
+                                    <th>Alerte</th>
+                                    <th>Mots-clés</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+                countries.forEach(source => {
+                    const hasDetection = detectionsMap[source.country] && detectionsMap[source.country].length > 0;
+
+                    // Vérifier s'il y a une détection 404
+                    let statusHtml = '<span class="status-empty">−</span>';
+                    let detectedKeywords = [];
+                    if (hasDetection) {
+                        const detection = detectionsMap[source.country][0];
+                        const firstKeyword = detection.matched_keywords && detection.matched_keywords.length > 0 ? detection.matched_keywords[0] : '';
+                            detectedKeywords = detection.matched_keywords || [];
+                        if (detection.status === '404') {
+                            statusHtml = `<span class="status-inactive">Page inactive</span>`;
+                        } else {
+                            statusHtml = `<span class="status-alert">Offre</span>`;
+                        }
+                    }
+
+                    const isUnavailable = !source.url || source.url.includes('indisponible') || source.url.includes('unavailable');
+                    const urlHtml = isUnavailable
+                        ? '<span class="url-unavailable">URL indisponible</span>'
+                        : `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.url}</a>`;
+
+                    const rowClass = isUnavailable ? ' class="unavailable"' : '';
+
+                    const keywordsHtml = detectedKeywords && detectedKeywords.length > 0
+                        ? `<div class="keywords-display">${detectedKeywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('')}</div>`
+                        : '<span class="keywords-empty">−</span>';
+
+                    html += `
+                        <tr${rowClass}>
+                            <td class="country-cell">${getCountryDisplay(source.country)}</td>
+                            <td class="url-cell">${urlHtml}</td>
+                            <td class="status-cell">${statusHtml}</td>
+                            <td class="keywords-cell">${keywordsHtml}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('passwordInput').focus();
+        });
+
+        // Auto-refresh toutes les 5 minutes
+        setInterval(() => {
+            if (document.getElementById('dashboard').classList.contains('active')) {
+                loadData();
+            }
+        }, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
