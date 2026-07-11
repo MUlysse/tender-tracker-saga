@@ -385,6 +385,63 @@
             gap: 6px;
         }
 
+        /* ===== BLOC RÉSUMÉ DES OFFRES ===== */
+        .alerts-summary-block {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border: 2px solid #ffb300;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.2);
+        }
+
+        .alerts-summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #cc8800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #ffb300;
+            padding-bottom: 10px;
+        }
+
+        .alerts-summary-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .alert-item {
+            background: white;
+            border-left: 4px solid #ff9800;
+            padding: 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-country {
+            font-weight: 700;
+            color: #0a0a0a;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .alert-keywords {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .alert-keywords span {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+            margin-top: 4px;
+        }
+
         .keyword-item {
             font-size: 13.2px;
             color: #000000 !important;
@@ -1005,6 +1062,12 @@
                 </div>
             </div>
 
+            <!-- Bloc Récapitulatif des Offres Détectées -->
+            <div id="alertsSummary" class="alerts-summary-block" style="display: none;">
+                <div class="alerts-summary-title">🎯 OFFRES DÉTECTÉES</div>
+                <div id="alertsSummaryContent" class="alerts-summary-content"></div>
+            </div>
+
             <!-- Tableau des régions -->
             <div class="regions-wrapper" id="regionsContainer">
                 <p style="text-align: center; color: #80868b; padding: 40px 0; font-size: 14.3px;">Chargement des données...</p>
@@ -1247,6 +1310,7 @@
                 }
 
                 renderKeywords();
+                renderAlertsSummary();
                 renderTable();
 
             } catch (error) {
@@ -1426,6 +1490,50 @@
         }
 
         // ===== RENDU DU TABLEAU =====
+        function renderAlertsSummary() {
+            const summaryBlock = document.getElementById('alertsSummary');
+            const summaryContent = document.getElementById('alertsSummaryContent');
+
+            // Collecter toutes les offres détectées
+            const alerts = [];
+            Object.entries(detectionsMap).forEach(([country, detections]) => {
+                detections.forEach(detection => {
+                    if (detection.matched_keywords && detection.matched_keywords.length > 0) {
+                        alerts.push({
+                            country: country,
+                            keywords: detection.matched_keywords,
+                            url: detection.url
+                        });
+                    }
+                });
+            });
+
+            if (alerts.length === 0) {
+                summaryBlock.style.display = 'none';
+                return;
+            }
+
+            // Afficher le bloc
+            summaryBlock.style.display = 'block';
+
+            // Générer le contenu
+            let html = '';
+            alerts.forEach(alert => {
+                const keywordsHtml = alert.keywords.slice(0, 3).map(kw => `<span>${kw}</span>`).join('');
+
+                html += `
+                    <div class="alert-item">
+                        <div class="alert-country">🌍 ${alert.country}</div>
+                        <div class="alert-keywords">
+                            ${keywordsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+
+            summaryContent.innerHTML = html;
+        }
+
         function renderTable() {
             const container = document.getElementById('regionsContainer');
 
