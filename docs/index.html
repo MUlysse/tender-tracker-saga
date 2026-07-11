@@ -1494,10 +1494,15 @@
             const summaryBlock = document.getElementById('alertsSummary');
             const summaryContent = document.getElementById('alertsSummaryContent');
 
+            console.log('🔍 renderAlertsSummary appelée');
+            console.log('detectionsMap:', detectionsMap);
+
             // Collecter toutes les offres détectées
             const alerts = [];
             Object.entries(detectionsMap).forEach(([country, detections]) => {
+                console.log(`  ${country}:`, detections);
                 detections.forEach(detection => {
+                    console.log(`    keywords:`, detection.matched_keywords);
                     if (detection.matched_keywords && detection.matched_keywords.length > 0) {
                         alerts.push({
                             country: country,
@@ -1508,12 +1513,16 @@
                 });
             });
 
+            console.log('Total alerts:', alerts.length);
+
             if (alerts.length === 0) {
+                console.log('❌ Aucune alerte, bloc caché');
                 summaryBlock.style.display = 'none';
                 return;
             }
 
             // Afficher le bloc
+            console.log('✅ Affichage du bloc');
             summaryBlock.style.display = 'block';
 
             // Générer le contenu
