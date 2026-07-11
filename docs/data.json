@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "d2b38ea04a656573fd9ac16258095a7b",
+      "id": "1a3ba3705a19423a3672749ad8c6a0fc",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-07-11T08:34:33.941587",
+      "detected_at": "2026-07-11T09:45:54.771835",
       "matched_keywords": [
         "tax reform"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-11T08:34:42.506273",
+  "last_updated": "2026-07-11T09:46:05.375341",
   "new_tenders_count": 1
 }
