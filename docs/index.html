@@ -1063,11 +1063,21 @@
             </div>
 
             <!-- Bloc Récapitulatif des Offres Détectées -->
-            <div id="alertsSummary" class="alerts-summary-block" style="display: none; margin-top: 20px;">
-                <div class="alerts-summary-title">🎯 OFFRES DÉTECTÉES</div>
-                <div id="alertsSummaryContent" class="alerts-summary-content">
-                    <p style="text-align: center; color: #666;">Chargement des offres...</p>
-                </div>
+            <div id="alertsSummary" class="alerts-summary-block" style="display: none;">
+                <div class="alerts-summary-title">OFFRES DETECTEES</div>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ffb300; font-size: 12px;">Pays</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ffb300; font-size: 12px;">Lien</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ffb300; font-size: 12px;">Alerte</th>
+                            <th style="text-align: left; padding: 10px; border-bottom: 2px solid #ffb300; font-size: 12px;">Mots-cles</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alertsSummaryContent">
+                        <tr><td colspan="4" style="text-align: center; padding: 20px; color: #666;">Chargement des offres...</td></tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- Tableau des régions -->
@@ -1509,66 +1519,107 @@
                 const summaryBlock = document.getElementById('alertsSummary');
                 const summaryContent = document.getElementById('alertsSummaryContent');
 
-                console.log('🔍 renderAlertsSummary appelée');
-                console.log('detectionsMap keys:', Object.keys(detectionsMap));
-                console.log('detectionsMap complète:', detectionsMap);
-
                 // Collecter toutes les offres détectées
                 const alerts = [];
 
                 for (const country in detectionsMap) {
                     const detections = detectionsMap[country];
-                    console.log(`Vérification ${country}:`, detections);
 
                     if (Array.isArray(detections)) {
                         for (const detection of detections) {
                             if (detection && detection.matched_keywords && Array.isArray(detection.matched_keywords) && detection.matched_keywords.length > 0) {
-                                console.log(`✅ Alerte trouvée pour ${country}:`, detection.matched_keywords);
+                                // Trouver la source correspondante pour obtenir l'URL
+                                const source = sourcesData.find(s => s.country === country);
                                 alerts.push({
                                     country: country,
                                     keywords: detection.matched_keywords,
-                                    url: detection.url
+                                    url: source ? source.url : detection.url,
+                                    detection: detection
                                 });
                             }
                         }
                     }
                 }
 
-                console.log('📊 Total alerts collectées:', alerts.length);
-
                 if (alerts.length === 0) {
-                    console.log('❌ Aucune alerte trouvée, bloc caché');
                     summaryBlock.style.display = 'none';
-                    summaryContent.innerHTML = '<p style="text-align: center; color: #999;">Aucune offre détectée pour le moment</p>';
                     return;
                 }
 
                 // Afficher le bloc
-                console.log('✅ Bloc affiché avec', alerts.length, 'alerte(s)');
                 summaryBlock.style.display = 'block';
 
-                // Générer le contenu
+                // Générer les lignes du tableau
                 let html = '';
                 alerts.forEach(alert => {
-                    const keywordsHtml = alert.keywords.slice(0, 3).map(kw => `<span>${kw}</span>`).join('');
+                    const flagHtml = getFlagForCountry(alert.country);
+                    const keywordsHtml = alert.keywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('');
+                    const countryDisplay = getCountryDisplay(alert.country);
+                    const urlHtml = `<a href="${alert.url}" target="_blank" rel="noopener noreferrer">${alert.url}</a>`;
+
+                    // Ajouter un data-country pour permettre le scroll au clic
                     html += `
-                        <div class="alert-item">
-                            <div class="alert-country">🌍 ${alert.country}</div>
-                            <div class="alert-keywords">
-                                ${keywordsHtml}
-                            </div>
-                        </div>
+                        <tr style="cursor: pointer; border-bottom: 1px solid #ddd;" onclick="scrollToCountry('${alert.country.replace(/'/g, "\\'")}')">
+                            <td class="country-cell" style="padding: 10px; display: flex; align-items: center; gap: 10px;">
+                                ${flagHtml}
+                                <span>${alert.country}</span>
+                            </td>
+                            <td class="url-cell" style="padding: 10px; font-size: 13px;">${urlHtml}</td>
+                            <td class="status-cell" style="padding: 10px;"><span class="status-alert">Offre</span></td>
+                            <td class="keywords-cell" style="padding: 10px; font-size: 12px;">${keywordsHtml}</td>
+                        </tr>
                     `;
                 });
 
                 summaryContent.innerHTML = html;
-                console.log('📝 HTML généré et affiché');
 
             } catch (error) {
-                console.error('❌ Erreur dans renderAlertsSummary:', error);
+                console.error('Erreur dans renderAlertsSummary:', error);
                 document.getElementById('alertsSummary').style.display = 'block';
-                document.getElementById('alertsSummaryContent').innerHTML = '<p style="color: red;">Erreur lors du chargement des alertes</p>';
+                document.getElementById('alertsSummaryContent').innerHTML = '<tr><td colspan="4" style="color: red; padding: 10px;">Erreur lors du chargement des alertes</td></tr>';
             }
+        }
+
+        // Fonction pour scroller vers la ligne du pays dans le tableau principal
+        function scrollToCountry(country) {
+            const rows = document.querySelectorAll('tbody tr');
+            for (const row of rows) {
+                const countryCell = row.querySelector('.country-cell');
+                if (countryCell && countryCell.textContent.includes(country)) {
+                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    row.style.backgroundColor = '#ffffcc';
+                    setTimeout(() => {
+                        row.style.backgroundColor = '';
+                    }, 2000);
+                    break;
+                }
+            }
+        }
+
+        // Fonction pour obtenir le drapeau d'un pays
+        function getFlagForCountry(country) {
+            const COUNTRY_CODES = {
+                'Jersey': 'je', 'Cayman Islands': 'ky', 'Bermuda': 'bm', 'Liechtenstein': 'li', 'Panama': 'pa',
+                'Gibraltar': 'gi', 'St Kitts and Nevis': 'kn', 'Dominican Republic': 'do', 'Bahamas': 'bs',
+                'British Virgin Islands': 'vg', 'Bénin': 'bj', 'Burkina Faso': 'bf', 'Sénégal': 'sn',
+                'Côte d\'Ivoire': 'ci', 'Togo': 'tg', 'Niger': 'ne', 'Mauritanie': 'mr', 'Tchad': 'td',
+                'Gabon': 'ga', 'Congo-Brazzaville': 'cg', 'RDC': 'cd', 'Mali': 'ml', 'Djibouti': 'dj',
+                'Guinée': 'gn', 'Guinée équatoriale': 'gq', 'Nigeria': 'ng', 'Kenya': 'ke', 'Cameroun': 'cm',
+                'South Africa': 'za', 'Ethiopia': 'et', 'Zambia': 'zm', 'Uganda': 'ug', 'Malawi': 'mw',
+                'Botswana': 'bw', 'Tanzania': 'tz', 'Sierra Leone': 'sl', 'Gambia': 'gm', 'Liberia': 'lr',
+                'Rwanda': 'rw', 'Mozambique': 'mz', 'Maroc': 'ma', 'Angola': 'ao', 'Tunisie': 'tn',
+                'Ghana': 'gh', 'Égypte': 'eg', 'Zimbabwe': 'zw', 'Cap Vert': 'cv', 'Lesotho': 'ls',
+                'UAE': 'ae', 'Île Maurice': 'mu', 'Oman': 'om', 'Seychelles': 'sc', 'Qatar': 'qa',
+                'Bahreïn': 'bh', 'Algérie': 'dz', 'Indonésie': 'id', 'Arabie Saoudite': 'sa',
+                'Madagascar': 'mg', 'Singapour': 'sg', 'Thaïlande': 'th', 'Comores': 'km',
+                'AFD - France': 'fr', 'GIZ - Germany': 'de', 'Norad - Norway': 'no'
+            };
+
+            const code = COUNTRY_CODES[country] || '';
+            if (!code) return '';
+
+            const flagUrl = `https://flagcdn.com/16x12/${code}.webp`;
+            return `<img src="${flagUrl}" alt="${country}" style="width: 24px; height: 16px; object-fit: contain;">`;
         }
 
         function renderTable() {
