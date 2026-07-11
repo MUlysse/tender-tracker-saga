@@ -1063,9 +1063,11 @@
             </div>
 
             <!-- Bloc Récapitulatif des Offres Détectées -->
-            <div id="alertsSummary" class="alerts-summary-block" style="display: none;">
+            <div id="alertsSummary" class="alerts-summary-block" style="display: none; margin-top: 20px;">
                 <div class="alerts-summary-title">🎯 OFFRES DÉTECTÉES</div>
-                <div id="alertsSummaryContent" class="alerts-summary-content"></div>
+                <div id="alertsSummaryContent" class="alerts-summary-content">
+                    <p style="text-align: center; color: #666;">Chargement des offres...</p>
+                </div>
             </div>
 
             <!-- Tableau des régions -->
@@ -1503,56 +1505,70 @@
 
         // ===== RENDU DU TABLEAU =====
         function renderAlertsSummary() {
-            const summaryBlock = document.getElementById('alertsSummary');
-            const summaryContent = document.getElementById('alertsSummaryContent');
+            try {
+                const summaryBlock = document.getElementById('alertsSummary');
+                const summaryContent = document.getElementById('alertsSummaryContent');
 
-            console.log('🔍 renderAlertsSummary appelée');
-            console.log('detectionsMap:', detectionsMap);
+                console.log('🔍 renderAlertsSummary appelée');
+                console.log('detectionsMap keys:', Object.keys(detectionsMap));
+                console.log('detectionsMap complète:', detectionsMap);
 
-            // Collecter toutes les offres détectées
-            const alerts = [];
-            Object.entries(detectionsMap).forEach(([country, detections]) => {
-                console.log(`  ${country}:`, detections);
-                detections.forEach(detection => {
-                    console.log(`    keywords:`, detection.matched_keywords);
-                    if (detection.matched_keywords && detection.matched_keywords.length > 0) {
-                        alerts.push({
-                            country: country,
-                            keywords: detection.matched_keywords,
-                            url: detection.url
-                        });
+                // Collecter toutes les offres détectées
+                const alerts = [];
+
+                for (const country in detectionsMap) {
+                    const detections = detectionsMap[country];
+                    console.log(`Vérification ${country}:`, detections);
+
+                    if (Array.isArray(detections)) {
+                        for (const detection of detections) {
+                            if (detection && detection.matched_keywords && Array.isArray(detection.matched_keywords) && detection.matched_keywords.length > 0) {
+                                console.log(`✅ Alerte trouvée pour ${country}:`, detection.matched_keywords);
+                                alerts.push({
+                                    country: country,
+                                    keywords: detection.matched_keywords,
+                                    url: detection.url
+                                });
+                            }
+                        }
                     }
-                });
-            });
+                }
 
-            console.log('Total alerts:', alerts.length);
+                console.log('📊 Total alerts collectées:', alerts.length);
 
-            if (alerts.length === 0) {
-                console.log('❌ Aucune alerte, bloc caché');
-                summaryBlock.style.display = 'none';
-                return;
-            }
+                if (alerts.length === 0) {
+                    console.log('❌ Aucune alerte trouvée, bloc caché');
+                    summaryBlock.style.display = 'none';
+                    summaryContent.innerHTML = '<p style="text-align: center; color: #999;">Aucune offre détectée pour le moment</p>';
+                    return;
+                }
 
-            // Afficher le bloc
-            console.log('✅ Affichage du bloc');
-            summaryBlock.style.display = 'block';
+                // Afficher le bloc
+                console.log('✅ Bloc affiché avec', alerts.length, 'alerte(s)');
+                summaryBlock.style.display = 'block';
 
-            // Générer le contenu
-            let html = '';
-            alerts.forEach(alert => {
-                const keywordsHtml = alert.keywords.slice(0, 3).map(kw => `<span>${kw}</span>`).join('');
-
-                html += `
-                    <div class="alert-item">
-                        <div class="alert-country">🌍 ${alert.country}</div>
-                        <div class="alert-keywords">
-                            ${keywordsHtml}
+                // Générer le contenu
+                let html = '';
+                alerts.forEach(alert => {
+                    const keywordsHtml = alert.keywords.slice(0, 3).map(kw => `<span>${kw}</span>`).join('');
+                    html += `
+                        <div class="alert-item">
+                            <div class="alert-country">🌍 ${alert.country}</div>
+                            <div class="alert-keywords">
+                                ${keywordsHtml}
+                            </div>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
 
-            summaryContent.innerHTML = html;
+                summaryContent.innerHTML = html;
+                console.log('📝 HTML généré et affiché');
+
+            } catch (error) {
+                console.error('❌ Erreur dans renderAlertsSummary:', error);
+                document.getElementById('alertsSummary').style.display = 'block';
+                document.getElementById('alertsSummaryContent').innerHTML = '<p style="color: red;">Erreur lors du chargement des alertes</p>';
+            }
         }
 
         function renderTable() {
