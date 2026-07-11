@@ -1222,7 +1222,13 @@
 // ===== CHARGEMENT DES DONNÉES =====
         async function loadData() {
             try {
-                const response = await fetch('data.json?t=' + new Date().getTime());
+                const response = await fetch('data.json?t=' + new Date().getTime(), {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
                 const data = await response.json();
 
                 sourcesData = data.sources || [];
