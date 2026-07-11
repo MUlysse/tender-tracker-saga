@@ -1552,26 +1552,33 @@
                 // Générer les lignes du tableau
                 let html = '';
                 alerts.forEach(alert => {
-                    const flagHtml = getFlagForCountry(alert.country);
-                    const keywordsHtml = alert.keywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('');
-                    const countryDisplay = getCountryDisplay(alert.country);
-                    const urlHtml = `<a href="${alert.url}" target="_blank" rel="noopener noreferrer">${alert.url}</a>`;
+                    try {
+                        const flagUrl = `https://flagcdn.com/16x12/${getCountryCode(alert.country)}.webp`;
+                        const flagHtml = `<img src="${flagUrl}" alt="${alert.country}" style="width: 24px; height: 16px; object-fit: contain; border-radius: 2px;">`;
+                        const keywordsHtml = alert.keywords.slice(0, 5).map(kw => `<span class="keyword-badge">${kw}</span>`).join('');
+                        const urlHtml = `<a href="${alert.url}" target="_blank" rel="noopener noreferrer">${alert.url}</a>`;
 
-                    // Ajouter un data-country pour permettre le scroll au clic
-                    html += `
-                        <tr style="cursor: pointer; border-bottom: 1px solid #ddd;" onclick="scrollToCountry('${alert.country.replace(/'/g, "\\'")}')">
-                            <td class="country-cell" style="padding: 10px; display: flex; align-items: center; gap: 10px;">
-                                ${flagHtml}
-                                <span>${alert.country}</span>
-                            </td>
-                            <td class="url-cell" style="padding: 10px; font-size: 13px;">${urlHtml}</td>
-                            <td class="status-cell" style="padding: 10px;"><span class="status-alert">Offre</span></td>
-                            <td class="keywords-cell" style="padding: 10px; font-size: 12px;">${keywordsHtml}</td>
-                        </tr>
-                    `;
+                        html += `
+                            <tr style="cursor: pointer; border-bottom: 1px solid #ddd; background: #fafafa;" onclick="scrollToCountryFromAlert('${alert.country.replace(/'/g, "\\'")}')">
+                                <td style="padding: 12px; display: flex; align-items: center; gap: 12px; font-weight: 600;">
+                                    ${flagHtml}
+                                    <span>${alert.country}</span>
+                                </td>
+                                <td style="padding: 12px; font-size: 13px;">${urlHtml}</td>
+                                <td style="padding: 12px;"><span class="status-alert">Offre</span></td>
+                                <td style="padding: 12px; font-size: 12px;">${keywordsHtml}</td>
+                            </tr>
+                        `;
+                    } catch (e) {
+                        console.error('Erreur génération ligne:', e, alert);
+                    }
                 });
 
-                summaryContent.innerHTML = html;
+                if (html) {
+                    summaryContent.innerHTML = html;
+                } else {
+                    summaryContent.innerHTML = '<tr><td colspan="4" style="padding: 10px; text-align: center;">Aucune offre à afficher</td></tr>';
+                }
 
             } catch (error) {
                 console.error('Erreur dans renderAlertsSummary:', error);
@@ -1580,25 +1587,9 @@
             }
         }
 
-        // Fonction pour scroller vers la ligne du pays dans le tableau principal
-        function scrollToCountry(country) {
-            const rows = document.querySelectorAll('tbody tr');
-            for (const row of rows) {
-                const countryCell = row.querySelector('.country-cell');
-                if (countryCell && countryCell.textContent.includes(country)) {
-                    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    row.style.backgroundColor = '#ffffcc';
-                    setTimeout(() => {
-                        row.style.backgroundColor = '';
-                    }, 2000);
-                    break;
-                }
-            }
-        }
-
-        // Fonction pour obtenir le drapeau d'un pays
-        function getFlagForCountry(country) {
-            const COUNTRY_CODES = {
+        // Fonction pour obtenir le code pays
+        function getCountryCode(country) {
+            const codes = {
                 'Jersey': 'je', 'Cayman Islands': 'ky', 'Bermuda': 'bm', 'Liechtenstein': 'li', 'Panama': 'pa',
                 'Gibraltar': 'gi', 'St Kitts and Nevis': 'kn', 'Dominican Republic': 'do', 'Bahamas': 'bs',
                 'British Virgin Islands': 'vg', 'Bénin': 'bj', 'Burkina Faso': 'bf', 'Sénégal': 'sn',
@@ -1614,12 +1605,29 @@
                 'Madagascar': 'mg', 'Singapour': 'sg', 'Thaïlande': 'th', 'Comores': 'km',
                 'AFD - France': 'fr', 'GIZ - Germany': 'de', 'Norad - Norway': 'no'
             };
+            return codes[country] || 'xx';
+        }
 
-            const code = COUNTRY_CODES[country] || '';
-            if (!code) return '';
-
-            const flagUrl = `https://flagcdn.com/16x12/${code}.webp`;
-            return `<img src="${flagUrl}" alt="${country}" style="width: 24px; height: 16px; object-fit: contain;">`;
+        // Fonction pour scroller depuis le bloc alertes
+        function scrollToCountryFromAlert(country) {
+            setTimeout(() => {
+                const regions = document.querySelectorAll('.regions-wrapper .region-section');
+                for (const region of regions) {
+                    const rows = region.querySelectorAll('tbody tr');
+                    for (const row of rows) {
+                        const countryCell = row.querySelector('.country-cell');
+                        if (countryCell && countryCell.textContent.includes(country)) {
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            row.style.backgroundColor = '#ffff99';
+                            row.style.transition = 'background-color 0.3s';
+                            setTimeout(() => {
+                                row.style.backgroundColor = '';
+                            }, 2000);
+                            return;
+                        }
+                    }
+                }
+            }, 100);
         }
 
         function renderTable() {
