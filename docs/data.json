@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "4a06bde50ff50439899e5b9137cfc92a",
+      "id": "f2455082c5ba11fd17c66f67864bb12f",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-07-15T07:15:05.295047",
+      "detected_at": "2026-07-15T10:11:12.240407",
       "matched_keywords": [
         "revenue authority",
         "tax reform"
@@ -892,6 +892,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-15T07:15:32.871271",
+  "last_updated": "2026-07-15T10:11:22.182352",
   "new_tenders_count": 1
 }
