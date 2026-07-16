@@ -879,19 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "f2455082c5ba11fd17c66f67864bb12f",
+      "id": "583d53b1797551e9d80395e5ac3c9171",
+      "country": "World Bank",
+      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-07-16T09:08:48.472508",
+      "matched_keywords": [
+        "public financial management"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "94f9fe289de82d2bd63326bc8c9e36f4",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-07-15T10:11:12.240407",
+      "detected_at": "2026-07-16T09:08:52.764585",
       "matched_keywords": [
-        "revenue authority",
-        "tax reform"
+        "revenue authority"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-15T10:11:22.182352",
-  "new_tenders_count": 1
+  "last_updated": "2026-07-16T09:09:02.552161",
+  "new_tenders_count": 2
 }
