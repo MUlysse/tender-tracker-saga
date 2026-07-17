@@ -877,20 +877,8 @@
       ]
     }
   ],
-  "tenders": [
-    {
-      "id": "2cd740f3b3e2a7583be820cd61933a26",
-      "country": "GIZ - Germany",
-      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
-      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-07-16T10:19:45.100480",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    }
-  ],
+  "tenders": [],
   "baseline_detections": {},
-  "last_updated": "2026-07-16T10:19:59.828937",
-  "new_tenders_count": 1
+  "last_updated": "2026-07-17T10:08:25.328873",
+  "new_tenders_count": 0
 }
