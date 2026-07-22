@@ -877,8 +877,31 @@
       ]
     }
   ],
-  "tenders": [],
+  "tenders": [
+    {
+      "id": "dad6557230e52cab523ad1ad14ba9183",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-07-22T10:32:06.799447",
+      "matched_keywords": [
+        "drm"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "7f1efd4a76e606741ad04b74a14a3d78",
+      "country": "Bahreïn",
+      "title": "eTendering Login Create an Account in eTendering عربي Transparency, simplicity, & integrity Encouraging investments, supporting vision Inspiring confi",
+      "url": "https://www.tenderboard.gov.bh/",
+      "detected_at": "2026-07-22T10:33:15.250290",
+      "matched_keywords": [
+        "isd"
+      ],
+      "confidence": 85.0
+    }
+  ],
   "baseline_detections": {},
-  "last_updated": "2026-07-21T10:33:00.978582",
-  "new_tenders_count": 0
+  "last_updated": "2026-07-22T10:33:38.257660",
+  "new_tenders_count": 2
 }
