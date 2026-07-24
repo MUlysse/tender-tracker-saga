@@ -879,18 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "233b54444b70e86801fe91a6b03f5dca",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-07-23T10:31:22.595345",
+      "id": "adb01722ceb28e07d17481023bf234bc",
+      "country": "Gambia",
+      "title": "Home About Subscribe Help Contact Login Register OFFICIAL PROCUREMENT PORTAL Find and Win Public Tenders in The Gambia Access high-value government co",
+      "url": "https://www.tenders.gm/",
+      "detected_at": "2026-07-24T10:26:59.575815",
       "matched_keywords": [
-        "drm"
+        "isd"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-23T10:32:42.953828",
+  "last_updated": "2026-07-24T10:27:39.811411",
   "new_tenders_count": 1
 }
