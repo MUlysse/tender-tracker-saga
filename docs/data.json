@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "adb01722ceb28e07d17481023bf234bc",
+      "id": "99dbd3b4c25d67af844364e6408aa516",
       "country": "Gambia",
-      "title": "Home About Subscribe Help Contact Login Register OFFICIAL PROCUREMENT PORTAL Find and Win Public Tenders in The Gambia Access high-value government co",
+      "title": "Home Tenders About Subscribe Help Contact Login Register Skip to main content OFFICIAL PROCUREMENT PORTAL Find and Win Public Tenders in The Gambia Ac",
       "url": "https://www.tenders.gm/",
-      "detected_at": "2026-07-24T10:26:59.575815",
+      "detected_at": "2026-07-25T09:57:26.562138",
       "matched_keywords": [
         "isd"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-24T10:27:39.811411",
+  "last_updated": "2026-07-25T09:58:06.322252",
   "new_tenders_count": 1
 }
