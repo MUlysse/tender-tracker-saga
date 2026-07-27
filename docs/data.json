@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "5b13ff4d99bc325edac7cb15234ff410",
+      "id": "9e53d9c600eda1c350d537dbcbdbaaeb",
       "country": "Gambia",
       "title": "Home Tenders About Subscribe Help Contact Login Register Skip to main content OFFICIAL PROCUREMENT PORTAL Find and Win Public Tenders in The Gambia Ac",
       "url": "https://www.tenders.gm/",
-      "detected_at": "2026-07-26T10:08:43.124562",
+      "detected_at": "2026-07-27T11:33:42.731905",
       "matched_keywords": [
         "isd"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-26T10:09:22.247268",
+  "last_updated": "2026-07-27T11:34:25.676203",
   "new_tenders_count": 1
 }
