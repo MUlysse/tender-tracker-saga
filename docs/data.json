@@ -879,30 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "0d3486a6835a91a9bb3e0963137d21c2",
-      "country": "Zambia",
-      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 151,978 results in total. Page 1 # Tender Title Reference number PE B",
-      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
-      "detected_at": "2026-07-28T10:42:48.671149",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "78bdc735f253419798cc75a52ed54147",
+      "id": "af4b6db4f24300dc0503ed8ab6e432cb",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-07-28T10:43:27.527490",
+      "detected_at": "2026-07-29T10:47:58.769229",
       "matched_keywords": [
-        "mobilisation des ressources",
         "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-07-28T10:43:37.987154",
-  "new_tenders_count": 2
+  "last_updated": "2026-07-29T10:48:07.836627",
+  "new_tenders_count": 1
 }
