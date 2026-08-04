@@ -879,40 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "2d40c6701c1f1530d17fedb3e94eb057",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-08-03T11:35:51.261878",
-      "matched_keywords": [
-        "isd"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "596565e23e7208ef1a056ae8897b7449",
-      "country": "AfDB",
-      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
-      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-08-03T11:37:04.600265",
-      "matched_keywords": [
-        "revenue mobilization"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "2d142ff0c3bbf8a4fdcbd1a5f2c4f07d",
+      "id": "6554e3a45b7dfd4df29d91524dd3b574",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-03T11:37:06.713708",
+      "detected_at": "2026-08-04T10:47:49.896107",
       "matched_keywords": [
         "impôts"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "c5e019f0afe6a9707bea074a98aa9a13",
+      "country": "AfDB",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-08-04T10:47:52.100259",
+      "matched_keywords": [
+        "revenue mobilization"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-03T11:37:14.447013",
-  "new_tenders_count": 3
+  "last_updated": "2026-08-04T10:48:22.449184",
+  "new_tenders_count": 2
 }
