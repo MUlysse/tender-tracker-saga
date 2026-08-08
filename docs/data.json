@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "26f445c6f30e84c27fe2b5f7be4c7210",
+      "id": "506c171fc377fa05e9d8f47af296b397",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-07T09:09:25.521549",
+      "detected_at": "2026-08-08T08:52:43.335751",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "75d1f471ec375113595038d41d745e24",
+      "id": "03cd557fff9ec3cd4c2b333647babc5f",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-08-07T09:09:29.795253",
+      "detected_at": "2026-08-08T08:52:44.297941",
       "matched_keywords": [
         "nexus"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-07T09:09:58.390124",
+  "last_updated": "2026-08-08T08:53:15.618937",
   "new_tenders_count": 2
 }
