@@ -879,29 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "506c171fc377fa05e9d8f47af296b397",
-      "country": "Madagascar",
-      "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
-      "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-08T08:52:43.335751",
+      "id": "b66e9f528540679c138c8b34a93e1669",
+      "country": "AfDB",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-08-09T08:54:46.793852",
       "matched_keywords": [
-        "impôts"
+        "nexus"
       ],
       "confidence": 85.0
     },
     {
-      "id": "03cd557fff9ec3cd4c2b333647babc5f",
-      "country": "AfDB",
-      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
-      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-08-08T08:52:44.297941",
+      "id": "b2709ff2b9faaf2f5507df47df1e35fa",
+      "country": "Madagascar",
+      "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
+      "url": "http://www.armp.mg/marches_publics/",
+      "detected_at": "2026-08-09T08:54:47.969160",
       "matched_keywords": [
-        "nexus"
+        "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-08T08:53:15.618937",
+  "last_updated": "2026-08-09T08:55:15.183181",
   "new_tenders_count": 2
 }
