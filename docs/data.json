@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "e3f46c303c387dfc78b99a58144f266e",
+      "id": "6751d2b23af3e122dae6db836339b506",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-10T09:42:18.864340",
+      "detected_at": "2026-08-11T09:08:00.213982",
       "matched_keywords": [
         "impôts"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-10T09:42:18.929808",
+  "last_updated": "2026-08-11T09:08:13.443441",
   "new_tenders_count": 1
 }
