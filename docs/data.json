@@ -879,33 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "ef307db428abcd798a93ec4cb1d0e97a",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-08-12T09:18:45.976421",
-      "matched_keywords": [
-        "drm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "2f36de60d1e72a24abca03f67caa3898",
-      "country": "World Bank",
-      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-08-12T09:19:57.783328",
-      "matched_keywords": [
-        "public resource management"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "ea8161222226159d92479a9727a7c816",
+      "id": "ebf4d7d85cd826249269444302dbb49b",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-12T09:19:58.743895",
+      "detected_at": "2026-08-13T09:20:45.030245",
       "matched_keywords": [
         "impôts"
       ],
@@ -913,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-12T09:20:30.458608",
-  "new_tenders_count": 3
+  "last_updated": "2026-08-13T09:21:00.522919",
+  "new_tenders_count": 1
 }
