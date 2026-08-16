@@ -879,33 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "81355d65adbbc7829fb66557450820d4",
-      "country": "Zambia",
-      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 155,198 results in total. Page 1 # Tender Title Reference number PE B",
-      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
-      "detected_at": "2026-08-15T08:38:17.573856",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "58f7a541424bc96f33f3528a4f4c4f49",
+      "id": "a068f6bf70be343a310d1c54dfece853",
       "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 15/08/2026 12:38 PM MUT A+ A A- Home About e-Procure",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 16/08/2026 12:38 PM MUT A+ A A- Home About e-Procure",
       "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-08-15T08:38:47.811320",
+      "detected_at": "2026-08-16T08:38:59.451918",
       "matched_keywords": [
         "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "379c0d725c7a8128fa10bbc932d5c548",
+      "id": "3e55727e7295263729061cc44802390b",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-15T08:38:54.134122",
+      "detected_at": "2026-08-16T08:39:11.326175",
       "matched_keywords": [
         "impôts"
       ],
@@ -913,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-15T08:39:29.939895",
-  "new_tenders_count": 3
+  "last_updated": "2026-08-16T08:39:22.481839",
+  "new_tenders_count": 2
 }
