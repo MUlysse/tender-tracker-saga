@@ -879,22 +879,33 @@
   ],
   "tenders": [
     {
-      "id": "e8ded948891086f5be1dba50072b1fee",
-      "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 17/08/2026 12:54 PM MUT A+ A A- Home About e-Procure",
-      "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-08-17T08:54:00.152867",
+      "id": "fcf731c1e6f537bd9afe07fba0d58797",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-08-18T08:45:59.256276",
       "matched_keywords": [
         "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "65b62104a867719ee4320e60f91e3d3f",
+      "id": "eed023d7744c0f379cdd84a22019cbf1",
+      "country": "Île Maurice",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 18/08/2026 12:47 PM MUT A+ A A- Home About e-Procure",
+      "url": "https://eproc.publicprocurement.govmu.org/login",
+      "detected_at": "2026-08-18T08:47:03.621361",
+      "matched_keywords": [
+        "isd"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "4530575d03232c3bf6002f2eb7b6d9f3",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-17T08:54:08.500912",
+      "detected_at": "2026-08-18T08:47:11.665737",
       "matched_keywords": [
         "impôts"
       ],
@@ -902,6 +913,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-17T08:54:24.069787",
-  "new_tenders_count": 2
+  "last_updated": "2026-08-18T08:47:44.986277",
+  "new_tenders_count": 3
 }
