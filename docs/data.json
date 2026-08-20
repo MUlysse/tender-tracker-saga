@@ -879,29 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "dc06f4e395c4044f725902cfc08d7f48",
-      "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 19/08/2026 12:48 PM MUT A+ A A- Home About e-Procure",
-      "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-08-19T08:48:25.906505",
+      "id": "decd669297e91d545d6d6dbf2a4864a2",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-08-20T08:49:33.974019",
       "matched_keywords": [
-        "isd"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "8bb62387e18eef80295644f7747eec26",
-      "country": "Madagascar",
-      "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
-      "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-08-19T08:48:33.719251",
-      "matched_keywords": [
-        "impôts"
+        "drm"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-19T08:48:45.869490",
-  "new_tenders_count": 2
+  "last_updated": "2026-08-20T08:51:05.174594",
+  "new_tenders_count": 1
 }
