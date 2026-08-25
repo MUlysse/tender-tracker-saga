@@ -877,20 +877,8 @@
       ]
     }
   ],
-  "tenders": [
-    {
-      "id": "b68b59ae565efe2f851dc42b63ac4ff4",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-08-24T08:56:41.618677",
-      "matched_keywords": [
-        "drm"
-      ],
-      "confidence": 85.0
-    }
-  ],
+  "tenders": [],
   "baseline_detections": {},
-  "last_updated": "2026-08-24T08:58:36.596644",
-  "new_tenders_count": 1
+  "last_updated": "2026-08-25T08:53:24.798194",
+  "new_tenders_count": 0
 }
