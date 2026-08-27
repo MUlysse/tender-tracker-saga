@@ -879,18 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "0fffe360f6f590b70c340f3c6a6c1a06",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-08-26T08:52:49.897495",
+      "id": "add430ec00906053ebf434dc5e6b3861",
+      "country": "AfDB",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-08-27T19:02:37.731644",
       "matched_keywords": [
-        "drm"
+        "tax administration"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-26T08:54:17.958586",
+  "last_updated": "2026-08-27T19:03:10.278787",
   "new_tenders_count": 1
 }
