@@ -879,33 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "f97b6367594c2f93cff819612f37fc44",
+      "id": "7e51f916754a8db02b35f3d2c7815f1c",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-08-31T16:05:02.548661",
+      "detected_at": "2026-09-01T13:25:21.976053",
       "matched_keywords": [
-        "nexus"
+        "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "efd9ca8a2c1240d5d450ee1b630ac705",
-      "country": "World Bank",
-      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-08-31T16:06:27.839380",
-      "matched_keywords": [
-        "public financial management"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "b18c34583b6cf32edb03f91b00c86f01",
+      "id": "f481771e93415179286773708c6381a1",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-08-31T16:06:27.954548",
+      "detected_at": "2026-09-01T13:26:42.480252",
       "matched_keywords": [
         "budgétisation"
       ],
@@ -913,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-08-31T16:06:40.236129",
-  "new_tenders_count": 3
+  "last_updated": "2026-09-01T13:26:53.875089",
+  "new_tenders_count": 2
 }
