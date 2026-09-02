@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "7e51f916754a8db02b35f3d2c7815f1c",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-09-01T13:25:21.976053",
+      "id": "20c69d9eb4bb79de5e4b0fdbeb757374",
+      "country": "Île Maurice",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 02/09/2026 04:43 PM MUT A+ A A- Home About e-Procure",
+      "url": "https://eproc.publicprocurement.govmu.org/login",
+      "detected_at": "2026-09-02T12:43:51.100677",
       "matched_keywords": [
-        "drm"
+        "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "f481771e93415179286773708c6381a1",
+      "id": "ca45414dd415e5e709b883d69985de4e",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-09-01T13:26:42.480252",
+      "detected_at": "2026-09-02T12:44:01.958298",
       "matched_keywords": [
         "budgétisation"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-01T13:26:53.875089",
+  "last_updated": "2026-09-02T12:44:11.550354",
   "new_tenders_count": 2
 }
