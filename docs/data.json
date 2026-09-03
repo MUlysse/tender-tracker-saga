@@ -879,29 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "20c69d9eb4bb79de5e4b0fdbeb757374",
-      "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 02/09/2026 04:43 PM MUT A+ A A- Home About e-Procure",
-      "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-09-02T12:43:51.100677",
+      "id": "378c4585ba04dbc8b05675bfdd35e86c",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-09-03T12:45:32.217338",
       "matched_keywords": [
         "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "ca45414dd415e5e709b883d69985de4e",
-      "country": "AfDB",
-      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
-      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-09-02T12:44:01.958298",
+      "id": "466dff105101f5f5e131d27e35d45c36",
+      "country": "Île Maurice",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 03/09/2026 04:46 PM MUT A+ A A- Home About e-Procure",
+      "url": "https://eproc.publicprocurement.govmu.org/login",
+      "detected_at": "2026-09-03T12:46:45.656691",
       "matched_keywords": [
-        "budgétisation"
+        "isd"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-02T12:44:11.550354",
+  "last_updated": "2026-09-03T12:47:05.374105",
   "new_tenders_count": 2
 }
