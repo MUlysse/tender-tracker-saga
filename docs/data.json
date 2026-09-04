@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "378c4585ba04dbc8b05675bfdd35e86c",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-09-03T12:45:32.217338",
+      "id": "9b0e93d384871ba483eca9928e9ef422",
+      "country": "AfDB",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-09-04T12:40:52.559389",
       "matched_keywords": [
-        "isd"
+        "budgétisation"
       ],
       "confidence": 85.0
     },
     {
-      "id": "466dff105101f5f5e131d27e35d45c36",
-      "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 03/09/2026 04:46 PM MUT A+ A A- Home About e-Procure",
-      "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-09-03T12:46:45.656691",
+      "id": "4e8196535a4d4fa0818a3b9134149cba",
+      "country": "World Bank",
+      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-09-04T12:40:52.866405",
       "matched_keywords": [
         "isd"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-03T12:47:05.374105",
+  "last_updated": "2026-09-04T12:41:02.386534",
   "new_tenders_count": 2
 }
