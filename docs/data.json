@@ -879,29 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "9b0e93d384871ba483eca9928e9ef422",
-      "country": "AfDB",
-      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
-      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-09-04T12:40:52.559389",
+      "id": "4526eddaf39a862113d4293ca3c985d8",
+      "country": "Dominican Republic",
+      "title": "Increase Contrast ABRIR MENÚ Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Manag",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-09-05T11:47:13.206492",
       "matched_keywords": [
-        "budgétisation"
+        "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "4e8196535a4d4fa0818a3b9134149cba",
-      "country": "World Bank",
-      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-09-04T12:40:52.866405",
+      "id": "fa0e99fc301b081107663d57c8cf2978",
+      "country": "Indonésie",
+      "title": "Verifikasi Singkat: Kami Sedang Memastikan Anda Manusia Asli! Kami sedang melakukan pemeriksaan keamanan singkat pada browser Anda untuk memastikan An",
+      "url": "https://inaproc.id/en",
+      "detected_at": "2026-09-05T11:48:22.223502",
       "matched_keywords": [
-        "isd"
+        "pfm"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-04T12:41:02.386534",
+  "last_updated": "2026-09-05T11:48:40.464233",
   "new_tenders_count": 2
 }
