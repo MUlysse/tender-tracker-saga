@@ -877,31 +877,8 @@
       ]
     }
   ],
-  "tenders": [
-    {
-      "id": "4737e3dc278986de885f131d2559d4a2",
-      "country": "Dominican Republic",
-      "title": "Increase Contrast ABRIR MENÚ Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Manag",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-09-06T12:05:16.069522",
-      "matched_keywords": [
-        "drm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "ef5a6450a4e9a5ab3efbd578fcac9f0d",
-      "country": "World Bank",
-      "title": "News & Events What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement notices. Plea",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-09-06T12:06:33.254540",
-      "matched_keywords": [
-        "public resource management"
-      ],
-      "confidence": 85.0
-    }
-  ],
+  "tenders": [],
   "baseline_detections": {},
-  "last_updated": "2026-09-06T12:06:43.425022",
-  "new_tenders_count": 2
+  "last_updated": "2026-09-07T14:12:13.157554",
+  "new_tenders_count": 0
 }
