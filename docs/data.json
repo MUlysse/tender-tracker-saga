@@ -877,31 +877,8 @@
       ]
     }
   ],
-  "tenders": [
-    {
-      "id": "4257a57f393b61a8f4764005e5082ba3",
-      "country": "World Bank",
-      "title": "26d/03h/04m/07s Sign up for Updates News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to recei",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-09-15T13:25:53.288487",
-      "matched_keywords": [
-        "public financial management"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "eb69b53bf5967d6a4265b76c0e5935e7",
-      "country": "GIZ - Germany",
-      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
-      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-09-15T13:25:55.219073",
-      "matched_keywords": [
-        "public financial management"
-      ],
-      "confidence": 85.0
-    }
-  ],
+  "tenders": [],
   "baseline_detections": {},
-  "last_updated": "2026-09-15T13:26:06.134413",
-  "new_tenders_count": 2
+  "last_updated": "2026-09-16T13:24:35.554084",
+  "new_tenders_count": 0
 }
