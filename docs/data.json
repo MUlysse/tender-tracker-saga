@@ -877,8 +877,20 @@
       ]
     }
   ],
-  "tenders": [],
+  "tenders": [
+    {
+      "id": "4c70b2b467521106f43bf939981031ea",
+      "country": "Île Maurice",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 18/09/2026 04:54 PM MUT A+ A A- Home About e-Procure",
+      "url": "https://eproc.publicprocurement.govmu.org/login",
+      "detected_at": "2026-09-18T12:54:30.435475",
+      "matched_keywords": [
+        "isd"
+      ],
+      "confidence": 85.0
+    }
+  ],
   "baseline_detections": {},
-  "last_updated": "2026-09-17T13:20:46.687612",
-  "new_tenders_count": 0
+  "last_updated": "2026-09-18T12:54:50.437388",
+  "new_tenders_count": 1
 }
