@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "891037ea71d98ad02ee099ec6055a93b",
+      "id": "31b45c9539e9a100a7e43f9446f1b543",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-09-20T12:59:58.738339",
+      "detected_at": "2026-09-21T15:01:47.281454",
       "matched_keywords": [
         "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "c987a756c85c1813e99e97763fb44c0a",
+      "id": "58a862c6844ec78ddc492e091105df37",
       "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 20/09/2026 05:01 PM MUT A+ A A- Home About e-Procure",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 21/09/2026 07:02 PM MUT A+ A A- Home About e-Procure",
       "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-09-20T13:01:07.462921",
+      "detected_at": "2026-09-21T15:02:55.707450",
       "matched_keywords": [
         "isd"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-20T13:01:34.338057",
+  "last_updated": "2026-09-21T15:03:21.516204",
   "new_tenders_count": 2
 }
