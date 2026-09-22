@@ -879,22 +879,33 @@
   ],
   "tenders": [
     {
-      "id": "31b45c9539e9a100a7e43f9446f1b543",
+      "id": "0ff26f40313f7c3d8055a8ce330942e4",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-09-21T15:01:47.281454",
+      "detected_at": "2026-09-22T13:19:38.369297",
       "matched_keywords": [
         "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "58a862c6844ec78ddc492e091105df37",
+      "id": "4f2c288aa0a5f2d43f293fd97dbdd81d",
+      "country": "Zambia",
+      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 163,612 results in total. Page 1 # Tender Title Reference number PE B",
+      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
+      "detected_at": "2026-09-22T13:20:15.656685",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "eddf8e903ee9506ab965ff726e3cd3b4",
       "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 21/09/2026 07:02 PM MUT A+ A A- Home About e-Procure",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 22/09/2026 05:20 PM MUT A+ A A- Home About e-Procure",
       "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-09-21T15:02:55.707450",
+      "detected_at": "2026-09-22T13:20:44.704675",
       "matched_keywords": [
         "isd"
       ],
@@ -902,6 +913,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-21T15:03:21.516204",
-  "new_tenders_count": 2
+  "last_updated": "2026-09-22T13:21:14.716030",
+  "new_tenders_count": 3
 }
