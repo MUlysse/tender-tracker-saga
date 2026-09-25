@@ -879,44 +879,56 @@
   ],
   "tenders": [
     {
-      "id": "b4788f24668c46ea4f802b3614c34081",
-      "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 24/09/2026 05:29 PM MUT A+ A A- Home About e-Procure",
-      "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-09-24T13:29:51.604656",
+      "id": "586bcd4d533d09a65029418619aa97ae",
+      "country": "RDC",
+      "title": "Portail du site Accueil Liste des documents publiés Appels d'Offres / Avis d'appels d'offres RéinitialiserRSS Affichage de 1–10 pour 2774 documents Fi",
+      "url": "https://marche.armp-rdc.cd/categorie-poste/avis-dappels-doffre",
+      "detected_at": "2026-09-25T13:34:51.661680",
       "matched_keywords": [
-        "isd"
+        "budgétisation"
       ],
       "confidence": 85.0
     },
     {
-      "id": "d40c388e9e1fee81756dc5315bdf6fa4",
+      "id": "9d459180c8c31f88425ce6cc7f9233bb",
+      "country": "Zambia",
+      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 164,496 results in total. Page 1 # Tender Title Reference number PE B",
+      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
+      "detected_at": "2026-09-25T13:35:10.330486",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "a3b16fb5af0376b239e19ca34ad5751f",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-09-24T13:29:57.813901",
+      "detected_at": "2026-09-25T13:35:45.352704",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "af434a41802152a2e0424e6a44374e0d",
-      "country": "World Bank",
-      "title": "17d/03h/00m/02s Sign up for Updates News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to recei",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-09-24T13:29:58.641230",
+      "id": "2940ae0befcb39bc3904f6b65ce70acc",
+      "country": "AfDB",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-09-25T13:35:51.120134",
       "matched_keywords": [
-        "public financial management"
+        "revenue mobilization",
+        "tax administration"
       ],
       "confidence": 85.0
     },
     {
-      "id": "fa0f8fbbf5ca51a71dcd01b5ef42fd6d",
+      "id": "b1d482296789232cf003d3f78a497126",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-09-24T13:30:01.929369",
+      "detected_at": "2026-09-25T13:35:52.877851",
       "matched_keywords": [
         "nexus"
       ],
@@ -924,6 +936,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-24T13:30:31.049881",
-  "new_tenders_count": 4
+  "last_updated": "2026-09-25T13:36:07.042171",
+  "new_tenders_count": 5
 }
