@@ -879,44 +879,33 @@
   ],
   "tenders": [
     {
-      "id": "586bcd4d533d09a65029418619aa97ae",
+      "id": "7df9bf040cf78c9acab2190cc8c51fee",
       "country": "RDC",
       "title": "Portail du site Accueil Liste des documents publiés Appels d'Offres / Avis d'appels d'offres RéinitialiserRSS Affichage de 1–10 pour 2774 documents Fi",
       "url": "https://marche.armp-rdc.cd/categorie-poste/avis-dappels-doffre",
-      "detected_at": "2026-09-25T13:34:51.661680",
+      "detected_at": "2026-09-26T12:56:56.131453",
       "matched_keywords": [
         "budgétisation"
       ],
       "confidence": 85.0
     },
     {
-      "id": "9d459180c8c31f88425ce6cc7f9233bb",
-      "country": "Zambia",
-      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 164,496 results in total. Page 1 # Tender Title Reference number PE B",
-      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
-      "detected_at": "2026-09-25T13:35:10.330486",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "a3b16fb5af0376b239e19ca34ad5751f",
+      "id": "557fc37bfded769183a5b78c586d42c7",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-09-25T13:35:45.352704",
+      "detected_at": "2026-09-26T12:57:45.457084",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "2940ae0befcb39bc3904f6b65ce70acc",
+      "id": "95aa4b20f03b802c0095add6773e7fbf",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-09-25T13:35:51.120134",
+      "detected_at": "2026-09-26T12:57:48.093927",
       "matched_keywords": [
         "revenue mobilization",
         "tax administration"
@@ -924,11 +913,11 @@
       "confidence": 85.0
     },
     {
-      "id": "b1d482296789232cf003d3f78a497126",
+      "id": "65d75b43e79a4ca1391714f97ac2b045",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-09-25T13:35:52.877851",
+      "detected_at": "2026-09-26T12:57:50.120349",
       "matched_keywords": [
         "nexus"
       ],
@@ -936,6 +925,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-25T13:36:07.042171",
-  "new_tenders_count": 5
+  "last_updated": "2026-09-26T12:58:00.599016",
+  "new_tenders_count": 4
 }
