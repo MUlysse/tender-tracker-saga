@@ -879,52 +879,41 @@
   ],
   "tenders": [
     {
-      "id": "7df9bf040cf78c9acab2190cc8c51fee",
+      "id": "678622e1e6525a49bda8ceea1f11aad9",
       "country": "RDC",
       "title": "Portail du site Accueil Liste des documents publiés Appels d'Offres / Avis d'appels d'offres RéinitialiserRSS Affichage de 1–10 pour 2774 documents Fi",
       "url": "https://marche.armp-rdc.cd/categorie-poste/avis-dappels-doffre",
-      "detected_at": "2026-09-26T12:56:56.131453",
+      "detected_at": "2026-09-27T13:48:21.302275",
       "matched_keywords": [
         "budgétisation"
       ],
       "confidence": 85.0
     },
     {
-      "id": "557fc37bfded769183a5b78c586d42c7",
+      "id": "46c3440ed8047ae3bdfc7b05a5a9e2ea",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-09-26T12:57:45.457084",
+      "detected_at": "2026-09-27T13:49:17.072635",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "95aa4b20f03b802c0095add6773e7fbf",
+      "id": "3e8e29e378f26f9122e232d8b4fdd600",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-09-26T12:57:48.093927",
+      "detected_at": "2026-09-27T13:49:21.651404",
       "matched_keywords": [
-        "revenue mobilization",
-        "tax administration"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "65d75b43e79a4ca1391714f97ac2b045",
-      "country": "GIZ - Germany",
-      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
-      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-09-26T12:57:50.120349",
-      "matched_keywords": [
-        "nexus"
+        "tax administration",
+        "revenue mobilization"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-26T12:58:00.599016",
-  "new_tenders_count": 4
+  "last_updated": "2026-09-27T13:49:53.330180",
+  "new_tenders_count": 3
 }
