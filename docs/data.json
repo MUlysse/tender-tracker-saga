@@ -879,30 +879,30 @@
   ],
   "tenders": [
     {
-      "id": "ac94a950145a01ad20842050803e60af",
-      "country": "Madagascar",
-      "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
-      "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-09-28T16:42:43.993952",
+      "id": "5c0facec4e82212909ce2d3a813bdefd",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-09-29T14:47:18.372693",
       "matched_keywords": [
-        "impôts"
+        "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "ce0aa44d1a672b781a6b8b263af926a9",
+      "id": "847cbc6a48673fbb4691539eb1a9d0c9",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-09-28T16:42:47.939330",
+      "detected_at": "2026-09-29T14:48:38.834061",
       "matched_keywords": [
-        "revenue mobilization",
-        "tax administration"
+        "tax administration",
+        "revenue mobilization"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-09-28T16:42:59.688187",
+  "last_updated": "2026-09-29T14:48:56.367855",
   "new_tenders_count": 2
 }
