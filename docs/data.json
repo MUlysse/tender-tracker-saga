@@ -877,20 +877,8 @@
       ]
     }
   ],
-  "tenders": [
-    {
-      "id": "c23527bcf68cbb3a08e23a466dcbaf76",
-      "country": "AfDB",
-      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
-      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-10-02T14:40:37.548165",
-      "matched_keywords": [
-        "nexus"
-      ],
-      "confidence": 85.0
-    }
-  ],
+  "tenders": [],
   "baseline_detections": {},
-  "last_updated": "2026-10-02T14:41:00.717470",
-  "new_tenders_count": 1
+  "last_updated": "2026-10-03T13:17:27.198970",
+  "new_tenders_count": 0
 }
