@@ -877,8 +877,31 @@
       ]
     }
   ],
-  "tenders": [],
+  "tenders": [
+    {
+      "id": "471cf9e8629a056ec2488cd9a217d7a8",
+      "country": "World Bank",
+      "title": "7d/02h/35m/58s Sign up for Updates News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receiv",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-10-04T13:54:01.430184",
+      "matched_keywords": [
+        "public resource management"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "4df197d40b511f0fe26e33730777ee5e",
+      "country": "GIZ - Germany",
+      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
+      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
+      "detected_at": "2026-10-04T13:54:06.741736",
+      "matched_keywords": [
+        "fiscalité"
+      ],
+      "confidence": 85.0
+    }
+  ],
   "baseline_detections": {},
-  "last_updated": "2026-10-03T13:17:27.198970",
-  "new_tenders_count": 0
+  "last_updated": "2026-10-04T13:54:32.535533",
+  "new_tenders_count": 2
 }
