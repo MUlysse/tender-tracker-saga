@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "44c62a0fc78600cf1215ed4cdc3920cc",
+      "id": "515237407e289ff25fa0ebf6f7d0c70e",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-10-05T17:04:28.930992",
+      "detected_at": "2026-10-06T15:00:25.486232",
       "matched_keywords": [
         "fiscalité"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-05T17:04:42.771652",
+  "last_updated": "2026-10-06T15:00:40.627063",
   "new_tenders_count": 1
 }
