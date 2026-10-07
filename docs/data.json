@@ -879,11 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "515237407e289ff25fa0ebf6f7d0c70e",
+      "id": "ffa09b4a781219d080a7ac0b109681df",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-10-07T15:27:44.755770",
+      "matched_keywords": [
+        "drm"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "9778dc12c04c059c063114ba01180f4e",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-10-06T15:00:25.486232",
+      "detected_at": "2026-10-07T15:29:00.970480",
       "matched_keywords": [
         "fiscalité"
       ],
@@ -891,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-06T15:00:40.627063",
-  "new_tenders_count": 1
+  "last_updated": "2026-10-07T15:29:26.667304",
+  "new_tenders_count": 2
 }
