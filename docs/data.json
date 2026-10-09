@@ -879,18 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "c3c1ad1896f2dcdf9b8badfec09df2b5",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-10-08T15:28:52.790807",
+      "id": "2f85cf302cb7edacb7a357103c0c9c6e",
+      "country": "Madagascar",
+      "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
+      "url": "http://www.armp.mg/marches_publics/",
+      "detected_at": "2026-10-09T15:12:50.964803",
       "matched_keywords": [
-        "drm"
+        "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-08T15:30:28.759597",
+  "last_updated": "2026-10-09T15:13:06.121339",
   "new_tenders_count": 1
 }
