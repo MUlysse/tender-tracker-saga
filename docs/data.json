@@ -879,22 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "88bf70da569012f4968df4f5d93e64ec",
-      "country": "World Bank",
-      "title": "Begins Today Sign up for Updates News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive ",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-10-11T14:52:03.043259",
-      "matched_keywords": [
-        "public resource management"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "0bc12dd2a374d4fdae27c970ec73659c",
+      "id": "79fc4d50142e91b235b5c602acbc10d6",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-10-11T14:52:03.382324",
+      "detected_at": "2026-10-12T17:43:24.464772",
       "matched_keywords": [
         "impôts"
       ],
@@ -902,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-11T14:52:22.551419",
-  "new_tenders_count": 2
+  "last_updated": "2026-10-12T17:43:27.160119",
+  "new_tenders_count": 1
 }
