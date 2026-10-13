@@ -879,11 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "79fc4d50142e91b235b5c602acbc10d6",
+      "id": "dcf5ad41c037effc930d6339da97c922",
+      "country": "Ghana",
+      "title": "GHANEPS Ghana Electronic Procurement System Homepage About User Guides Help Contact Us 15:50:35 GMT Search: Select Tenders Organisation APP Advanced S",
+      "url": "https://www.ghaneps.gov.gh/epps/quickSearchAction.do?searchSelect=1",
+      "detected_at": "2026-10-13T15:50:42.471040",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "59c8f7b17b1313cb53c992e6573f2d37",
       "country": "Madagascar",
       "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
       "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-10-12T17:43:24.464772",
+      "detected_at": "2026-10-13T15:51:18.437154",
       "matched_keywords": [
         "impôts"
       ],
@@ -891,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-12T17:43:27.160119",
-  "new_tenders_count": 1
+  "last_updated": "2026-10-13T15:51:37.588414",
+  "new_tenders_count": 2
 }
