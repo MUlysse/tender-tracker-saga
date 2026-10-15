@@ -879,40 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "389647991e90af804a1f0def954eecf2",
+      "id": "54563ceaff57eecfff5614d37a712072",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-10-14T13:34:08.570235",
+      "detected_at": "2026-10-15T13:17:46.844402",
       "matched_keywords": [
         "drm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "b346a5f59c2fe3386d57dfa570b48e3f",
-      "country": "Ghana",
-      "title": "GHANEPS Ghana Electronic Procurement System Homepage About User Guides Help Contact Us 13:34:36 GMT Search: Select Tenders Organisation APP Advanced S",
-      "url": "https://www.ghaneps.gov.gh/epps/quickSearchAction.do?searchSelect=1",
-      "detected_at": "2026-10-14T13:34:43.135411",
-      "matched_keywords": [
-        "revenue authority"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "a8aa12390d59b0bf3b5829a1c19e7e4c",
-      "country": "Madagascar",
-      "title": "Autorité de Régulation des Marchés Publics Avis spécifiques Source des données : Logiciel e-GP et logiciel SIGMP Les données ont été saisies par les A",
-      "url": "http://www.armp.mg/marches_publics/",
-      "detected_at": "2026-10-14T13:35:19.549416",
-      "matched_keywords": [
-        "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-14T13:35:46.969632",
-  "new_tenders_count": 3
+  "last_updated": "2026-10-15T13:19:26.076576",
+  "new_tenders_count": 1
 }
