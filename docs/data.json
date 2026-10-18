@@ -877,8 +877,20 @@
       ]
     }
   ],
-  "tenders": [],
+  "tenders": [
+    {
+      "id": "0a3d4f9a085edb4340827b482bbd0f0a",
+      "country": "Djibouti",
+      "title": "République de Djibouti Unité - Égalité - Paix Avis d'Appels d'Offres Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Por",
+      "url": "https://marchespublics.gouv.dj/",
+      "detected_at": "2026-10-18T12:33:45.790533",
+      "matched_keywords": [
+        "montant a"
+      ],
+      "confidence": 85.0
+    }
+  ],
   "baseline_detections": {},
-  "last_updated": "2026-10-17T12:07:19.568454",
-  "new_tenders_count": 0
+  "last_updated": "2026-10-18T12:35:07.154432",
+  "new_tenders_count": 1
 }
