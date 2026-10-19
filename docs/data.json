@@ -879,11 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "0a3d4f9a085edb4340827b482bbd0f0a",
+      "id": "3611d6a92be7613c409a37547f772bd7",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-10-19T15:29:01.740646",
+      "matched_keywords": [
+        "drm"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "fa8c5cb7a26194d24015fb0851e27404",
       "country": "Djibouti",
-      "title": "République de Djibouti Unité - Égalité - Paix Avis d'Appels d'Offres Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Por",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-18T12:33:45.790533",
+      "detected_at": "2026-10-19T15:29:19.465466",
       "matched_keywords": [
         "montant a"
       ],
@@ -891,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-18T12:35:07.154432",
-  "new_tenders_count": 1
+  "last_updated": "2026-10-19T15:30:57.180438",
+  "new_tenders_count": 2
 }
