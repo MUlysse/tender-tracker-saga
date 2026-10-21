@@ -879,11 +879,11 @@
   ],
   "tenders": [
     {
-      "id": "6381d75d07efeb00ee42e35e233decb4",
+      "id": "c06afe41a0e3b38d32b122e76e9ca81b",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-20T13:30:13.064510",
+      "detected_at": "2026-10-21T13:39:51.871465",
       "matched_keywords": [
         "montant a"
       ],
@@ -891,6 +891,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-20T13:31:27.511518",
+  "last_updated": "2026-10-21T13:41:11.402674",
   "new_tenders_count": 1
 }
