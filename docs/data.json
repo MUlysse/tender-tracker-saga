@@ -879,18 +879,40 @@
   ],
   "tenders": [
     {
-      "id": "f63dde6ca43ca4ce9ecddc0c763ea9f5",
+      "id": "506c55b77eb8a1f7504b99eb3fef7b4e",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-10-23T13:17:35.972729",
+      "detected_at": "2026-10-24T12:35:47.448957",
       "matched_keywords": [
         "drm"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "1f604f9a686b70a1883bc3911c92d953",
+      "country": "Djibouti",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
+      "url": "https://marchespublics.gouv.dj/",
+      "detected_at": "2026-10-24T12:36:06.435789",
+      "matched_keywords": [
+        "montant a"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "c449c498d8ba4268317edfe1c3dd13b2",
+      "country": "World Bank",
+      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-10-24T12:36:56.930861",
+      "matched_keywords": [
+        "public financial management"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-23T13:19:04.794192",
-  "new_tenders_count": 1
+  "last_updated": "2026-10-24T12:37:09.216690",
+  "new_tenders_count": 3
 }
