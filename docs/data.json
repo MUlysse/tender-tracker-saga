@@ -879,33 +879,44 @@
   ],
   "tenders": [
     {
-      "id": "668bd45564240a745d29d98b9d954f9b",
+      "id": "431250065a0f85e0c3422804b0f41f66",
       "country": "Dominican Republic",
       "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
       "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-10-25T13:07:34.012328",
+      "detected_at": "2026-10-26T15:05:02.054095",
       "matched_keywords": [
-        "drm"
+        "nexus"
       ],
       "confidence": 85.0
     },
     {
-      "id": "0c4dc79bdd2c1961dab5689dd424a4dd",
+      "id": "50f58c37de24ecd0d6dc5c967b088565",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-25T13:07:51.975116",
+      "detected_at": "2026-10-26T15:05:19.763969",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "c3efde105ee4207aacfd18fdfb6ca45b",
+      "id": "ed79d02fc52e48a289801060e94fdd52",
+      "country": "Zambia",
+      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 171,486 results in total. Page 1 # Tender Title Reference number PE B",
+      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
+      "detected_at": "2026-10-26T15:05:41.972491",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "b65b391374d7c61e9055376883bb0356",
       "country": "World Bank",
       "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
       "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-10-25T13:08:48.271396",
+      "detected_at": "2026-10-26T15:06:20.179194",
       "matched_keywords": [
         "public financial management"
       ],
@@ -913,6 +924,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-25T13:09:05.729693",
-  "new_tenders_count": 3
+  "last_updated": "2026-10-26T15:06:35.953443",
+  "new_tenders_count": 4
 }
