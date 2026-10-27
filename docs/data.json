@@ -879,51 +879,40 @@
   ],
   "tenders": [
     {
-      "id": "431250065a0f85e0c3422804b0f41f66",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-10-26T15:05:02.054095",
-      "matched_keywords": [
-        "nexus"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "50f58c37de24ecd0d6dc5c967b088565",
+      "id": "112c6be543f669e6ddeb57b0751d94cd",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-26T15:05:19.763969",
+      "detected_at": "2026-10-27T14:19:15.724215",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "ed79d02fc52e48a289801060e94fdd52",
-      "country": "Zambia",
-      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 171,486 results in total. Page 1 # Tender Title Reference number PE B",
-      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
-      "detected_at": "2026-10-26T15:05:41.972491",
+      "id": "e2e3df2d711dfb51a510fafb6d79351e",
+      "country": "GIZ - Germany",
+      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
+      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
+      "detected_at": "2026-10-27T14:20:14.173819",
       "matched_keywords": [
-        "revenue authority"
+        "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "b65b391374d7c61e9055376883bb0356",
-      "country": "World Bank",
-      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-10-26T15:06:20.179194",
+      "id": "93068e90dd6dd7f46267e5cd9acd7ffd",
+      "country": "AfDB",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-10-27T14:20:15.106655",
       "matched_keywords": [
-        "public financial management"
+        "finances publiques"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-26T15:06:35.953443",
-  "new_tenders_count": 4
+  "last_updated": "2026-10-27T14:20:31.610368",
+  "new_tenders_count": 3
 }
