@@ -879,40 +879,51 @@
   ],
   "tenders": [
     {
-      "id": "112c6be543f669e6ddeb57b0751d94cd",
+      "id": "dbc5daff03720bc391acba89e691cf0e",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-27T14:19:15.724215",
+      "detected_at": "2026-10-28T15:00:24.528505",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "e2e3df2d711dfb51a510fafb6d79351e",
-      "country": "GIZ - Germany",
-      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
-      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-10-27T14:20:14.173819",
+      "id": "f7b7366ad08b7de9626def3d54eddbec",
+      "country": "Gabon",
+      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
+      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
+      "detected_at": "2026-10-28T15:00:41.158787",
       "matched_keywords": [
-        "isd"
+        "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "93068e90dd6dd7f46267e5cd9acd7ffd",
+      "id": "68b37c582487dd3a0830c420728f1264",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-10-27T14:20:15.106655",
+      "detected_at": "2026-10-28T15:01:19.493771",
       "matched_keywords": [
         "finances publiques"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "96f6093d23c788497e36872b48d44e00",
+      "country": "GIZ - Germany",
+      "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
+      "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
+      "detected_at": "2026-10-28T15:01:20.840849",
+      "matched_keywords": [
+        "isd"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-27T14:20:31.610368",
-  "new_tenders_count": 3
+  "last_updated": "2026-10-28T15:01:35.997766",
+  "new_tenders_count": 4
 }
