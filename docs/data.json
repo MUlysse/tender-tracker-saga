@@ -879,51 +879,73 @@
   ],
   "tenders": [
     {
-      "id": "dbc5daff03720bc391acba89e691cf0e",
-      "country": "Djibouti",
-      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
-      "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-28T15:00:24.528505",
-      "matched_keywords": [
-        "montant a"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "f7b7366ad08b7de9626def3d54eddbec",
-      "country": "Gabon",
-      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
-      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
-      "detected_at": "2026-10-28T15:00:41.158787",
-      "matched_keywords": [
-        "impôts"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "68b37c582487dd3a0830c420728f1264",
-      "country": "AfDB",
-      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
-      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-10-28T15:01:19.493771",
+      "id": "83d1e0e58d06c25ce36b356ae78d91d3",
+      "country": "Mali",
+      "title": "Skip to main content Portail du Ministère de l'Économie et des Finances du Mali Heures de service: Lun-Jeu: 07.30-16.00, Ven: 07.30-17.30 Numéro de Te",
+      "url": "https://dgmp.gouv.ml/",
+      "detected_at": "2026-10-29T15:08:00.825198",
       "matched_keywords": [
         "finances publiques"
       ],
       "confidence": 85.0
     },
     {
-      "id": "96f6093d23c788497e36872b48d44e00",
+      "id": "793f204d353d1e90c1d53c1e402d0205",
+      "country": "Gabon",
+      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
+      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
+      "detected_at": "2026-10-29T15:08:04.603448",
+      "matched_keywords": [
+        "impôts"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "26726e9333e414f90213d6d83f15f8f3",
+      "country": "Djibouti",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
+      "url": "https://marchespublics.gouv.dj/",
+      "detected_at": "2026-10-29T15:08:05.886647",
+      "matched_keywords": [
+        "montant a"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "46386dbf54cebf780bb5b8bd7eaaa756",
+      "country": "Zambia",
+      "title": "Log In Tenders of Opened Bids 10 20 50 100 Results per page | Displaying: 1-10 | 172,424 results in total. Page 1 # Tender Title Reference number PE B",
+      "url": "https://eprocure.zppa.org.zm/epps/common/viewOpenedTenders.do",
+      "detected_at": "2026-10-29T15:08:22.411660",
+      "matched_keywords": [
+        "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "a0a5fd0f875474015fc703bdb282c1a4",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-10-28T15:01:20.840849",
+      "detected_at": "2026-10-29T15:09:04.868109",
       "matched_keywords": [
         "isd"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "8fd069c00bf00e059fc40134509114a9",
+      "country": "World Bank",
+      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-10-29T15:09:04.919578",
+      "matched_keywords": [
+        "public financial management"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-28T15:01:35.997766",
-  "new_tenders_count": 4
+  "last_updated": "2026-10-29T15:09:27.107463",
+  "new_tenders_count": 6
 }
