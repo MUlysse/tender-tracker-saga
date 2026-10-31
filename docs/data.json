@@ -879,33 +879,33 @@
   ],
   "tenders": [
     {
-      "id": "eaafaa74896541eaf994253c2a336c45",
-      "country": "Mali",
-      "title": "Skip to main content Portail du Ministère de l'Économie et des Finances du Mali Heures de service: Lun-Jeu: 07.30-16.00, Ven: 07.30-17.30 Numéro de Te",
-      "url": "https://dgmp.gouv.ml/",
-      "detected_at": "2026-10-30T14:59:00.277201",
+      "id": "126af420482bd79c5931210c8c1e5537",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-10-31T14:28:28.857432",
       "matched_keywords": [
-        "finances publiques"
+        "drm"
       ],
       "confidence": 85.0
     },
     {
-      "id": "bd9f936973dc80e1ed846925e0b15f0b",
+      "id": "2be7285d8ac7a452138870d464188e15",
       "country": "Gabon",
       "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
       "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
-      "detected_at": "2026-10-30T14:59:01.069180",
+      "detected_at": "2026-10-31T14:28:44.721646",
       "matched_keywords": [
         "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "0389a0b270ecce26a3299a9832039a6c",
+      "id": "4fa49bcbc90b2c1feed85ffb55e02a1e",
       "country": "Djibouti",
-      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Commission National",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-10-30T14:59:02.759866",
+      "detected_at": "2026-10-31T14:28:49.584171",
       "matched_keywords": [
         "montant a"
       ],
@@ -913,6 +913,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-10-30T15:00:20.808468",
+  "last_updated": "2026-10-31T14:30:00.815325",
   "new_tenders_count": 3
 }
