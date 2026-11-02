@@ -879,40 +879,40 @@
   ],
   "tenders": [
     {
-      "id": "86e26683cf34281e77a0436b32ebcb29",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-11-01T14:55:22.223948",
+      "id": "ed4c5f7fb3534684fe4611d3470e7ddf",
+      "country": "Gabon",
+      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
+      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
+      "detected_at": "2026-11-02T18:08:29.511693",
       "matched_keywords": [
-        "drm"
+        "impôts"
       ],
       "confidence": 85.0
     },
     {
-      "id": "d955c4fc483c06f2f1fa8e875dd28120",
+      "id": "5475acf7ab23b89fcfcf54d41d13890a",
       "country": "Djibouti",
-      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Commission National",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-01T14:55:40.161745",
+      "detected_at": "2026-11-02T18:08:35.599521",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "3721d95795ddf6947e913d8f9ec6c874",
-      "country": "Gabon",
-      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
-      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
-      "detected_at": "2026-11-01T14:55:42.361000",
+      "id": "83ff5072173706632d0d4659880ce8d2",
+      "country": "World Bank",
+      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-11-02T18:09:33.560840",
       "matched_keywords": [
-        "impôts"
+        "public financial management"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-01T14:56:51.350460",
+  "last_updated": "2026-11-02T18:09:49.313817",
   "new_tenders_count": 3
 }
