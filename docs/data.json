@@ -879,40 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "ed4c5f7fb3534684fe4611d3470e7ddf",
-      "country": "Gabon",
-      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
-      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
-      "detected_at": "2026-11-02T18:08:29.511693",
-      "matched_keywords": [
-        "impôts"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "5475acf7ab23b89fcfcf54d41d13890a",
+      "id": "bf0fdd9229610754d785104cd35acead",
       "country": "Djibouti",
-      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Commission National",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-02T18:08:35.599521",
+      "detected_at": "2026-11-03T16:02:54.221299",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "83ff5072173706632d0d4659880ce8d2",
-      "country": "World Bank",
-      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-11-02T18:09:33.560840",
+      "id": "9dec2bbf9e9b8510fa607514b94ca1b7",
+      "country": "Gabon",
+      "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
+      "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
+      "detected_at": "2026-11-03T16:02:59.405262",
       "matched_keywords": [
-        "public financial management"
+        "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-02T18:09:49.313817",
-  "new_tenders_count": 3
+  "last_updated": "2026-11-03T16:04:02.220975",
+  "new_tenders_count": 2
 }
