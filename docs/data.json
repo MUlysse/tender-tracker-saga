@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "bf0fdd9229610754d785104cd35acead",
+      "id": "b91e7ed02acb8cfafe36dd9ba42b9cb1",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-03T16:02:54.221299",
+      "detected_at": "2026-11-04T16:08:12.873458",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "9dec2bbf9e9b8510fa607514b94ca1b7",
+      "id": "e5fe8dbbf6c6a02d7832e989054cd99e",
       "country": "Gabon",
       "title": "Aller au contenu FLASH INFO Merci pour votre visite. Notre site est actuellement en cours de refonte pour vous offrir un service rénové et de nouvelle",
       "url": "https://lejmp.com/avis-dappel-a-la-concurrence/",
-      "detected_at": "2026-11-03T16:02:59.405262",
+      "detected_at": "2026-11-04T16:08:16.629488",
       "matched_keywords": [
         "impôts"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-03T16:04:02.220975",
+  "last_updated": "2026-11-04T16:09:19.677843",
   "new_tenders_count": 2
 }
