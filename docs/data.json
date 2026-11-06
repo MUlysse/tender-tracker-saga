@@ -879,18 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "086422dc3685bc77837916941f664bbf",
+      "id": "8f451848b7dd5a833377b0cf70376b6f",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-05T16:22:43.316167",
+      "detected_at": "2026-11-06T15:50:58.871263",
       "matched_keywords": [
         "montant a"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "0925a42d791104f189e1194da99cf0f8",
+      "country": "AfDB",
+      "title": "Skip to main content العربية English Français Português Search form  About Us Overview History Mission & Strategy Organisational Structure Corporate ",
+      "url": "https://www.afdb.org/en/projects-and-operations/procurement",
+      "detected_at": "2026-11-06T15:51:52.051385",
+      "matched_keywords": [
+        "revenue authority"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-05T16:24:01.162113",
-  "new_tenders_count": 1
+  "last_updated": "2026-11-06T15:52:09.065926",
+  "new_tenders_count": 2
 }
