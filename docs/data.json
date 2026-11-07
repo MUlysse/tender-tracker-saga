@@ -879,22 +879,33 @@
   ],
   "tenders": [
     {
-      "id": "8f451848b7dd5a833377b0cf70376b6f",
+      "id": "ee46ea42d7ab59cbc9b765457c62f177",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-06T15:50:58.871263",
+      "detected_at": "2026-11-07T14:50:37.840916",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "0925a42d791104f189e1194da99cf0f8",
+      "id": "071eb100c41ab2bafa46b203f654a19e",
+      "country": "World Bank",
+      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-11-07T14:51:33.917738",
+      "matched_keywords": [
+        "public financial management"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "184cdf86a454c1a16795e5ef42c23fdd",
       "country": "AfDB",
-      "title": "Skip to main content العربية English Français Português Search form  About Us Overview History Mission & Strategy Organisational Structure Corporate ",
+      "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-11-06T15:51:52.051385",
+      "detected_at": "2026-11-07T14:51:34.944953",
       "matched_keywords": [
         "revenue authority"
       ],
@@ -902,6 +913,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-06T15:52:09.065926",
-  "new_tenders_count": 2
+  "last_updated": "2026-11-07T14:51:53.220464",
+  "new_tenders_count": 3
 }
