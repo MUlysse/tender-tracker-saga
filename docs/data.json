@@ -879,29 +879,40 @@
   ],
   "tenders": [
     {
-      "id": "1cba63e833b35acca62d0e949f4ce212",
+      "id": "4b87f9d960b7be5d6425fcbe5d9b1cb4",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-08T14:57:53.653368",
+      "detected_at": "2026-11-09T18:38:49.646818",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "0e7ed4ecb05b0c5edb361f990a816e50",
+      "id": "bf745a06d0a76ca8c8fa54bb3f463fca",
       "country": "AfDB",
       "title": "Skip to main content العربية FRANÇAIS PORTUGUÊS Search form About Us » Overview History Mission & Strategy Organisational Structure Corporate Procurem",
       "url": "https://www.afdb.org/en/projects-and-operations/procurement",
-      "detected_at": "2026-11-08T14:58:50.421281",
+      "detected_at": "2026-11-09T18:39:44.907369",
       "matched_keywords": [
         "revenue authority"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "b4bc8e276565f2ff56c6b503f229a6e8",
+      "country": "AFD - France",
+      "title": "Agence Française de Développement Membres : commencez votre session English Español Français Accueil Consulter les avis Recherche Tous les pays États-",
+      "url": "https://afd.dgmarket.com/tenders/brandedNoticeList.do",
+      "detected_at": "2026-11-09T18:39:47.178541",
+      "matched_keywords": [
+        "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-08T14:59:08.247883",
-  "new_tenders_count": 2
+  "last_updated": "2026-11-09T18:40:01.144100",
+  "new_tenders_count": 3
 }
