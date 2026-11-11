@@ -879,33 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "9b36e23eda7247a8d2d3063ca2b7fd82",
+      "id": "dd877d092e8fcd3d494caf6367c93766",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-10T16:20:58.592511",
+      "detected_at": "2026-11-11T16:01:29.384822",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "9dbb5873c54741a4f477d5d8aeb7b9c5",
-      "country": "World Bank",
-      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-11-10T16:21:54.492078",
-      "matched_keywords": [
-        "public financial management"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "af4dfbdfa6ceef78294537afa5592baf",
+      "id": "e9d6112d9db6eb4502f93e69b314cf02",
       "country": "AFD - France",
-      "title": "Agence Française de Développement Membres : commencez votre session English Español Français Accueil Consulter les avis Recherche Tous les pays États-",
+      "title": "Agence Française de Développement Membres : commencez votre session English Español Français Accueil Consulter les avis Recherche Tous les pays Allema",
       "url": "https://afd.dgmarket.com/tenders/brandedNoticeList.do",
-      "detected_at": "2026-11-10T16:21:55.631374",
+      "detected_at": "2026-11-11T16:02:23.691650",
       "matched_keywords": [
         "impôts"
       ],
@@ -913,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-10T16:22:09.899329",
-  "new_tenders_count": 3
+  "last_updated": "2026-11-11T16:02:39.296638",
+  "new_tenders_count": 2
 }
