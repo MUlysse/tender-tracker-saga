@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "dd877d092e8fcd3d494caf6367c93766",
+      "id": "f882896df5411a126b348f6ac12e3b10",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-11T16:01:29.384822",
+      "detected_at": "2026-11-12T16:44:34.543612",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "e9d6112d9db6eb4502f93e69b314cf02",
+      "id": "f8d1e60a997d2b0316495309cad9571f",
       "country": "AFD - France",
-      "title": "Agence Française de Développement Membres : commencez votre session English Español Français Accueil Consulter les avis Recherche Tous les pays Allema",
+      "title": "Agence Française de Développement Membres : commencez votre session English Español Français Accueil Consulter les avis Recherche Tous les pays États-",
       "url": "https://afd.dgmarket.com/tenders/brandedNoticeList.do",
-      "detected_at": "2026-11-11T16:02:23.691650",
+      "detected_at": "2026-11-12T16:45:33.368850",
       "matched_keywords": [
         "impôts"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-11T16:02:39.296638",
+  "last_updated": "2026-11-12T16:45:52.372056",
   "new_tenders_count": 2
 }
