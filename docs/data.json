@@ -879,40 +879,18 @@
   ],
   "tenders": [
     {
-      "id": "a9754e409313bb58ac249e2cb2d577b2",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-11-15T15:33:44.435239",
-      "matched_keywords": [
-        "drm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "80a8959dc566a3dca569b163b081560e",
+      "id": "0f90d20bf966335d993aef4169cfcbe5",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-15T15:33:59.682121",
+      "detected_at": "2026-11-16T18:17:28.582891",
       "matched_keywords": [
         "montant a"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "d3b8dfd32bdfe80b2b604435f59f1fc4",
-      "country": "AFD - France",
-      "title": "Agence Française de Développement Membres : commencez votre session English Español Français Accueil Consulter les avis Recherche Tous les pays États-",
-      "url": "https://afd.dgmarket.com/tenders/brandedNoticeList.do",
-      "detected_at": "2026-11-15T15:34:52.516246",
-      "matched_keywords": [
-        "impôts"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-15T15:35:09.030918",
-  "new_tenders_count": 3
+  "last_updated": "2026-11-16T18:18:41.149777",
+  "new_tenders_count": 1
 }
