@@ -879,18 +879,29 @@
   ],
   "tenders": [
     {
-      "id": "0f90d20bf966335d993aef4169cfcbe5",
+      "id": "fb69d8671a7da3a4c56d95cf57ff73b4",
       "country": "Djibouti",
-      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Commission National",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-16T18:17:28.582891",
+      "detected_at": "2026-11-17T17:32:04.573521",
       "matched_keywords": [
         "montant a"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "947e07828eac72d9e3f8ca63a0cc15a9",
+      "country": "World Bank",
+      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-11-17T17:33:06.312969",
+      "matched_keywords": [
+        "isd"
       ],
       "confidence": 85.0
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-16T18:18:41.149777",
-  "new_tenders_count": 1
+  "last_updated": "2026-11-17T17:33:20.289123",
+  "new_tenders_count": 2
 }
