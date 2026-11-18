@@ -879,22 +879,22 @@
   ],
   "tenders": [
     {
-      "id": "fb69d8671a7da3a4c56d95cf57ff73b4",
+      "id": "760107af016b9010c8373735e20cbcb7",
       "country": "Djibouti",
-      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Commission National",
+      "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-17T17:32:04.573521",
+      "detected_at": "2026-11-18T17:08:23.096507",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "947e07828eac72d9e3f8ca63a0cc15a9",
-      "country": "World Bank",
-      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
-      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
-      "detected_at": "2026-11-17T17:33:06.312969",
+      "id": "f728445918424ac375390503bd546ed6",
+      "country": "Île Maurice",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 18/11/2026 09:09 PM MUT A+ A A- Home About e-Procure",
+      "url": "https://eproc.publicprocurement.govmu.org/login",
+      "detected_at": "2026-11-18T17:09:07.424491",
       "matched_keywords": [
         "isd"
       ],
@@ -902,6 +902,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-17T17:33:20.289123",
+  "last_updated": "2026-11-18T17:09:38.017928",
   "new_tenders_count": 2
 }
