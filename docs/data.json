@@ -879,44 +879,33 @@
   ],
   "tenders": [
     {
-      "id": "fe2a63e9bf31489dd004771c49778a33",
-      "country": "Dominican Republic",
-      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
-      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
-      "detected_at": "2026-11-25T18:35:21.900156",
-      "matched_keywords": [
-        "drm"
-      ],
-      "confidence": 85.0
-    },
-    {
-      "id": "5c149c7dccabd8bd250faba876dc4715",
+      "id": "5353655b3de8c1e8e9739c44a16e5e7a",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-25T18:35:40.338357",
+      "detected_at": "2026-11-26T18:19:33.382178",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "8ef1e105573ee603ed133655f47c7ec6",
+      "id": "42560de43f365071a0ba37faaa18a196",
       "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 25/11/2026 10:36 PM MUT A+ A A- Home About e-Procure",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 26/11/2026 10:20 PM MUT A+ A A- Home About e-Procure",
       "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-11-25T18:36:23.037683",
+      "detected_at": "2026-11-26T18:20:22.159505",
       "matched_keywords": [
         "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "b434df534400f27cec7356ffdd6de186",
+      "id": "853f1699897f1676e89bb4beeb5cb510",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-11-25T18:36:33.769572",
+      "detected_at": "2026-11-26T18:20:32.042546",
       "matched_keywords": [
         "nexus"
       ],
@@ -924,6 +913,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-25T18:36:50.354594",
-  "new_tenders_count": 4
+  "last_updated": "2026-11-26T18:20:46.837051",
+  "new_tenders_count": 3
 }
