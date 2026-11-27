@@ -879,33 +879,55 @@
   ],
   "tenders": [
     {
-      "id": "5353655b3de8c1e8e9739c44a16e5e7a",
+      "id": "e571da52881dc2dd33a45a1db4ca7574",
+      "country": "Dominican Republic",
+      "title": "Home I want to join! Requests Search Statistics Annual Purchasing Plan Public Supplier Search Login➙Contract Notice Management Back All Search for Con",
+      "url": "https://comunidad.comprasdominicana.gob.do/Public/Tendering/ContractNoticeManagement/Index",
+      "detected_at": "2026-11-27T18:02:05.891997",
+      "matched_keywords": [
+        "drm"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "3e00b8c7af17fb28f7c7367306f5eb9b",
       "country": "Djibouti",
       "title": "RÉPUBLIQUE DE DJIBOUTI Unité – Égalité – Paix Portail Officiel des Marchés Publics Commission Nationale des Marchés Publics Sombre Portail Officiel de",
       "url": "https://marchespublics.gouv.dj/",
-      "detected_at": "2026-11-26T18:19:33.382178",
+      "detected_at": "2026-11-27T18:02:22.740106",
       "matched_keywords": [
         "montant a"
       ],
       "confidence": 85.0
     },
     {
-      "id": "42560de43f365071a0ba37faaa18a196",
+      "id": "92bf7a13326c7f4506a3b89c5e06e198",
       "country": "Île Maurice",
-      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 26/11/2026 10:20 PM MUT A+ A A- Home About e-Procure",
+      "title": "e-PROCUREMENT SYSTEM OF GOVERNMENT OF MAURITIUS Sign up Login Help Desk Email:eprocdesk@govmu.org 27/11/2026 10:03 PM MUT A+ A A- Home About e-Procure",
       "url": "https://eproc.publicprocurement.govmu.org/login",
-      "detected_at": "2026-11-26T18:20:22.159505",
+      "detected_at": "2026-11-27T18:03:05.153682",
       "matched_keywords": [
         "isd"
       ],
       "confidence": 85.0
     },
     {
-      "id": "853f1699897f1676e89bb4beeb5cb510",
+      "id": "64f54224e4ae95b74231f7c4114e700b",
+      "country": "World Bank",
+      "title": "News & Events Work With Us What We Do This page in: EN dropdown Procurement Notices PROCUREMENT Subscribe to receive email alerts for new procurement ",
+      "url": "https://projects.worldbank.org/en/projects-operations/procurement?srce=both",
+      "detected_at": "2026-11-27T18:03:15.037338",
+      "matched_keywords": [
+        "public financial management"
+      ],
+      "confidence": 85.0
+    },
+    {
+      "id": "f641fa8ca6c3294c4a3c7200adc80e1d",
       "country": "GIZ - Germany",
       "title": "Vergabemarktplatz Seite drucken Startseite Login Vergabestellen Kontakt Nutzungsbedingungen Bekanntmachungen finden Anmelden Registrierung Erweiterte ",
       "url": "https://ausschreibungen.giz.de/Satellite/company/welcome.do",
-      "detected_at": "2026-11-26T18:20:32.042546",
+      "detected_at": "2026-11-27T18:03:16.752103",
       "matched_keywords": [
         "nexus"
       ],
@@ -913,6 +935,6 @@
     }
   ],
   "baseline_detections": {},
-  "last_updated": "2026-11-26T18:20:46.837051",
-  "new_tenders_count": 3
+  "last_updated": "2026-11-27T18:03:35.076183",
+  "new_tenders_count": 5
 }
